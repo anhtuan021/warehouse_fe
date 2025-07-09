@@ -1,0 +1,110 @@
+.main {
+    /* max-width: 320px; */
+    width: 21%;
+    max-height: 90vh;
+    overflow: auto;
+    border-right: 1px solid #ccc;
+
+}
+
+.navBar hr {
+    border-top: 2px solid rgba(2, 9, 206, 0.845);
+}
+
+.navBar {
+    padding: 24px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #fff;
+    color: rgba(2, 9, 206, 0.845);
+}
+
+.navBar-menu {
+    padding: 8px 0;
+}
+
+.navBar-user {
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.user-avt {
+    height: 100px;
+    width: 100px;
+}
+
+.user-avt img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.user-name {
+    height: 100px;
+    line-height: 100px;
+    margin-left: 16px;
+    font-size: 18px;
+}
+
+.user-name:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.navBar i {
+    padding-right: 12px;
+}
+
+.sub-menu>p {
+    margin-left: 23.25px;
+}
+
+.navBar-menu-item p {
+    padding: 8px;
+    color: rgba(2, 9, 206, 0.845);
+    margin-top: 5px;
+}
+
+.navBar-menu-item p:hover {
+    color: #fff;
+    background-color: rgba(2, 103, 254, 0.845);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.active {
+    color: #fff !important;
+    background-color: rgba(2, 9, 206, 0.845);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.active i{
+    color: #fff !important;
+}
+
+.navBar-menu-item p:hover i {
+    color: #fff;
+}
+
+/* .sub-menu{
+    display: none;
+}
+.navBar i{
+    color: rgba(2, 9, 206, 0.845);;
+}
+/* .sub-menu{
+    display: none;
+} 
+.menu-item-title:hover .sub-menu{
+    display: block;
+} */
+
+.icon-navbar {
+    color: rgba(2, 9, 206, 0.845);
+}
+
+
+.sub-menu {
+    padding-left: 20px;
+}
