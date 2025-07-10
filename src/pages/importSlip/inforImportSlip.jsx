@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import "./InforImportSlip.css";
+import styles from "./InforImportSlip.module.css";
 import { getImportSlipById } from "@/api/importSlipApi/importSlip";
 import { formatCurrency, formatDate } from "@/utils/function/slipFuntion";
 import Layout from "@/components/layout/Layout";
@@ -22,7 +22,6 @@ const InforImportSlip = () => {
     getImportSlip();
   }, [importSlipId]);
 
-
   const calculateLineTotal = (product) => {
     return (
       product.productId?.productPrice *
@@ -34,115 +33,119 @@ const InforImportSlip = () => {
   return (
     <>
       <Layout>
-        <div className="container_infim">
-          <div className="lef_infim">
-            <div className="top_sub_infim">
-              <p className="h1_top_sub_infim">
-                <span onClick={() => navigate(`/listImportSlip/${type}`)}>
+        <div className={styles["container_infim"]}>
+          <div className={styles["lef_infim"]}>
+            <div className={styles["top_sub_infim"]}>
+              <p className={styles["h1_top_sub_infim"]}>
+                <span onClick={() => router.push(`/importSlip/listImportSlip/${type}`)}>
                   Xuất - nhập với{" "}
                   {(type === "Provider" && "NCC") ||
                     (type === "Agency" && "Nội bộ")}
                 </span>
                 <span>
                   <i
-                    className="fa-solid fa-chevron-right"
+                    className={styles["fa-solid fa-chevron-right"]}
                     style={{ color: "black" }}
                   ></i>
                 </span>
                 Xem phiếu nhập kho
               </p>
             </div>
-            <div className="sub_infim">
-              <div className="f1_infim">
-                <p className="cen_inf">
+            <div className={styles["sub_infim"]}>
+              <div className={styles["f1_infim"]}>
+                <p className={styles["cen_inf"]}>
                   PHIẾU NHẬP KHO
-                  <span className="icon_x_inf">
+                  <span className={styles["icon_x_inf"]}>
                     <i
-                      className="fa-solid fa-x"
+                      className={styles["fa-solid fa-x"]}
                       onClick={() => navigate(`/listImportSlip/${type}`)}
                     ></i>
                   </span>
                 </p>
               </div>
-              <div className="box1_infim">
+              <div className={styles["box1_infim"]}>
                 <p
-                  className="inf_inf"
+                  className={styles["inf_inf"]}
                   style={{ fontSize: "20px", fontWeight: "700" }}
                 >
                   Thông tin chung
                 </p>
-                <div className="sub_box1_infim">
-                  <div className="flecx_inf">
+                <div className={styles["sub_box1_infim"]}>
+                  <div className={styles["flecx_inf"]}>
                     <p>Nguồn xuất</p>
-                    <div className="inp1_inf1">
+                    <div className={styles["inp1_inf1"]}>
                       {(type === "Provider" &&
                         importSlip.providerId?.providerName) ||
                         (type === "Agency" && importSlip.agencyId?.agencyName)}
                     </div>
                   </div>
-                  <div className="flecx_inf">
+                  <div className={styles["flecx_inf"]}>
                     <p>Mã phiếu</p>
-                    <div className="inp1_inf1">{importSlip.importSlipCode}</div>
+                    <div className={styles["inp1_inf1"]}>
+                      {importSlip.importSlipCode}
+                    </div>
                   </div>
-                  <div className="flecx_inf">
+                  <div className={styles["flecx_inf"]}>
                     <p>Mã nguồn</p>
-                    <div className="inp1_inf1">
+                    <div className={styles["inp1_inf1"]}>
                       {(type === "Provider" &&
                         importSlip.providerId?.providerCode) ||
                         (type === "Agency" && importSlip.agencyId?.agencyCode)}
                     </div>
                   </div>
-                  {/* <div className='flecx_inf'>
+                  {/* <div className={styles['flecx_inf'>
                   <p>Nhập tại kho</p>
-                  <div className='inp1_inf'></div>
+                  <div className={styles['inp1_inf'></div>
                 </div> */}
-                  <div className="flecx_inf">
+                  <div className={styles["flecx_inf"]}>
                     <p>Số điện thoại</p>
-                    <div className="inp1_inf1">
+                    <div className={styles["inp1_inf1"]}>
                       {(type === "Provider" &&
                         importSlip.providerId?.providerPhone) ||
                         (type === "Agency" && importSlip.agencyId?.agencyPhone)}
                     </div>
                   </div>
-                  {/* <div className='flecx_inf'>
+                  {/* <div className={styles['flecx_inf'>
                   <p>Mã kho</p>
-                  <div className='inp1_inf'></div>
+                  <div className={styles['inp1_inf'></div>
                 </div> */}
-                  <div className="flecx_inf">
+                  <div className={styles["flecx_inf"]}>
                     <p>Địa chỉ</p>
-                    <div className="inp2_inf">
+                    <div className={styles["inp2_inf"]}>
                       {(type === "Provider" &&
                         importSlip.providerId?.providerAddress) ||
                         (type === "Agency" &&
                           importSlip.agencyId?.agencyAddress)}
                     </div>
                   </div>
-                  <div className="flecx_inf">
+                  <div className={styles["flecx_inf"]}>
                     <p>Lí do</p>
-                    <div className="inp2_inf">{importSlip.reason}</div>
+                    <div className={styles["inp2_inf"]}>
+                      {importSlip.reason}
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="box2_infim">
-                <table className="List_infim">
+              <div className={styles["box2_infim"]}>
+                <table className={styles["List_infim"]}>
                   <tbody>
-                    <tr className="tr_infim">
-                      <th className="centerinfim">STT</th>
-                      <th className="centerinfim">Tên hàng hoá</th>
-                      <th className="centerinfim">Mã hàng</th>
-                      <th className="centerinfim">
+                    <tr className={styles["tr_infim"]}>
+                      <th className={styles["centerinfim"]}>STT</th>
+                      <th className={styles["centerinfim"]}>Tên hàng hoá</th>
+                      <th className={styles["centerinfim"]}>Mã hàng</th>
+                      <th className={styles["centerinfim"]}>
                         Đơn vị <div>tính</div>
                       </th>
-                      <th className="centerinfim">Đơn giá</th>
-                      <th className="centerinfim">
+                      <th className={styles["centerinfim"]}>Đơn giá</th>
+                      <th className={styles["centerinfim"]}>
                         Số<div>Lượng</div>
                       </th>
-                      <th className="centerinfim">Chiết khấu</th>
-                      <th className="centerinfim">Thành tiền</th>
+                      <th className={styles["centerinfim"]}>Chiết khấu</th>
+                      <th className={styles["centerinfim"]}>Thành tiền</th>
                     </tr>
                     {importSlip.products?.length > 0 &&
                       importSlip.products.map((product, index) => (
-                        <tr className="tr_infim" key={product._id}>
+                        <tr className={styles["tr_infim"]} key={product._id}>
                           <td>{index + 1}</td>
                           <td>{product.productId?.productName}</td>
                           <td>{product.productId?.productCode}</td>
@@ -157,28 +160,28 @@ const InforImportSlip = () => {
                           <td>{formatCurrency(calculateLineTotal(product))}</td>
                         </tr>
                       ))}
-                    <tr className="tr_infim">
-                      <th className="sum_inf_1" colSpan={7}>
+                    <tr className={styles["tr_infim"]}>
+                      <th className={styles["sum_inf_1"]} colSpan={7}>
                         Tổng
                       </th>
-                      <th className="sum_inf_2">
+                      <th className={styles["sum_inf_2"]}>
                         {formatCurrency(importSlip.importPrice)}
                       </th>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div className="box3_infim">
+              <div className={styles["box3_infim"]}>
                 <p>
-                  <i className="fa-solid fa-file-contract"></i>{" "}
+                  <i className={styles["fa-solid fa-file-contract"]}></i>{" "}
                   <span>Hợp đồng</span>
                 </p>
-                <div className="img_contract">
+                <div className={styles["img_contract"]}>
                   {importSlip.contracts?.contractMedia.length > 0 &&
                     importSlip.contracts?.contractMedia.map(
                       (contractMedia, index) => (
                         <img
-                          className="img_contract"
+                          className={styles["img_contract"]}
                           src={contractMedia}
                           alt=""
                           key={index}
@@ -189,71 +192,75 @@ const InforImportSlip = () => {
               </div>
             </div>
           </div>
-          <div className="rig_infim">
+          <div className={styles["rig_infim"]}>
             <div>
               <p>Tình trạng</p>
             </div>
-            <div className="status_infim">
-              <div className="flex2_inf">
+            <div className={styles["status_infim"]}>
+              <div className={styles["flex2_inf"]}>
                 <p>Tạo bởi</p>
-                <button className="b1_infim">
+                <button className={styles["b1_infim"]}>
                   Xóa{" "}
                   <span>
-                    <i className="fa-solid fa-key"></i>
+                    <i className={styles["fa-solid fa-key"]}></i>
                   </span>
                 </button>
               </div>
-              <div className="out_inf">{importSlip.userId?.fullName}</div>
-              <div className="out_inf">{formatDate(importSlip.createdAt)}</div>
+              <div className={styles["out_inf"]}>
+                {importSlip.userId?.fullName}
+              </div>
+              <div className={styles["out_inf"]}>
+                {formatDate(importSlip.createdAt)}
+              </div>
             </div>
-            <div className="status_infim">
-              <div className="flex2_inf">
+            <div className={styles["status_infim"]}>
+              <div className={styles["flex2_inf"]}>
                 <p>Duyệt bởi</p>
-                <button className="b2_infim">
+                <button className={styles["b2_infim"]}>
                   Duyệt{" "}
                   <span>
-                    <i className="fa-solid fa-key"></i>
+                    <i className={styles["fa-solid fa-key"]}></i>
                   </span>
                 </button>
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {importSlip.status === "CONFIRMED" &&
                   importSlip.userEditStatus?.fullName}
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {importSlip.status === "CONFIRMED" &&
                   formatDate(importSlip.updatedAt)}
               </div>
             </div>
-            <div className="status_infim">
-              <div className="flex2_inf">
+            <div className={styles["status_infim"]}>
+              <div className={styles["flex2_inf"]}>
                 <p>Từ chối bởi</p>
-                <button className="b3_infim">
+                <button className={styles["b3_infim"]}>
                   Từ chối{" "}
                   <span>
-                    <i className="fa-solid fa-key"></i>
+                    <i className={styles["fa-solid fa-key"]}></i>
                   </span>
                 </button>
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {importSlip.status === "REJECTED" &&
                   importSlip.userEditStatus?.fullName}
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {importSlip.status === "REJECTED" &&
                   formatDate(importSlip.updatedAt)}
               </div>
             </div>
-            <div className="status_infim">
-              <div className="flex2_inf">
+            <div className={styles["status_infim"]}>
+              <div className={styles["flex2_inf"]}>
                 <p>Đã nhập bởi</p>
-                <button className="b4_infim">Đã nhập</button>
+                <button className={styles["b4_infim"]}>Đã nhập</button>
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {importSlip.status === "DONE" &&
                   importSlip.userEditStatus?.fullName}
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {importSlip.status === "DONE" &&
                   formatDate(importSlip.updatedAt)}
               </div>

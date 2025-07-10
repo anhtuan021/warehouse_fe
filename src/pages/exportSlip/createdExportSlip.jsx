@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
-
+import Image from "next/image";
 import recycle from "@/assets/images/bin.png";
-import "./CreatedExportSlip.css";
+import styles from "./CreatedExportSlip.module.css";
 import { searchSupply } from "@/api/suppliesAPI/supply";
 import { createdContract } from "@/api/contractApi/contract";
 import { createdExportSlip } from "@/api/exportSlipApi/exportSlip";
@@ -51,20 +51,24 @@ const CreatedExportSlip = () => {
   };
 
   useEffect(() => {
-    const getProvider = async () => {
-      let res;
-      if (type === "Provider") {
-        res = await searchSupply("", "", "", "provider", 1, 100);
-      } else {
-        if (type === "Agency") {
-          res = await searchSupply("", "", "", "agency", 1, 100);
-        }
-      }
+  const getProvider = async () => {
+    let res;
+    if (type === "Provider") {
+      res = await searchSupply("", "", "", "provider", 1, 100);
+    } else if (type === "Agency") {
+      res = await searchSupply("", "", "", "agency", 1, 100);
+    }
+    if (res && Array.isArray(res.supplies)) {
       setListProvider(res.supplies);
-    };
+    } else {
+      setListProvider([]);
+      // Có thể log lỗi hoặc thông báo cho dev biết
+      // console.error("API trả về không hợp lệ:", res);
+    }
+  };
+  if (type) getProvider();
+}, [type]);
 
-    getProvider();
-  }, [type]);
 
   useEffect(() => {
     setNewExportSlip({
@@ -169,7 +173,7 @@ const CreatedExportSlip = () => {
     setContract({ ...contract, contractMedia: updateContractMedia });
   };
 
- const handleSubmit = async () => {
+  const handleSubmit = async () => {
     try {
       const newContract = await createdContract(contract);
       const data = {
@@ -182,22 +186,22 @@ const CreatedExportSlip = () => {
 
       await createdExportSlip(data);
       toast.success("Tạo phiếu xuất kho thành công");
-      router.push(`/listExportSlip/${type}`);
+      router.push(`/exportSlip/listExportSlip/${type}`);
     } catch (error) {
       toast.error("Tạo phiếu xuất kho thất bại");
     }
   };
 
   const handleCancelCreateExportSlip = () => {
-    router.push(`/listExportSlip/${type}`);
+    router.push(`/exportSlip/listExportSlip/${type}`);
   };
   return (
     <>
       <Layout>
-        <div className="content-container-createdImportSlip">
-          <div className="right-content">
-            <div className="navigation-path">
-              <span onClick={() => navigate(`/listExportSlip/${type}`)}>
+        <div className={styles["content-container-createdImportSlip"]}>
+          <div className={styles["right-content"]}>
+            <div className={styles["navigation-path"]}>
+              <span onClick={() => router.push(`/exportSlip/listExportSlip/${type}`)}>
                 Xuất - nhập với{" "}
                 {(type === "Provider" && "NCC") ||
                   (type === "Agency" && "Nội bộ")}
@@ -205,29 +209,29 @@ const CreatedExportSlip = () => {
               &gt; Tạo mới phiếu xuất kho
             </div>
 
-            <div className="action-buttons">
-              <button className="add-button external">
+            <div className={styles["action-buttons"]}>
+              <button className={styles["add-button external"]}>
                 + Thêm hàng từ file ngoài
               </button>
               <button
-                className="add-button system"
+                className={styles["add-button system"]}
                 onClick={() => setShowUploadFromLocal(true)}
               >
                 + Thêm hàng từ hệ thống
               </button>
             </div>
 
-            <div className="form-container-createdImport">
-              <h2 className="form-title">PHIẾU XUẤT KHO</h2>
+            <div className={styles["form-container-createdImport"]}>
+              <h2 className={styles["form-title"]}>PHIẾU XUẤT KHO</h2>
 
-              <div className="form-section">
-                <div className="info-section">
+              <div className={styles["form-section"]}>
+                <div className={styles["info-section"]}>
                   <h3>Thông tin chung</h3>
-                  <div className="form-grid">
-                    <div className="form-group-create">
+                  <div className={styles["form-grid"]}>
+                    <div className={styles["form-group-create"]}>
                       <label>Nguồn nhận</label>
                       <select
-                        className="nguon-nhan"
+                        className={styles["nguon-nhan"]}
                         name="providerId"
                         onChange={handleChangeProvider}
                       >
@@ -240,7 +244,7 @@ const CreatedExportSlip = () => {
                           ))}
                       </select>
                     </div>
-                    <div className="form-group">
+                    <div className={styles["form-group"]}>
                       <label>Mã phiếu</label>
                       <input
                         name="idSlip"
@@ -249,7 +253,7 @@ const CreatedExportSlip = () => {
                         readOnly
                       />
                     </div>
-                    <div className="form-group short-input">
+                    <div className={styles["form-group short-input"]}>
                       <label>Mã nguồn</label>
                       <input
                         style={{
@@ -262,7 +266,7 @@ const CreatedExportSlip = () => {
                         readOnly
                       />
                     </div>
-                    <div className="form-group short-input">
+                    <div className={styles["form-group short-input"]}>
                       <label>Số điện thoại</label>
                       <input
                         type="text"
@@ -270,7 +274,7 @@ const CreatedExportSlip = () => {
                         readOnly
                       />
                     </div>
-                    <div className="form-group">
+                    <div className={styles["form-group"]}>
                       <label>Địa chỉ</label>
                       <textarea
                         rows="5"
@@ -278,7 +282,7 @@ const CreatedExportSlip = () => {
                         readOnly
                       />
                     </div>
-                    <div className="form-group">
+                    <div className={styles["form-group"]}>
                       <label>Lý do xuất</label>
                       <textarea
                         rows="5"
@@ -294,8 +298,8 @@ const CreatedExportSlip = () => {
                     </div>
                   </div>
                 </div>
-                <div className="table-section">
-                  <table>
+                <div className={styles["table-section"]}>
+                  <table className={styles.customTable}>
                     <thead>
                       <tr>
                         <th>STT</th>
@@ -358,13 +362,17 @@ const CreatedExportSlip = () => {
                               {formatCurrency(calculateLineTotal(product))}
                             </td>
                             <td>
-                              <button className="delete-button">
-                                <img src={recycle} alt="" className="bin" />
+                              <button className={styles["delete-button"]}>
+                                <Image
+                                  src={recycle}
+                                  alt=""
+                                  className={styles["bin"]}
+                                />
                               </button>
                             </td>
                           </tr>
                         ))}
-                      <tr className="total-row">
+                      <tr className={styles["total-row"]}>
                         <td colSpan="7">Tổng</td>
                         <td>{formatCurrency(calculateTotalPrice)}</td>
                         <td></td>
@@ -373,11 +381,11 @@ const CreatedExportSlip = () => {
                   </table>
                 </div>
 
-                <div className="attachment-section">
-                  <div className="contract-section">
+                <div className={styles["attachment-section"]}>
+                  <div className={styles["contract-section"]}>
                     <h3>Hợp đồng</h3>
-                    <div className="upload-group">
-                      <div className="form-group">
+                    <div className={styles["upload-group"]}>
+                      <div className={styles["form-group"]}>
                         <label>Nội dung</label>
                         <input
                           type="text"
@@ -390,11 +398,11 @@ const CreatedExportSlip = () => {
                         />
                       </div>
                       <br />
-                      <div className="form-group-upload">
+                      <div className={styles["form-group-upload"]}>
                         <label>Hình ảnh</label>
-                        <div className="input-upload">
+                        <div className={styles["input-upload"]}>
                           <input
-                            className="input-file-name"
+                            className={styles["input-file-name"]}
                             type="url"
                             value={fileNames.join(", ")}
                             onChange={(e) => handleChangeFileNameContract(e)}
@@ -408,7 +416,9 @@ const CreatedExportSlip = () => {
                               multiple
                               onChange={handleFileChange}
                             />
-                            <i className="fa-solid fa-cloud-arrow-up"></i>
+                            <i
+                              className={styles["fa-solid fa-cloud-arrow-up"]}
+                            ></i>
                           </label>
                         </div>
                       </div>
@@ -416,15 +426,15 @@ const CreatedExportSlip = () => {
                   </div>
                 </div>
 
-                <div className="button-section">
+                <div className={styles["button-section"]}>
                   <button
-                    className="cancel-button"
+                    className={styles["cancel-button"]}
                     onClick={handleCancelCreateExportSlip}
                   >
                     Hủy
                   </button>
                   <button
-                    className="save-button"
+                    className={styles["save-button"]}
                     type="submit"
                     onClick={handleSubmit}
                   >
@@ -436,9 +446,9 @@ const CreatedExportSlip = () => {
           </div>
         </div>
         {showUploadFromLocal && (
-          <div className="overlay" onClick={handleCancelUploadLocal}>
+          <div className={styles["overlay"]} onClick={handleCancelUploadLocal}>
             <motion.div
-              className="item-upload"
+              className={styles["item-upload"]}
               onClick={(e) => e.stopPropagation()}
               animate={{ opacity: 1, scal: 1 }}
               initial={{ opacity: 0, scal: 0.5 }}

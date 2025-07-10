@@ -5,7 +5,8 @@ import { getSupplies, searchSupply } from "@/api/suppliesAPI/supply";
 import { Pagination } from "antd";
 import ConfirmDeleteProduct from "@/components/confirmDeleteProduct/ConfirmDeleteProduct";
 import Layout from "@/components/layout/Layout";
-import "./ListAgency.css";
+import styles from "./ListAgency.module.css";
+
 const ListAgency = () => {
   const [supplies, setSupplies] = useState([]);
   const [total, setTotal] = useState(0);
@@ -21,7 +22,7 @@ const ListAgency = () => {
   const [deletedId, setDeletedId] = useState("");
 
   const router = useRouter();
-  
+
   useEffect(() => {
     const getListSupplies = async () => {
       try {
@@ -58,11 +59,17 @@ const ListAgency = () => {
 
   const handleSearch = async () => {
     try {
-      const res = await searchSupply(supplyCode, supplyName, supplyPhone, typeSupply, page, limit);
+      const res = await searchSupply(
+        supplyCode,
+        supplyName,
+        supplyPhone,
+        typeSupply,
+        page,
+        limit
+      );
 
       setSupplies(res.supplies);
       setTotal(res.supplies.length);
-
     } catch (error) {
       console.log(error);
     }
@@ -78,22 +85,22 @@ const ListAgency = () => {
     setIsDelete(false);
   };
 
-   const handleClickName = (supplyId, type) => {
-    router.push(`/inforAgency/${type}/${supplyId}`);
+  const handleClickName = (supplyId, type) => {
+    router.push(`/agency/inforAgency/${type}/${supplyId}`);
   };
 
   return (
     <>
       <Layout>
-        <div className="container_ListAgency">
-          <div className="sub_ListAgency">
-            <div className="sub_1_ListAgency">
-              <div className="group-listAgency">
+        <div className={styles["container_ListAgency"]}>
+          <div className={styles["sub_ListAgency"]}>
+            <div className={styles["sub_1_ListAgency"]}>
+              <div className={styles["group-listAgency"]}>
                 <div>
                   <span>Mã nguồn</span>
                   <input
                     type="text"
-                    className="input_ListAgency"
+                    className={styles["input_ListAgency"]}
                     name="supplyCode"
                     value={supplyCode}
                     onChange={handleChange}
@@ -103,21 +110,21 @@ const ListAgency = () => {
                   <span>Tên nguồn</span>
                   <input
                     type="text"
-                    className="input_ListAgency"
+                    className={styles["input_ListAgency"]}
                     name="supplyName"
                     value={supplyName}
                     onChange={handleChange}
                   />
                 </div>
               </div>
-              <div className="group-listAgency">
+              <div className={styles["group-listAgency"]}>
                 <div>
                   <span>Loại nguồn</span>
                   <select
                     name="typeSupply"
                     value={typeSupply}
                     id=""
-                    className="input2_ListAgency"
+                    className={styles["input2_ListAgency"]}
                     onChange={handleChange}
                   >
                     <option value="">-Chọn loại nguồn-</option>
@@ -129,7 +136,7 @@ const ListAgency = () => {
                   <span>Số điện thoại</span>
                   <input
                     type="text"
-                    className="input_ListAgency"
+                    className={styles["input_ListAgency"]}
                     name="supplyPhone"
                     value={supplyPhone}
                     onChange={handleChange}
@@ -137,38 +144,39 @@ const ListAgency = () => {
                 </div>
               </div>
             </div>
-            <div className="sub_2_ListAgency" onClick={handleSearch}>
+            <div className={styles["sub_2_ListAgency"]} onClick={handleSearch}>
               <span>
-                Tìm kiếm <i className="fa fa-search" aria-hidden="true"></i>
+                Tìm kiếm{" "}
+                <i className={styles["fa fa-search"]} aria-hidden="true"></i>
               </span>
             </div>
           </div>
           <div
-            className="sub_3_ListAgency"
-            onClick={() => navigate("/createdAgency")}
+            className={styles["sub_3_ListAgency"]}
+            onClick={() => router.push("/agency/createdAgency")}
           >
             <p>+ Thêm mới nguồn</p>
           </div>
-          <div className="table_ListAgency">
-            <table className="table2_ListAgency">
+          <div className={styles["table_ListAgency"]}>
+            <table className={styles["table2_ListAgency"]}>
               <tbody>
-                <tr className="ListAgency_tr">
-                  <th className="ListAgency_th_1">STT</th>
-                  <th className="ListAgency_th1">Tên nguồn</th>
-                  <th className="ListAgency_th">Loại nguồn</th>
-                  <th className="ListAgency_th">Mã nguồn</th>
-                  <th className="ListAgency_th">Số điện thoại</th>
-                  <th className="ListAgency_th1">Địa chỉ</th>
-                  <th className="ListAgency_th">Thao tác</th>
+                <tr className={styles["ListAgency_tr"]}>
+                  <th className={styles["ListAgency_th_1"]}>STT</th>
+                  <th className={styles["ListAgency_th1"]}>Tên nguồn</th>
+                  <th className={styles["ListAgency_th"]}>Loại nguồn</th>
+                  <th className={styles["ListAgency_th"]}>Mã nguồn</th>
+                  <th className={styles["ListAgency_th"]}>Số điện thoại</th>
+                  <th className={styles["ListAgency_th1"]}>Địa chỉ</th>
+                  <th className={styles["ListAgency_th"]}>Thao tác</th>
                 </tr>
                 {supplies.length > 0 &&
                   supplies.map((supply, index) => (
-                    <tr className="listAgency_tr_2" key={supply._id}>
-                      <td className="listAgency_td_2">
+                    <tr className={styles["listAgency_tr_2"]} key={supply._id}>
+                      <td className={styles["listAgency_td_2"]}>
                         {(page - 1) * limit + index + 1}
                       </td>
                       <td
-                        className="listAgency_td nameSupply"
+                        className={styles["listAgency_td nameSupply"]}
                         onClick={() =>
                           handleClickName(
                             supply._id,
@@ -178,21 +186,21 @@ const ListAgency = () => {
                       >
                         {supply.providerName || supply.agencyName}
                       </td>
-                      <td className="listAgency_td_2">
+                      <td className={styles["listAgency_td_2"]}>
                         {supply.providerName ? "Nhà cung cấp " : "Đại lý"}
                       </td>
-                      <td className="listAgency_td_2">
+                      <td className={styles["listAgency_td_2"]}>
                         {supply.providerCode || supply.agencyCode}
                       </td>
-                      <td className="listAgency_td_2">
+                      <td className={styles["listAgency_td_2"]}>
                         {supply.providerPhone || supply.agencyPhone}
                       </td>
-                      <td className="listAgency_td">
+                      <td className={styles["listAgency_td"]}>
                         {supply.providerAddress || supply.agencyAddress}
                       </td>
-                      <td className="purple">
+                      <td className={styles["purple"]}>
                         <span
-                          className="bin_ListAgency"
+                          className={styles["bin_ListAgency"]}
                           onClick={() =>
                             handleClickBin(
                               supply._id,
@@ -201,7 +209,7 @@ const ListAgency = () => {
                           }
                         >
                           <i
-                            className="fa-solid fa-trash"
+                            className={styles["fa-solid fa-trash"]}
                             style={{ color: "red" }}
                           ></i>
                         </span>
@@ -225,9 +233,9 @@ const ListAgency = () => {
           </div>
         </div>
         {isDelete && (
-          <div className="overlay" onClick={handleCancelDelete}>
+          <div className={styles["overlay"]} onClick={handleCancelDelete}>
             <motion.div
-              className="itemDelete"
+              className={styles["itemDelete"]}
               onClick={(e) => e.stopPropagation()}
               animate={{ opacity: 1, scal: 1 }}
               initial={{ opacity: 0, scal: 0.5 }}

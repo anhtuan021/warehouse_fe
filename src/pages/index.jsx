@@ -7,8 +7,8 @@ import {
   importExportRatio,
   importWithSource,
 } from "@/api/generalStatisticsApi/generalStatistics";
-import Layout from "@/components/Layout";
-import "./Home.module.css";
+import Layout from "@/components/layout/Layout";
+import styles from "./Home.module.css";
 const Home = () => {
   const [dataOverView, setDataOverView] = useState({});
   const [dataExport, setDataExport] = useState({});
@@ -127,20 +127,23 @@ const Home = () => {
   return (
     <>
       <Layout>
-        <div className="container_home" style={{ padding: "10px 20px " }}>
-          <div className="sub_home">
-            <div className="tongquan_home">
-              <div className="dong1_tq">
+        <div
+          className={styles["container_home"]}
+          style={{ padding: "10px 20px " }}
+        >
+          <div className={styles["sub_home"]}>
+            <div className={styles["tongquan_home"]}>
+              <div className={styles["dong1_tq"]}>
                 <p>
                   <b>TỔNG QUAN</b>
                 </p>
               </div>
-              <div className="dong2_tq">
+              <div className={styles["dong2_tq"]}>
                 <p>Tỉ lệ xuất nhập kho</p>
-                <div className="date_time_home">
+                <div className={styles["date_time_home"]}>
                   <label htmlFor="">Từ ngày</label>
                   <input
-                    className="date_home"
+                    className={styles["date_home"]}
                     type="date"
                     name="timeStart1"
                     id=""
@@ -149,7 +152,7 @@ const Home = () => {
                   />
                   <label htmlFor="">Đến ngày</label>
                   <input
-                    className="date_home"
+                    className={styles["date_home"]}
                     type="date"
                     name="timeEnd1"
                     id=""
@@ -158,32 +161,35 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="dong3_tq">
-                <Doughnut data={overviewData} className="chart-size" />
-                <div className="sub2_home">
-                  <div className="col_2_home">
-                    <div className="o_home"></div>
+              <div className={styles["dong3_tq"]}>
+                <Doughnut
+                  data={overviewData}
+                  className={styles["chart-size"]}
+                />
+                <div className={styles["sub2_home"]}>
+                  <div className={styles["col_2_home"]}>
+                    <div className={styles["o_home"]}></div>
                     <p>Xuất kho</p>
                   </div>
-                  <div className="col_2_home">
-                    <div className="o1_home"></div>
+                  <div className={styles["col_2_home"]}>
+                    <div className={styles["o1_home"]}></div>
                     <p>Nhập kho</p>
                   </div>
                 </div>
                 <div>
-                  <div className="col3_home">
-                    <div className="icon_home">
-                      <i className="fa-regular fa-calendar-check"></i>
+                  <div className={styles["col3_home"]}>
+                    <div className={styles["icon_home"]}>
+                      <i className={styles["fa-regular fa-calendar-check"]}></i>
                     </div>
-                    <p className="home-text">
+                    <p className={styles["home-text"]}>
                       Tổng số phiếu <br /> <span>{dataOverView.countSlip}</span>
                     </p>
                   </div>
-                  <div className="col3_home">
-                    <div className="icon_home">
-                      <i className="fa-solid fa-boxes-stacked"></i>
+                  <div className={styles["col3_home"]}>
+                    <div className={styles["icon_home"]}>
+                      <i className={styles["fa-solid fa-boxes-stacked"]}></i>
                     </div>
-                    <p className="home-text">
+                    <p className={styles["home-text"]}>
                       Tổng lượng tồn kho <br />
                       <span>
                         {dataOverView.importQuantity -
@@ -195,18 +201,18 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="tongquan_home">
-              <div className="dong1_tq">
+            <div className={styles["tongquan_home"]}>
+              <div className={styles["dong1_tq"]}>
                 <p>
                   <b>XUẤT KHO</b>
                 </p>
               </div>
-              <div className="dong2_tq">
+              <div className={styles["dong2_tq"]}>
                 <p>Tỉ lệ xuất kho theo nguồn nhập</p>
-                <div className="date_time_home">
+                <div className={styles["date_time_home"]}>
                   <label htmlFor="">Từ ngày</label>
                   <input
-                    className="date_home"
+                    className={styles["date_home"]}
                     type="date"
                     name="timeStart2"
                     id=""
@@ -215,7 +221,7 @@ const Home = () => {
                   />
                   <label htmlFor="">Đến ngày</label>
                   <input
-                    className="date_home"
+                    className={styles["date_home"]}
                     type="date"
                     name="timeEnd2"
                     id=""
@@ -224,41 +230,41 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="dong3_tq">
-                <Doughnut data={exportData} className="chart-size" />
-                <div className="sub2_home">
-                  <div className="col_2_home">
-                    <div className="o3_home"></div>
+              <div className={styles["dong3_tq"]}>
+                <Doughnut data={exportData} className={styles["chart-size"]} />
+                <div className={styles["sub2_home"]}>
+                  <div className={styles["col_2_home"]}>
+                    <div className={styles["o3_home"]}></div>
                     <p>
                       Xuất kho <br /> <span>cho NCC</span>
                     </p>
                   </div>
-                  <div className="col_2_home">
-                    <div className="o4_home"></div>
+                  <div className={styles["col_2_home"]}>
+                    <div className={styles["o4_home"]}></div>
                     <p>
                       Xuất kho <br /> <span>cho ĐLC1</span>
                     </p>
                   </div>
-                  <div className="col_2_home">
-                    <div className="o5_home"></div>
+                  <div className={styles["col_2_home"]}>
+                    <div className={styles["o5_home"]}></div>
                     <p>Hoàn hàng</p>
                   </div>
                 </div>
                 <div>
-                  <div className="col3_home">
-                    <div className="icon_home">
-                      <i className="fa-regular fa-calendar-check"></i>
+                  <div className={styles["col3_home"]}>
+                    <div className={styles["icon_home"]}>
+                      <i className={styles["fa-regular fa-calendar-check"]}></i>
                     </div>
-                    <p className="home-text">
+                    <p className={styles["home-text"]}>
                       Số phiếu xuất kho <br />{" "}
                       <span>{dataExport.countSlip}</span>
                     </p>
                   </div>
-                  <div className="col3_home">
-                    <div className="icon_home">
-                      <i className="fa-solid fa-box-archive"></i>
+                  <div className={styles["col3_home"]}>
+                    <div className={styles["icon_home"]}>
+                      <i className={styles["fa-solid fa-box-archive"]}></i>
                     </div>
-                    <p className="home-text">
+                    <p className={styles["home-text"]}>
                       Tổng lượng xuất kho
                       <br />
                       <span>
@@ -270,18 +276,18 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="tongquan_home">
-              <div className="dong1_tq">
+            <div className={styles["tongquan_home"]}>
+              <div className={styles["dong1_tq"]}>
                 <p>
                   <b>NHẬP KHO</b>
                 </p>
               </div>
-              <div className="dong2_tq">
+              <div className={styles["dong2_tq"]}>
                 <p>Tỉ lệ nhập kho theo nguồn xuất</p>
-                <div className="date_time_home">
+                <div className={styles["date_time_home"]}>
                   <label htmlFor="">Từ ngày</label>
                   <input
-                    className="date_home"
+                    className={styles["date_home"]}
                     type="date"
                     name="timeStart3"
                     id=""
@@ -290,7 +296,7 @@ const Home = () => {
                   />
                   <label htmlFor="">Đến ngày</label>
                   <input
-                    className="date_home"
+                    className={styles["date_home"]}
                     type="date"
                     name="timeEnd3"
                     id=""
@@ -299,37 +305,37 @@ const Home = () => {
                   />
                 </div>{" "}
               </div>
-              <div className="dong3_tq">
-                <Doughnut data={importData} className="chart-size" />
-                <div className="sub2_home">
-                  <div className="col_2_home">
-                    <div className="o6_home"></div>
+              <div className={styles["dong3_tq"]}>
+                <Doughnut data={importData} className={styles["chart-size"]} />
+                <div className={styles["sub2_home"]}>
+                  <div className={styles["col_2_home"]}>
+                    <div className={styles["o6_home"]}></div>
                     <p>
                       Nhập kho <br /> <span>từ NCC</span>
                     </p>
                   </div>
-                  <div className="col_2_home">
-                    <div className="o7_home"></div>
+                  <div className={styles["col_2_home"]}>
+                    <div className={styles["o7_home"]}></div>
                     <p>
                       Nhập kho <br /> <span>từ ĐLC1</span>
                     </p>
                   </div>
                 </div>
                 <div>
-                  <div className="col3_home">
-                    <div className="icon_home">
-                      <i className="fa-regular fa-calendar-check"></i>
+                  <div className={styles["col3_home"]}>
+                    <div className={styles["icon_home"]}>
+                      <i className={styles["fa-regular fa-calendar-check"]}></i>
                     </div>
-                    <p className="home-text">
+                    <p className={styles["home-text"]}>
                       Số phiếu nhập kho <br />{" "}
                       <span>{dataImport.countSlip}</span>
                     </p>
                   </div>
-                  <div className="col3_home">
-                    <div className="icon_home">
-                      <i className="fa-solid fa-box-archive"></i>
+                  <div className={styles["col3_home"]}>
+                    <div className={styles["icon_home"]}>
+                      <i className={styles["fa-solid fa-box-archive"]}></i>
                     </div>
-                    <p className="home-text">
+                    <p className={styles["home-text"]}>
                       Tổng lượng nhập kho <br />{" "}
                       <span>
                         {dataImport.importWithProvider +

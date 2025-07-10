@@ -1,11 +1,11 @@
 /* eslint-disable*/
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import './EditProduct.css';
-import { getProductById, updatedProduct } from '@/api/productAPI/product';
-import { toast } from 'react-toastify';
-import Layout from '@/components/layout/Layout';
+import styles from "./EditProduct.module.css";
+import { getProductById, updatedProduct } from "@/api/productAPI/product";
+import { toast } from "react-toastify";
+import Layout from "@/components/layout/Layout";
 
 const EditProduct = () => {
   const [product, setProduct] = useState({
@@ -51,44 +51,45 @@ const EditProduct = () => {
     try {
       await updatedProduct(product, productId);
       toast.success("Cập nhật thông tin hàng hóa thành công");
-      router.push('/listProduct');
+      router.push("/product/listProduct");
     } catch (error) {
       toast.error("Cập nhật thất bại");
     }
   };
 
   const handleCancel = () => {
-    router.push('/listProduct');
+    router.push("/product/listProduct");
   };
-
 
   return (
     <>
       <Layout>
-        <div className="container_editPro">
-          <div className="h1_editPro">
-            <p className="text_1">
-              <span onClick={() => navigate("/listProduct")}>
+        <div className={styles["container_editPro"]}>
+          <div className={styles["h1_editPro"]}>
+            <p className={styles["text_1"]}>
+              <span onClick={() => router.push("/product/listProduct")}>
                 Quản lí danh mục hàng hóa
               </span>
               <span>
                 <i
-                  className="fa-solid fa-chevron-right"
+                  className={styles["fa-solid fa-chevron-right"]}
                   style={{ color: "black" }}
                 ></i>
               </span>
               <span>Cập nhật thông tin hàng hóa</span>
             </p>
           </div>
-          <div className="h2_editPro">
-            <div className="sub1_editPro">
-              <p className="text_sub1_editPro">Cập nhật thông tin hàng hóa</p>
+          <div className={styles["h2_editPro"]}>
+            <div className={styles["sub1_editPro"]}>
+              <p className={styles["text_sub1_editPro"]}>
+                Cập nhật thông tin hàng hóa
+              </p>
             </div>
-            <div className="sub2_editPro">
-              <div className="idpro">
+            <div className={styles["sub2_editPro"]}>
+              <div className={styles["idpro"]}>
                 <label htmlFor="mh">Mã hàng</label>
                 <input
-                  className="input_editPro"
+                  className={styles["input_editPro"]}
                   type="text"
                   name="productCode"
                   id="mh"
@@ -96,10 +97,10 @@ const EditProduct = () => {
                   readOnly
                 />
               </div>
-              <div className="namepro">
+              <div className={styles["namepro"]}>
                 <label htmlFor="th">Tên hàng</label>
                 <input
-                  className="input_editPro"
+                  className={styles["input_editPro"]}
                   type="text"
                   name="productName"
                   id="th"
@@ -107,10 +108,10 @@ const EditProduct = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="grouppro">
+              <div className={styles["grouppro"]}>
                 <label htmlFor="nh">Nhóm hàng</label>
                 <input
-                  className="input_editPro"
+                  className={styles["input_editPro"]}
                   type="text"
                   name="productGroup"
                   id="nh"
@@ -118,10 +119,10 @@ const EditProduct = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="grouppro">
+              <div className={styles["grouppro"]}>
                 <label htmlFor="nh">Giá</label>
                 <input
-                  className="input_editPro"
+                  className={styles["input_editPro"]}
                   type="number"
                   name="productPrice"
                   id="nh"
@@ -129,7 +130,7 @@ const EditProduct = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="image_prod">
+              <div className={styles["image_prod"]}>
                 <label htmlFor="">Hình ảnh</label> <br />
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {product.productMedia &&
@@ -148,7 +149,7 @@ const EditProduct = () => {
                           style={{ width: "100%", height: "100%" }}
                         />
                         <i
-                          className="fa-sharp fa-solid fa-xmark"
+                          className={styles["fa-sharp fa-solid fa-xmark"]}
                           onClick={() => handleDeleteMedia(index)}
                           style={{ position: "absolute" }}
                         />
@@ -157,12 +158,12 @@ const EditProduct = () => {
                 </div>
               </div>
 
-              <div className="unit">
+              <div className={styles["unit"]}>
                 <label htmlFor="dv">Đơn vị</label>
                 <br />
                 <br />
                 <input
-                  className="input_editPro"
+                  className={styles["input_editPro"]}
                   type="text"
                   name="productDVT"
                   id="dv"
@@ -170,22 +171,30 @@ const EditProduct = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="describe_editPro">
+              <div className={styles["describe_editPro"]}>
                 <label htmlFor="mt">Mô tả hàng hóa</label>
                 <br />
                 <br />
                 <textarea
-                  className="mota_editpro"
+                  className={styles["mota_editpro"]}
                   name="productDescription"
                   value={product.productDescription}
                   onChange={handleChange}
                 />
               </div>
-              <div className="button_h3">
-                <button className="b1_inf" type="submit" onClick={handleSubmit}>
+              <div className={styles["button_h3"]}>
+                <button
+                  className={styles["b1_inf"]}
+                  type="submit"
+                  onClick={handleSubmit}
+                >
                   Lưu
                 </button>
-                <button className="b2_inf" type="submit" onClick={handleCancel}>
+                <button
+                  className={styles["b2_inf"]}
+                  type="submit"
+                  onClick={handleCancel}
+                >
                   Hủy
                 </button>
               </div>
@@ -195,6 +204,6 @@ const EditProduct = () => {
       </Layout>
     </>
   );
-}
+};
 
 export default EditProduct;

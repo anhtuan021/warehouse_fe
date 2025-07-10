@@ -1,31 +1,81 @@
 .headercontaint {
     background-color: blue;
-    width: 100% !important;
+    width: 100%;
     height: 70px;
     display: flex;
+    align-items: center;
     font-size: 25px;
     color: white;
+    position: relative;
+    z-index: 1000;
+    box-sizing: border-box;
+    padding-right: 24px;
 }
 
 .iconheader {
-    width: 70px;
+    min-width: 120px;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    margin-left: 70%;
-}
-
-.fa-solid {
-    color: white;
+    margin-left: auto;
+    gap: 24px;
 }
 
 .tenheader {
-    width: 180px;
+    min-width: 180px;
     height: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-left: 50px;
+    font-weight: bold;
+    gap: 10px;
+}
 
+.icon {
+    color: white;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    font-size: 1.3em;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.icon:last-child {
+    margin-right: 0;
+}
+
+.icon:hover,
+.logout:hover {
+    color: #ffd700;
+    transform: scale(1.15);
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-size: 18px;
+}
+
+.menuToggle {
+    display: flex;
+}
+
+@media (max-width: 900px) {
+    .tenheader {
+        margin-left: 16px;
+        font-size: 20px;
+    }
+    .iconheader {
+        gap: 12px;
+    }
+    .menuToggle {
+        display: flex;
+    }
 }

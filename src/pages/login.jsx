@@ -1,90 +1,138 @@
-import React, { useState } from 'react';
-import './Login.module.css';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import hinhnen from '@/assets/images/hinhnen.jpg';
-import Header from '@/components/header/Header';
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { login } from '@/api/userAPI/user';
-import { toast } from 'react-toastify';
-import { setUser } from '@/store/userSlice';
-import { loginValidation } from '@/utils/validation.js/userValidation';
+import React, { useState } from "react";
+import styles from "./Login.module.css";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import Image from "next/image";
+import hinhnen from "@/assets/images/hinhnen.jpg";
+import Header from "@/components/header/Header";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { login } from "@/api/userAPI/user";
+import { toast } from "react-toastify";
+import { setUser } from "@/store/userSlice";
+import { loginValidation } from "@/utils/validation.js/userValidation";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
   const initialValues = {
-    userName: '',
-    password: '',
+    userName: "",
+    password: "",
   };
 
   const handleSubmit = async (values) => {
     try {
       const user = await login(values);
-      toast.success('Đăng nhập thành công');
+      toast.success("Đăng nhập thành công");
       dispatch(setUser(user));
-      router.push('/');
+      router.push("/");
     } catch (error) {
-      toast.error('Đăng nhập thất bại');
+      toast.error("Đăng nhập thất bại");
     }
   };
 
   const tooglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const handleClickForgetPassword = () => {
-    router.push('/forgot-password');
+    router.push("/auth/forgetPassword");
   };
 
   return (
     <>
       <Header />
-      <div className='login-body'>
-        <div className='login-contain'>
-          <div className='login-left'>
-            <img src={hinhnen} alt="" className='login-image' />
+      <div className={styles["login-body"]}>
+        <div className={styles["login-contain"]}>
+          <div className={styles["login-left"]}>
+            <Image
+              src={hinhnen}
+              alt=""
+              className={styles["login-image"]}
+            />
           </div>
-          <div className='login-right'>
+          <div className={styles["login-right"]}>
             <Formik
               initialValues={initialValues}
               validationSchema={loginValidation}
               onSubmit={handleSubmit}
             >
               {({ handleSubmit, errors }) => (
-              <Form onSubmit={handleSubmit}>
-                <div className='login-h1'>
-                  Đăng nhập vào tài khoản
-                </div>
-
-                <div className='login-group'>
-                  <label htmlFor="userName" className='login-label'>Tên đăng nhập: </label>
-                    <Field name='userName' className='login-input' type='text' />
-                    <ErrorMessage name="userName" style={{ "color": 'red', "fontSize": '12px' }} component='div' />
-                </div>
-
-                  <div className='login-group login-eye'>
-                  <label htmlFor="password" className='login-label' >Mật khẩu: </label>
-                    <Field name='password' className='login-input' type={showPassword ? 'text' : 'password'} />
-                    <i className={`login-eye-icon ${showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'}`} onClick={tooglePasswordVisibility}></i>
-                    <ErrorMessage name="password" style={{ "color": 'red', "fontSize": '12px' }} component='div' />
-                </div>
-
-                <div className='login-s3'>
-                  <div className='rememberPW'>
-                    <input type="checkbox" name='recomendPassword' id='login-radio' />
-                    <label htmlFor="recomendPassword" className='login-label'>Ghi nhớ tôi</label>
+                <Form onSubmit={handleSubmit}>
+                  <div className={styles["login-h1"]}>
+                    Đăng nhập vào tài khoản
                   </div>
 
-                  <div className='forgetPW'>
-                    <p href="#" className='foget-text' onClick={handleClickForgetPassword}>Quên mật khẩu?</p>
+                  <div className={styles["login-group"]}>
+                    <label htmlFor="userName" className={styles["login-label"]}>
+                      Tên đăng nhập:{" "}
+                    </label>
+                    <Field
+                      name="userName"
+                      className={styles["login-input"]}
+                      type="text"
+                    />
+                    <ErrorMessage
+                      name="userName"
+                      style={{ color: "red", fontSize: "12px" }}
+                      component="div"
+                    />
                   </div>
-                </div>
 
-                <div className='login-btn'>
-                  <button type="submit" id='loginBTN'>Đăng nhập</button>
-                </div>
+                  <div className={styles["login-group login-eye"]}>
+                    <label htmlFor="password" className={styles["login-label"]}>
+                      Mật khẩu:{" "}
+                    </label>
+                    <Field
+                      name="password"
+                      className={styles["login-input"]}
+                      type={showPassword ? "text" : "password"}
+                    />
+                    <i
+                      className={`${styles["login-eye-icon"]} ${
+                        showPassword ? "fa fa-eye" : "fa fa-eye-slash"
+                      }`}
+                      onClick={tooglePasswordVisibility}
+                    />
+
+                    <ErrorMessage
+                      name="password"
+                      style={{ color: "red", fontSize: "12px" }}
+                      component="div"
+                    />
+                  </div>
+
+                  <div className={styles["login-s3"]}>
+                    <div className={styles["rememberPW"]}>
+                      <input
+                        type="checkbox"
+                        name="recomendPassword"
+                        id="login-radio"
+                      />
+                      <label
+                        htmlFor="recomendPassword"
+                        className={styles["login-label"]}
+                      >
+                        Ghi nhớ tôi
+                      </label>
+                    </div>
+
+                    <div className={styles["forgetPW"]}>
+                      <p
+                        href="#"
+                        className={styles["foget-text"]}
+                        onClick={handleClickForgetPassword}
+                      >
+                        Quên mật khẩu?
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className={styles["login-btn"]}>
+                    <button type="submit" id="loginBTN">
+                      Đăng nhập
+                    </button>
+                  </div>
                 </Form>
               )}
             </Formik>
@@ -92,7 +140,7 @@ const Login = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Login;

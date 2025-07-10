@@ -12,7 +12,7 @@ import {
 import { formatCurrency, formatDate } from "@/utils/function/slipFuntion";
 import ConfirmDeleteProduct from "@/components/confirmDeleteProduct/ConfirmDeleteProduct";
 import Layout from "@/components/layout/Layout";
-import "./ListExportSlip.css";
+import styles from "./ListExportSlip.module.css";
 const ListExportSlip = () => {
   const router = useRouter();
   const { type } = router.query;
@@ -141,7 +141,7 @@ const ListExportSlip = () => {
   };
 
   const handleClickPen = (exportSlipId) => {
-    router.push(`/inforExportSlip/${exportSlipId}`);
+    router.push(`/exportSlip/inforExportSlip/${exportSlipId}`);
   };
 
   const handleClickBin = (exportSlipId) => {
@@ -159,14 +159,14 @@ const ListExportSlip = () => {
   return (
     <>
       <Layout>
-        <div className="container_ListExportSlip">
-          <div className="sub_ListExportSlip">
-            <div className="sub_1_ListExportSlip">
+        <div className={styles["container_ListExportSlip"]}>
+          <div className={styles["sub_ListExportSlip"]}>
+            <div className={styles["sub_1_ListExportSlip"]}>
               <div>
                 <span>Mã phiếu</span>
                 <input
                   type="text"
-                  className="input_ListExportSlip"
+                  className={styles["input_ListExportSlip"]}
                   name="exportSlipCode"
                   value={inforSearch.exportSlipCode}
                   onChange={(e) => handleChangeFieldSearch(e)}
@@ -175,7 +175,7 @@ const ListExportSlip = () => {
                 <select
                   name="providerId"
                   id=""
-                  className="input1_ListExportSlip"
+                  className={styles["input1_ListExportSlip"]}
                   value={inforSearch.providerId}
                   onChange={(e) => handleChangeFieldSearch(e)}
                 >
@@ -193,7 +193,7 @@ const ListExportSlip = () => {
                 <select
                   name="status"
                   id=""
-                  className="input2_ListExportSlip"
+                  className={styles["input2_ListExportSlip"]}
                   value={inforSearch.status}
                   onChange={(e) => handleChangeFieldSearch(e)}
                 >
@@ -204,69 +204,76 @@ const ListExportSlip = () => {
                   <option value="CONFIRMED">Đã duyệt</option>
                   <option value="RETURNED">Hoàn hàng</option>
                 </select>
-                <span className="date_ListExportSlip1">Từ ngày</span>
+                <span className={styles["date_ListExportSlip1"]}>Từ ngày</span>
                 <input
                   type="date"
-                  className="date_ListExportSlip"
+                  className={styles["date_ListExportSlip"]}
                   value={inforSearch.timeStart}
                   name="timeStart"
                   onChange={(e) => handleChangeFieldSearch(e)}
                 />
-                <span className="date_ListExportSlip2">Đến ngày</span>
+                <span className={styles["date_ListExportSlip2"]}>Đến ngày</span>
                 <input
                   type="date"
-                  className="date_ListExportSlip3"
+                  className={styles["date_ListExportSlip3"]}
                   value={inforSearch.timeEnd}
                   name="timeEnd"
                   onChange={(e) => handleChangeFieldSearch(e)}
                 />
               </div>
             </div>
-            <div className="sub_2_ListExportSlip" onClick={handleSearch}>
+            <div
+              className={styles["sub_2_ListExportSlip"]}
+              onClick={handleSearch}
+            >
               <span>
-                Tìm kiếm <i className="fa fa-search" aria-hidden="true"></i>
+                Tìm kiếm{" "}
+                <i className={styles["fa fa-search"]} aria-hidden="true"></i>
               </span>
             </div>
           </div>
           <div
-            className="sub_3_ListExportSlip"
-            onClick={() => navigate(`/createdExportSlip/${type}`)}
+            className={styles["sub_3_ListExportSlip"]}
+            onClick={() => router.push(`/exportSlip/createdExportSlip`)}
           >
             <p>+ Tạo phiếu xuất kho</p>
           </div>
-          <div className="table_ListExportSlip">
-            <table className="table2_ListExportSlip">
-              <tr className="ListExportSlip_tr">
-                <th className="ListExportSlip_th_1">STT</th>
-                <th className="ListExportSlip_th">Mã phiếu</th>
-                <th className="ListExportSlip_th">Nguồn xuất</th>
-                <th className="ListExportSlip_th">Giá trị</th>
-                <th className="ListExportSlip_th">Thời gian</th>
-                <th className="ListExportSlip_th">Tình trạng</th>
-                <th className="ListExportSlip_th">Thao tác</th>
+          <div className={styles["table_ListExportSlip"]}>
+            <table className={styles["table2_ListExportSlip"]}>
+              <tr className={styles["ListExportSlip_tr"]}>
+                <th className={styles["ListExportSlip_th_1"]}>STT</th>
+                <th className={styles["ListExportSlip_th"]}>Mã phiếu</th>
+                <th className={styles["ListExportSlip_th"]}>Nguồn xuất</th>
+                <th className={styles["ListExportSlip_th"]}>Giá trị</th>
+                <th className={styles["ListExportSlip_th"]}>Thời gian</th>
+                <th className={styles["ListExportSlip_th"]}>Tình trạng</th>
+                <th className={styles["ListExportSlip_th"]}>Thao tác</th>
               </tr>
               {exportSlips.length > 0 &&
                 exportSlips.map((exportSlip, index) => (
-                  <tr className="listExportSlip_tr_2" key={exportSlip._id}>
-                    <td className="ListExportSlip_td">
+                  <tr
+                    className={styles["listExportSlip_tr_2"]}
+                    key={exportSlip._id}
+                  >
+                    <td className={styles["ListExportSlip_td"]}>
                       {(page - 1) * limit + index + 1}
                     </td>
-                    <td className="ListExportSlip_td">
+                    <td className={styles["ListExportSlip_td"]}>
                       {exportSlip.exportSlipCode}
                     </td>
-                    <td className="ListExportSlip_td">
+                    <td className={styles["ListExportSlip_td"]}>
                       {" "}
                       {(type === "Provider" &&
                         exportSlip.providerId?.providerName) ||
                         (type === "Agency" && exportSlip.agencyId?.agencyName)}
                     </td>
-                    <td className="ListExportSlip_td">
+                    <td className={styles["ListExportSlip_td"]}>
                       {formatCurrency(exportSlip.exportPrice)}
                     </td>
-                    <td className="ListExportSlip_td">
+                    <td className={styles["ListExportSlip_td"]}>
                       {formatDate(exportSlip.createdAt)}
                     </td>
-                    <td className="ListExportSlip_td">
+                    <td className={styles["ListExportSlip_td"]}>
                       <select
                         className={
                           exportSlip.status === "PENDING"
@@ -314,46 +321,57 @@ const ListExportSlip = () => {
                             : ""}
                         </option>
                         <option
-                          className="button1_ListExportSlip"
+                          className={styles["button1_ListExportSlip"]}
                           value="PENDING"
                         >
                           Chờ duyệt
                         </option>
-                        <option className="button2_ListExportSlip" value="DONE">
+                        <option
+                          className={styles["button2_ListExportSlip"]}
+                          value="DONE"
+                        >
                           Đã xuất
                         </option>
                         <option
-                          className="button3_ListExportSlip"
+                          className={styles["button3_ListExportSlip"]}
                           value="REJECTED"
                         >
                           Từ chối
                         </option>
                         <option
-                          className="button_ListExportSlip"
+                          className={styles["button_ListExportSlip"]}
                           value="CONFIRMED"
                         >
                           Đã duyệt
                         </option>
                         <option
-                          className="button4_ListExportSlip"
+                          className={styles["button4_ListExportSlip"]}
                           value="RETURNED"
                         >
                           Hoàn hàng
                         </option>
                       </select>
                     </td>
-                    <td className="purple">
+                    <td className={styles["purple"]}>
                       <span
-                        className="pen_ListExportSlip"
+                        className={styles["pen_ListExportSlip"]}
                         onClick={() => handleClickPen(exportSlip._id)}
                       >
-                        <i className="fa-solid fa-pen penListExportSlip"></i>
+                        <i
+                          className={
+                            styles["fa-solid fa-pen penListExportSlip"]
+                          }
+                        ></i>
                       </span>
                       <span
-                        className="bin_ListExportSlip"
+                        className={styles["bin_ListExportSlip"]}
                         onClick={() => handleClickBin(exportSlip._id)}
                       >
-                        <i className="fa-solid fa-trash binListExportSlip"></i>
+                        <i
+                          className={
+                            styles["fa-solid fa-trash binListExportSlip"]
+                          }
+                        ></i>
                       </span>
                     </td>
                   </tr>
@@ -374,9 +392,9 @@ const ListExportSlip = () => {
           </div>
         </div>
         {showDelete && (
-          <div className="overlay" onClick={handleCancelDelete}>
+          <div className={styles["overlay"]} onClick={handleCancelDelete}>
             <motion.div
-              className="itemDelete"
+              className={styles["itemDelete"]}
               onClick={(e) => e.stopPropagation()}
               animate={{ opacity: 1, scal: 1 }}
               initial={{ opacity: 0, scal: 0.5 }}

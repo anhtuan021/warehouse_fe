@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { createdSupply } from "@/api/suppliesAPI/supply";
 import { toast } from "react-toastify";
 import Layout from "@/components/layout/Layout";
-import "./CreatedAgency.css"; // Đặt CSS vào /styles nếu cần
+import styles from "./CreatedAgency.module.css";
 
 const CreatedAgency = () => {
   const router = useRouter();
@@ -39,7 +39,7 @@ const CreatedAgency = () => {
       };
       await createdSupply(data);
       toast.success("Thêm nguồn hàng thành công");
-      router.push('/listAgency');
+      router.push("/agency/listAgency");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Lỗi hệ thống");
     }
@@ -48,53 +48,53 @@ const CreatedAgency = () => {
   return (
     <div>
       <Layout>
-        <div className="main-CreatedAgency">
-          <div className="body-CreatedAgency">
-            <div className="breadcrumb">
+        <div className={styles["main-CreatedAgency"]}>
+          <div className={styles["body-CreatedAgency"]}>
+            <div className={styles["breadcrumb"]}>
               <p
-                className="title-createdAgency"
-                onClick={() => navigate("/listAgency")}
+                className={styles["title-createdAgency"]}
+                onClick={() => router.push("/agency/listAgency")}
                 style={{ cursor: "pointer" }}
               >
                 Quản lý nguồn hàng xuất/nhập
               </p>
-              <span className="title-createdAgency">&gt;</span>
-              <p className="title-createdAgency">Thêm loại nguồn</p>
+              <span className={styles["title-createdAgency"]}>&gt;</span>
+              <p className={styles["title-createdAgency"]}>Thêm loại nguồn</p>
             </div>
-            <div className="content-container-agency">
-              <div className="title-bar-agency">Thêm mới nguồn</div>
+            <div className={styles["content-container-agency"]}>
+              <div className={styles["title-bar-agency"]}>Thêm mới nguồn</div>
 
-              <div className="form-container">
-                <div className="form-group-created-agency">
-                  <label className="form-label">Mã nguồn</label>
+              <div className={styles["form-container"]}>
+                <div className={styles["form-group-created-agency"]}>
+                  <label className={styles["form-label"]}>Mã nguồn</label>
                   <input
                     type="text"
                     name="supplyCode"
                     value={supply.supplyCode}
-                    className="form-input"
+                    className={styles["form-input"]}
                     readOnly
                   />
                 </div>
 
-                <div className="form-group-created-agency">
-                  <label className="form-label">Tên nguồn</label>
+                <div className={styles["form-group-created-agency"]}>
+                  <label className={styles["form-label"]}>Tên nguồn</label>
                   <input
                     type="text"
                     name="supplyName"
                     value={supply.supplyName}
-                    className="form-input"
+                    className={styles["form-input"]}
                     onChange={handleChange}
                   />
                 </div>
 
-                <div className="form-group-created-agency">
-                  <label className="form-label">Loại nguồn</label>
+                <div className={styles["form-group-created-agency"]}>
+                  <label className={styles["form-label"]}>Loại nguồn</label>
                   <select
                     name="supplyType"
                     value={supply.supplyType}
                     onChange={handleChange}
                     id=""
-                    className="form-input"
+                    className={styles["form-input"]}
                     required
                   >
                     <option value="">-Loại nguồn-</option>
@@ -103,75 +103,75 @@ const CreatedAgency = () => {
                   </select>
                 </div>
 
-                <div className="form-group-created-agency">
-                  <label className="form-label">Địa chỉ</label>
+                <div className={styles["form-group-created-agency"]}>
+                  <label className={styles["form-label"]}>Địa chỉ</label>
                   <input
                     type="text"
                     name="supplyAddress"
                     value={supply.supplyAddress}
                     onChange={handleChange}
-                    className="form-input"
+                    className={styles["form-input"]}
                     required
                   />
                 </div>
 
-                <div className="form-group-created-agency">
-                  <label className="form-label">Số điện thoại</label>
+                <div className={styles["form-group-created-agency"]}>
+                  <label className={styles["form-label"]}>Số điện thoại</label>
                   <input
                     type="text"
                     name="supplyPhone"
                     value={supply.supplyPhone}
                     onChange={handleChange}
-                    className="form-input"
+                    className={styles["form-input"]}
                     required
                   />
                 </div>
 
-                <div className="form-group-created-agency">
-                  <label className="form-label">Email</label>
+                <div className={styles["form-group-created-agency"]}>
+                  <label className={styles["form-label"]}>Email</label>
                   <input
                     type="text"
                     name="supplyEmail"
                     value={supply.supplyEmail}
                     onChange={handleChange}
-                    className="form-input"
+                    className={styles["form-input"]}
                     required
                   />
                 </div>
 
-                <div className="form-group-created-agency">
-                  <label className="form-label">Người đại diện</label>
+                <div className={styles["form-group-created-agency"]}>
+                  <label className={styles["form-label"]}>Người đại diện</label>
                   <input
                     type="text"
                     name="supplyRepresentative"
                     value={supply.supplyRepresentative}
                     onChange={handleChange}
-                    className="form-input"
+                    className={styles["form-input"]}
                     required
                   />
                 </div>
 
-                {/* <div className="form-group-created-agency">
-                <label className="form-label">Thêm thông tin (Nếu có)</label>
+                {/* <div className={styles["form-group-created-agency">
+                <label className={styles["form-label">Thêm thông tin (Nếu có)</label>
                 <textarea
                   type="text"
                   name=""
-                  className="form-input"
+                  className={styles["form-input"
                   rows={5}
                 ></textarea>
               </div> */}
 
-                <div className="button-group">
+                <div className={styles["button-group"]}>
                   <button
-                    className="save-btn"
+                    className={styles["save-btn"]}
                     type="submit"
                     onClick={handleSubmit}
                   >
                     Lưu
                   </button>
                   <button
-                    className="cancel-btn"
-                    onClick={() => navigate("/listAgency")}
+                    className={styles["cancel-btn"]}
+                    onClick={() => router.push("agency/listAgency")}
                   >
                     Hủy
                   </button>

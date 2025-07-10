@@ -4,13 +4,13 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
-
+import Image from "next/image";
 import recycle from "../../../assets/images/bin.png";
 import { searchSupply } from "@/api/suppliesAPI/supply";
 import { createdContract } from "@/api/contractApi/contract";
 import { createdImportSlip } from "@/api/importSlipApi/importSlip";
 
-import "./CreatedImportSlip.css";
+import styles from "./CreatedImportSlip.module.css";
 import { formatCurrency } from "@/utils/function/slipFuntion";
 import DLFromLocal from "@/components/downloadProduct/downloadProductFromLocal/DLFromLocal";
 import Layout from "@/components/layout/Layout";
@@ -48,8 +48,6 @@ const CreatedImportSlip = () => {
     contractContent: "",
     contractMedia: [],
   });
-
-  const navigate = useNavigate();
 
   const handleCancelUploadLocal = () => {
     setShowUploadFromLocal(false);
@@ -187,7 +185,7 @@ const CreatedImportSlip = () => {
 
       await createdImportSlip(data);
       toast.success("Tạo phiếu nhập kho thành công");
-      router.push(`/listImportSlip/${type}`);
+      router.push(`/importSlip/listImportSlip/${type}`);
     } catch (error) {
       console.log(error);
       toast.error("Tạo phiếu nhập kho thất bại");
@@ -195,16 +193,16 @@ const CreatedImportSlip = () => {
   };
 
   const handleCancelCreateImportSlip = () => {
-    router.push(`/listImportSlip/${type}`);
+    router.push(`/importSlip/listImportSlip/${type}`);
   };
   return (
     <>
       <Layout>
-        <div className="main-container">
-          <div className="content-container-createdImportSlip">
-            <div className="right-content">
-              <div className="navigation-path">
-                <span onClick={() => navigate(`/listImportSlip/${type}`)}>
+        <div className={styles["main-container"]}>
+          <div className={styles["content-container-createdImportSlip"]}>
+            <div className={styles["right-content"]}>
+              <div className={styles["navigation-path"]}>
+                <span onClick={() => router.push(`/importSlip/listImportSlip/${type}`)}>
                   Xuất - nhập với{" "}
                   {(type === "Provider" && "NCC") ||
                     (type === "Agency" && "Nội bộ")}
@@ -212,29 +210,29 @@ const CreatedImportSlip = () => {
                 &gt; Tạo mới phiếu nhập kho
               </div>
 
-              <div className="action-buttons">
-                <button className="add-button external">
+              <div className={styles["action-buttons"]}>
+                <button className={styles["add-button external"]}>
                   + Thêm hàng từ file ngoài
                 </button>
                 <button
-                  className="add-button system"
+                  className={styles["add-button system"]}
                   onClick={() => setShowUploadFromLocal(true)}
                 >
                   + Thêm hàng từ hệ thống
                 </button>
               </div>
 
-              <div className="form-container-createdImport">
-                <h2 className="form-title">PHIẾU NHẬP KHO</h2>
+              <div className={styles["form-container-createdImport"]}>
+                <h2 className={styles["form-title"]}>PHIẾU NHẬP KHO</h2>
 
-                <div className="form-section">
-                  <div className="info-section">
+                <div className={styles["form-section"]}>
+                  <div className={styles["info-section"]}>
                     <h3>Thông tin chung</h3>
-                    <div className="form-grid">
-                      <div className="form-group-create">
+                    <div className={styles["form-grid"]}>
+                      <div className={styles["form-group-create"]}>
                         <label>Nguồn xuất</label>
                         <select
-                          className="nguon-xuat"
+                          className={styles["nguon-xuat"]}
                           name="providerId"
                           onChange={handleChangeProvider}
                         >
@@ -247,7 +245,7 @@ const CreatedImportSlip = () => {
                             ))}
                         </select>
                       </div>
-                      <div className="form-group">
+                      <div className={styles["form-group"]}>
                         <label>Mã phiếu</label>
                         <input
                           name="idSlip"
@@ -256,7 +254,7 @@ const CreatedImportSlip = () => {
                           readOnly
                         />
                       </div>
-                      <div className="form-group short-input">
+                      <div className={styles["form-group short-input"]}>
                         <label>Mã nguồn</label>
                         <input
                           style={{
@@ -269,7 +267,7 @@ const CreatedImportSlip = () => {
                           readOnly
                         />
                       </div>
-                      <div className="form-group short-input">
+                      <div className={styles["form-group short-input"]}>
                         <label>Số điện thoại</label>
                         <input
                           type="text"
@@ -277,7 +275,7 @@ const CreatedImportSlip = () => {
                           readOnly
                         />
                       </div>
-                      <div className="form-group">
+                      <div className={styles["form-group"]}>
                         <label>Địa chỉ</label>
                         <textarea
                           rows="5"
@@ -285,7 +283,7 @@ const CreatedImportSlip = () => {
                           readOnly
                         />
                       </div>
-                      <div className="form-group">
+                      <div className={styles["form-group"]}>
                         <label>Lý do nhập</label>
                         <textarea
                           rows="5"
@@ -301,7 +299,7 @@ const CreatedImportSlip = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="table-section">
+                  <div className={styles["table-section"]}>
                     <table>
                       <thead>
                         <tr>
@@ -365,13 +363,17 @@ const CreatedImportSlip = () => {
                                 {formatCurrency(calculateLineTotal(product))}
                               </td>
                               <td>
-                                <button className="delete-button">
-                                  <img src={recycle} alt="" className="bin" />
+                                <button className={styles["delete-button"]}>
+                                  <Image
+                                    src={recycle}
+                                    alt=""
+                                    className={styles["bin"]}
+                                  />
                                 </button>
                               </td>
                             </tr>
                           ))}
-                        <tr className="total-row">
+                        <tr className={styles["total-row"]}>
                           <td colSpan="7">Tổng</td>
                           <td>{formatCurrency(calculateTotalPrice)}</td>
                           <td></td>
@@ -380,11 +382,11 @@ const CreatedImportSlip = () => {
                     </table>
                   </div>
 
-                  <div className="attachment-section">
-                    <div className="contract-section">
+                  <div className={styles["attachment-section"]}>
+                    <div className={styles["contract-section"]}>
                       <h3>Hợp đồng</h3>
-                      <div className="upload-group">
-                        <div className="form-group">
+                      <div className={styles["upload-group"]}>
+                        <div className={styles["form-group"]}>
                           <label>Nội dung</label>
                           <input
                             type="text"
@@ -397,11 +399,11 @@ const CreatedImportSlip = () => {
                           />
                         </div>
                         <br />
-                        <div className="form-group-upload">
+                        <div className={styles["form-group-upload"]}>
                           <label>Hình ảnh</label>
-                          <div className="input-upload">
+                          <div className={styles["input-upload"]}>
                             <input
-                              className="input-file-name"
+                              className={styles["input-file-name"]}
                               type="url"
                               value={fileNames.join(", ")}
                               onChange={(e) => handleChangeFileNameContract(e)}
@@ -415,7 +417,9 @@ const CreatedImportSlip = () => {
                                 multiple
                                 onChange={handleFileChange}
                               />
-                              <i className="fa-solid fa-cloud-arrow-up"></i>
+                              <i
+                                className={styles["fa-solid fa-cloud-arrow-up"]}
+                              ></i>
                             </label>
                           </div>
                         </div>
@@ -423,15 +427,15 @@ const CreatedImportSlip = () => {
                     </div>
                   </div>
 
-                  <div className="button-section">
+                  <div className={styles["button-section"]}>
                     <button
-                      className="cancel-button"
+                      className={styles["cancel-button"]}
                       onClick={handleCancelCreateImportSlip}
                     >
                       Hủy
                     </button>
                     <button
-                      className="save-button"
+                      className={styles["save-button"]}
                       type="submit"
                       onClick={handleSubmit}
                     >
@@ -443,9 +447,12 @@ const CreatedImportSlip = () => {
             </div>
           </div>
           {showUploadFromLocal && (
-            <div className="overlay" onClick={handleCancelUploadLocal}>
+            <div
+              className={styles["overlay"]}
+              onClick={handleCancelUploadLocal}
+            >
               <motion.div
-                className="item-upload"
+                className={styles["item-upload"]}
                 onClick={(e) => e.stopPropagation()}
                 animate={{ opacity: 1, scal: 1 }}
                 initial={{ opacity: 0, scal: 0.5 }}

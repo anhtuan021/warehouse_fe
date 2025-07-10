@@ -1,213 +1,165 @@
-/* eslint-disable */
 import React from "react";
-
-import "./NavBar.module.css";
+import styles from "./NavBar.module.css";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+
 const NavBar = ({ isOpen, setIsOpen }) => {
   const user = useSelector((state) => state.user);
-
   const router = useRouter();
 
   const handleClickProfile = () => {
     const userId = user._id;
-    router.push(`/information/${userId}`);
+    router.push(`/auth/information/${userId}`);
   };
 
+  const isActive = (path) => router.pathname === path ? styles.active : "";
+
   return (
-    <div className="main" style={{display: isOpen ? "block" : "none"}}>
-      <div className="navBar">
-        <div className="navBar-user">
-          <div className="user-avt">
+    <div className={styles.main} style={{ display: isOpen ? "block" : "none" }}>
+      <div className={styles.navBar}>
+        <div className={styles.navBarUser}>
+          <div className={styles.userAvt}>
             <img src={user.avatar} alt="" onClick={handleClickProfile} />
           </div>
-          <div className="user-name" onClick={handleClickProfile}>
+          <div className={styles.userName} onClick={handleClickProfile}>
             {user.userName}
           </div>
         </div>
-
-        <hr />
-
-        <div className="navBar-menu">
-          <div className="navBar-menu-item">
+        <hr className={styles.hr} />
+        <div className={styles.navBarMenu}>
+          <div className={styles.navBarMenuItem}>
             <p
               onClick={() => router.push("/")}
-              className={`${router.pathname === "/" ? "active" : ""}`}
+              className={isActive("/")}
             >
-              <i className="fa-solid fa-chart-pie icon-navbar"></i>Tổng quan
+              <i className="fa-solid fa-chart-pie" /> Tổng quan
             </p>
           </div>
 
-          <div className="navBar-menu-item">
-            <div className="menu-item-title">
+          <div className={styles.navBarMenuItem}>
+            <div className={styles.menuItemTitle}>
               <p>
-                {" "}
-                <i className="fa-solid fa-clipboard icon-navbar"></i>Xuất - nhập
-                với NCC
+                <i className="fa-solid fa-clipboard" /> Xuất - nhập với NCC
               </p>
-              <div className="sub-menu">
-                <div className="sub-menu-item">
+              <div className={styles.subMenu}>
+                <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>
-                    Xuất kho
+                    <i className="fa-solid fa-chevron-right" /> Xuất kho
                   </p>
                 </div>
                 <p
-                  className={`sub-menu-item ${
-                    router.pathname === "/listExportSlip/Provider"
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={() => router.push("/listExportSlip/Provider")}
+                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip")}`}
+                  onClick={() => router.push("/exportSlip/listExportSlip")}
                 >
-                  Phiếu xuất kho
+                  <i className="fa-solid fa-chevron-right" /> Phiếu xuất kho
                 </p>
               </div>
-              <div className="sub-menu">
-                <div className="sub-menu-item">
+              <div className={styles.subMenu}>
+                <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>
-                    Nhập kho
+                    <i className="fa-solid fa-chevron-right" /> Nhập kho
                   </p>
                 </div>
                 <p
-                  className={`sub-menu-item ${
-                    router.pathname === "/listImportSlip/Provider"
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={() => router.push(`/listImportSlip/Provider`)}
+                  className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip")}`}
+                  onClick={() => router.push(`/importSlip/listImportSlip`)}
                 >
-                  Phiếu nhập kho
+                  <i className="fa-solid fa-chevron-right" /> Phiếu nhập kho
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="navBar-menu-item">
-            <div className="menu-item-title">
+          <div className={styles.navBarMenuItem}>
+            <div className={styles.menuItemTitle}>
               <p>
-                <i className="fa-solid fa-clipboard icon-navbar"></i>Xuất - nhập
-                với nội bộ
+                <i className="fa-solid fa-clipboard" /> Xuất - nhập với nội bộ
               </p>
-              <div className="sub-menu">
-                <div className="sub-menu-item">
+              <div className={styles.subMenu}>
+                <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>
-                    Xuất kho
+                    <i className="fa-solid fa-chevron-right" /> Xuất kho
                   </p>
                 </div>
                 <p
-                  className={`sub-menu-item ${
-                    router.pathname === "/listExportSlip/Agency"
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={() => router.push(`/listExportSlip/Agency`)}
+                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip")}`}
+                  onClick={() => router.push(`/exportSlip/listExportSlip`)}
                 >
-                  Phiếu xuất kho
+                  <i className="fa-solid fa-chevron-right" /> Phiếu xuất kho
                 </p>
               </div>
-
-              <div className="sub-menu">
-                <div className="sub-menu-item">
+              <div className={styles.subMenu}>
+                <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>
-                    Nhập kho
+                    <i className="fa-solid fa-chevron-right" /> Nhập kho
                   </p>
                 </div>
                 <p
-                  className={`sub-menu-item ${
-                    router.pathname === "/listImportSlip/Agency"
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={() => router.push(`/listImportSlip/Agency`)}
+                  className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip")}`}
+                  onClick={() => router.push(`/importSlip/listImportSlip`)}
                 >
-                  Phiếu nhập kho
+                  <i className="fa-solid fa-chevron-right" /> Phiếu nhập kho
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="navBar-menu-item">
+          <div className={styles.navBarMenuItem}>
             <p
-              onClick={() => router.push("/listInventory")}
-              className={`${
-                router.pathname === "/listInventory" ? "active" : ""
-              }`}
+              onClick={() => router.push("/inventory/listInventory")}
+              className={isActive("/inventory/listInventory")}
             >
-              <i className="fa-solid fa-chart-simple icon-navbar"></i>Quản lý
-              kiểm kê
+              <i className="fa-solid fa-chart-simple" /> Quản lý kiểm kê
             </p>
           </div>
-          <div className="navBar-menu-item">
-            <div className="menu-item-title">
+          <div className={styles.navBarMenuItem}>
+            <div className={styles.menuItemTitle}>
               <p>
-                <i className="fa-solid fa-chart-simple icon-navbar"></i>Báo cáo
-                thống kê
+                <i className="fa-solid fa-chart-simple" /> Báo cáo thống kê
               </p>
-              <div className="sub-menu">
-                <div className="sub-menu-item">
+              <div className={styles.subMenu}>
+                <div className={styles.subMenuItem}>
                   <p
-                    onClick={() => router.push("/report-import")}
-                    className={`${
-                      router.pathname === "/report-import" ? "active" : ""
-                    }`}
+                    onClick={() => router.push("/report/reportImport")}
+                    className={isActive("/report/reportImport")}
                   >
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>Báo
-                    cáo nhập kho
+                    <i className="fa-solid fa-chevron-right" /> Báo cáo nhập kho
                   </p>
                   <p
-                    onClick={() => router.push("/report-inventory")}
-                    className={`${
-                      router.pathname === "/report-inventory" ? "active" : ""
-                    }`}
+                    onClick={() => router.push("/report/reportInventory")}
+                    className={isActive("/report/reportInventory")}
                   >
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>Báo
-                    cáo tồn kho
+                    <i className="fa-solid fa-chevron-right" /> Báo cáo tồn kho
                   </p>
                   <p
-                    onClick={() => router.push("/report-export-import-inventory")}
-                    className={`${
-                      router.pathname === "/report-export-import-inventory"
-                        ? "active"
-                        : ""
-                    }`}
+                    onClick={() => router.push("/report/reportEII")}
+                    className={isActive("/report/reportEII")}
                   >
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>Báo
-                    cáo xuất nhập tồn
+                    <i className="fa-solid fa-chevron-right" /> Báo cáo xuất nhập tồn
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="navBar-menu-item">
-            <div className="menu-item-title">
+          <div className={styles.navBarMenuItem}>
+            <div className={styles.menuItemTitle}>
               <p>
-                <i className="fa-solid fa-bars-staggered icon-navbar"></i>Danh
-                mục
+                <i className="fa-solid fa-bars-staggered" /> Danh mục
               </p>
-              <div className="sub-menu">
-                <div className="sub-menu-item">
+              <div className={styles.subMenu}>
+                <div className={styles.subMenuItem}>
                   <p
-                    onClick={() => router.push("/listAgency")}
-                    className={`${
-                      router.pathname === "/listAgency" ? "active" : ""
-                    }`}
+                    onClick={() => router.push("/agency/listAgency")}
+                    className={isActive("/agency/listAgency")}
                   >
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>
-                    Nguồn hàng xuất/nhập
+                    <i className="fa-solid fa-chevron-right" /> Nguồn hàng xuất/nhập
                   </p>
                   <p
-                    onClick={() => router.push("/listProduct")}
-                    className={`${
-                      router.pathname === "/listProduct" ? "active" : ""
-                    }`}
+                    onClick={() => router.push("/product/listProduct")}
+                    className={isActive("/product/listProduct")}
                   >
-                    <i className="fa-solid fa-chevron-right icon-navbar"></i>
-                    Danh mục hàng hóa
+                    <i className="fa-solid fa-chevron-right" /> Danh mục hàng hóa
                   </p>
                 </div>
               </div>

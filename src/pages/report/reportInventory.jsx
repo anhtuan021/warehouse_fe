@@ -12,7 +12,7 @@ import {
 import { Bar } from "react-chartjs-2";
 
 import { reportExportImportInventory } from "@/api/reportApi/Report";
-import "./ReportInventory.css";
+import styles from "./ReportInventory.module.css";
 import TableReport from "@/components/tableReport/TableReport";
 import Layout from "@/components/layout/Layout";
 
@@ -119,32 +119,34 @@ const ReportInventory = () => {
   return (
     <>
       <Layout>
-        <div className="reportImport-container">
-          <div className="RI-frame">
-            <h2 className="reportImport-h2">BIỂU ĐỒ BÁO CÁO TỒN KHO</h2>
-            <div className="date-ImportReport">
-              <span className="date-ImportReport1">Từ ngày</span>
+        <div className={styles["reportImport-container"]}>
+          <div className={styles["RI-frame"]}>
+            <h2 className={styles["reportImport-h2"]}>
+              BIỂU ĐỒ BÁO CÁO TỒN KHO
+            </h2>
+            <div className={styles["date-ImportReport"]}>
+              <span className={styles["date-ImportReport1"]}>Từ ngày</span>
               <input
                 type="date"
-                className="date-ImportReport3"
+                className={styles["date-ImportReport3"]}
                 name="timeStart"
                 value={time.timeStart}
                 onChange={(e) => handleChangeTime(e)}
               />
               <span
-                className="date-ImportReport2"
+                className={styles["date-ImportReport2"]}
                 name="timeEnd"
                 value={time.timeEnd}
                 onChange={(e) => handleChangeTime(e)}
               >
                 Đến ngày
               </span>
-              <input type="date" className="date-ImportReport3" />
-              <span className="reportImport-type">Loại báo cáo</span>
+              <input type="date" className={styles["date-ImportReport3"]} />
+              <span className={styles["reportImport-type"]}>Loại báo cáo</span>
               <select
                 name=""
                 id=""
-                className="reportImport-select"
+                className={styles["reportImport-select"]}
                 onChange={(e) => handleChangeType(e)}
               >
                 <option>{type === "chart" ? "Biểu đồ" : "Bảng"}</option>
@@ -153,14 +155,14 @@ const ReportInventory = () => {
               </select>
             </div>
             {type === "chart" ? (
-              <div className="RI-caption">
-                <div className="RI-caption-text1"></div>
+              <div className={styles["RI-caption"]}>
+                <div className={styles["RI-caption-text1"]}></div>
                 <p>Số lượng hàng hoá</p>
               </div>
             ) : (
               <div></div>
             )}
-            <div className="IR-barchart">
+            <div className={styles["IR-barchart"]}>
               {type === "chart" ? (
                 <Bar data={data} options={options} />
               ) : (

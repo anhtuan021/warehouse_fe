@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { registerValidation } from "@/utils/validation.js/userValidation";
 import image4 from "@/assets/images/image4.png";
-
+import Image from "next/image";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
@@ -29,7 +29,7 @@ const Register = () => {
         localStorage.setItem("email", user.data.user.email);
         localStorage.setItem("fullName", user.data.user.fullName);
       }
-      router.push("/confirm-OTP");
+      router.push("/auth/confirmOTP");
     } catch (error) {
       toast.error("Đăng ký thất bại");
     }
@@ -151,8 +151,8 @@ const Register = () => {
                     />
                   </div>
 
-                  <div className="register-role">
-                    <div className="register-role-group">
+                  <div className={styles["register-role"]}>
+                    <div className={styles["register-role-group"]}>
                       <p>Nhân viên</p>
                       <input
                         type="radio"
@@ -162,7 +162,7 @@ const Register = () => {
                         checked={values.role === "staff"}
                       />
                     </div>
-                    <div className="register-role-group">
+                    <div className={styles["register-role-group"]}>
                       <p>Quản lý</p>
                       <input
                         type="radio"
@@ -174,15 +174,15 @@ const Register = () => {
                     </div>
                   </div>
 
-                  <button className="register-button" type="submit">
+                  <button className={styles["register-button"]} type="submit">
                     Đăng ký
                   </button>
 
-                  <div className="register-bonus">
+                  <div className={styles["register-bonus"]}>
                     <p>
                       Bạn đã có tài khoản?{" "}
                       <span
-                        className="register-span"
+                        className={styles["register-span"]}
                         onClick={handleClickLogin}
                       >
                         {" "}
@@ -194,8 +194,13 @@ const Register = () => {
               )}
             </Formik>
           </div>
-          <div className="imagine">
-            <img className="imagine-img" src={image4} alt="" />
+          <div className={styles["imagine"]}>
+            <Image
+  className={styles["imagine-img"]}
+  src={image4}
+  alt=""
+
+/>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import "./InforExportSlip.css";
+import styles from "./InforExportSlip.module.css";
 import { getExportSlipById } from "@/api/exportSlipApi/exportSlip";
 import { formatCurrency, formatDate } from "@/utils/function/slipFuntion";
 import Layout from "@/components/layout/Layout";
@@ -31,10 +31,13 @@ const InforExportSlip = () => {
   return (
     <>
       <Layout>
-        <div className="exportForm-container">
-          <div style={{width: "100%", overflow: "auto"}}>
-            <div className="exportForm-nav" style={{ display: "flex" }}>
-              <p onClick={() => router.push(`/listExportSlip/${type}`)}>
+        <div className={styles["exportForm-container"]}>
+          <div style={{ width: "100%", overflow: "auto" }}>
+            <div
+              className={styles["exportForm-nav"]}
+              style={{ display: "flex" }}
+            >
+              <p onClick={() => router.push(`/exportSlip/listExportSlip/${type}`)}>
                 Xuất - nhập với{" "}
                 {(type === "Provider" && "NCC") ||
                   (type === "Agency" && "đại lý")}{" "}
@@ -42,15 +45,18 @@ const InforExportSlip = () => {
               </p>
               <p>Xem phiếu xuất kho</p>
             </div>
-            <div className="exportForm-main">
-              <div className="exportForm-title">PHIẾU XUẤT KHO</div>
-              <div className="exportForm">
+            <div className={styles["exportForm-main"]}>
+              <div className={styles["exportForm-title"]}>PHIẾU XUẤT KHO</div>
+              <div className={styles["exportForm"]}>
                 <p>Thông tin chung</p>
-                <div className="exportForm-infor">
-                  <div className="col">
-                    <div className="col-item">
+                <div className={styles["exportForm-infor"]}>
+                  <div className={styles["col"]}>
+                    <div className={styles["col-item"]}>
                       <label for="ef-agencyName">Nguồn nhận</label>
-                      <div className="ef-inforBox" name="ef-agencyName">
+                      <div
+                        className={styles["ef-inforBox"]}
+                        name="ef-agencyName"
+                      >
                         {(type === "Provider" &&
                           exportSlip.providerId?.providerName) ||
                           (type === "Agency" &&
@@ -58,9 +64,9 @@ const InforExportSlip = () => {
                       </div>
                     </div>
 
-                    <div className="col-item">
+                    <div className={styles["col-item"]}>
                       <label for="ef-agencyID">Mã nguồn</label>
-                      <div className="ef-inforBox" name="ef-agencyID">
+                      <div className={styles["ef-inforBox"]} name="ef-agencyID">
                         {(type === "Provider" &&
                           exportSlip.providerId?.providerCode) ||
                           (type === "Agency" &&
@@ -68,9 +74,12 @@ const InforExportSlip = () => {
                       </div>
                     </div>
 
-                    <div className="col-item">
+                    <div className={styles["col-item"]}>
                       <label for="ef-agencyPhone">Điện thoại</label>
-                      <div className="ef-inforBox" name="ef-agencyPhone">
+                      <div
+                        className={styles["ef-inforBox"]}
+                        name="ef-agencyPhone"
+                      >
                         {(type === "Provider" &&
                           exportSlip.providerId?.providerPhone) ||
                           (type === "Agency" &&
@@ -78,10 +87,10 @@ const InforExportSlip = () => {
                       </div>
                     </div>
 
-                    <div className="col-item">
+                    <div className={styles["col-item"]}>
                       <label for="ef-agencyAddress">Địa chỉ</label>
                       <div
-                        className="ef-inforBox ef-formDescribe"
+                        className={styles["ef-inforBox ef-formDescribe"]}
                         name="ef-agencyID"
                       >
                         {(type === "Provider" &&
@@ -92,18 +101,18 @@ const InforExportSlip = () => {
                     </div>
                   </div>
 
-                  <div className="col">
-                    <div className="col-item">
+                  <div className={styles["col"]}>
+                    <div className={styles["col-item"]}>
                       <label for="ef-formID">Mã phiếu</label>
-                      <div className="ef-inforBox" name="ef-formID">
+                      <div className={styles["ef-inforBox"]} name="ef-formID">
                         {exportSlip.exportSlipCode}
                       </div>
                     </div>
 
-                    <div className="col-item">
+                    <div className={styles["col-item"]}>
                       <label for="ef-formDescribe">Lý do xuất</label>
                       <div
-                        className="ef-inforBox ef-formDescribe"
+                        className={styles["ef-inforBox ef-formDescribe"]}
                         name="ef-formDescribe"
                       >
                         {exportSlip.reason}
@@ -113,7 +122,7 @@ const InforExportSlip = () => {
                 </div>
               </div>
 
-              <div className="exportForm-listProduct">
+              <div className={styles["exportForm-listProduct"]}>
                 <table>
                   <tr>
                     <th>STT</th>
@@ -147,14 +156,14 @@ const InforExportSlip = () => {
                 </table>
               </div>
 
-              <div className="ef-contract">
-                <div className="ef-contact-title">Hợp đồng</div>
-                <div className="ef-contract-img">
+              <div className={styles["ef-contract"]}>
+                <div className={styles["ef-contact-title"]}>Hợp đồng</div>
+                <div className={styles["ef-contract-img"]}>
                   {exportSlip.contracts?.contractMedia.length > 0 &&
                     exportSlip.contracts?.contractMedia.map(
                       (contractMedia, index) => (
                         <img
-                          className="img_contract"
+                          className={styles["img_contract"]}
                           src={contractMedia}
                           alt=""
                           key={index}
@@ -165,34 +174,37 @@ const InforExportSlip = () => {
               </div>
             </div>
 
-            <div className="status-panel">
-              <div className="status-header">
+            <div className={styles["status-panel"]}>
+              <div className={styles["status-header"]}>
                 <h4>Tình trạng</h4>
               </div>
-              <div className="status-group">
-                <div className="status-label">
-                  Tạo bởi <button className="status-btn delete">Xóa</button>
+              <div className={styles["status-group"]}>
+                <div className={styles["status-label"]}>
+                  Tạo bởi{" "}
+                  <button className={styles["status-btn delete"]}>Xóa</button>
                 </div>
 
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={exportSlip.userId?.fullName}
                     readOnly
                   />
                 </div>
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input type="text" value={formatDate(exportSlip.createdAt)} />
                 </div>
               </div>
 
-              <div className="status-group">
-                <div className="status-label">
+              <div className={styles["status-group"]}>
+                <div className={styles["status-label"]}>
                   Duyệt bởi{" "}
-                  <button className="status-btn approve">Duyệt</button>{" "}
+                  <button className={styles["status-btn approve"]}>
+                    Duyệt
+                  </button>{" "}
                 </div>
 
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={
@@ -203,7 +215,7 @@ const InforExportSlip = () => {
                     readOnly
                   />
                 </div>
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={
@@ -216,13 +228,15 @@ const InforExportSlip = () => {
                 </div>
               </div>
 
-              <div className="status-group">
-                <div className="status-label">
+              <div className={styles["status-group"]}>
+                <div className={styles["status-label"]}>
                   Từ chối bởi{" "}
-                  <button className="status-btn reject">Từ chối</button>
+                  <button className={styles["status-btn reject"]}>
+                    Từ chối
+                  </button>
                 </div>
 
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={
@@ -233,7 +247,7 @@ const InforExportSlip = () => {
                     readOnly
                   />
                 </div>
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={
@@ -246,15 +260,15 @@ const InforExportSlip = () => {
                 </div>
               </div>
 
-              <div className="status-group">
-                <div className="status-label">
+              <div className={styles["status-group"]}>
+                <div className={styles["status-label"]}>
                   Đã xuất bởi{" "}
-                  <button className="status-btn exported" disabled>
+                  <button className={styles["status-btn exported"]} disabled>
                     Đã xuất
                   </button>
                 </div>
 
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={
@@ -265,7 +279,7 @@ const InforExportSlip = () => {
                     readOnly
                   />
                 </div>
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={
@@ -278,13 +292,15 @@ const InforExportSlip = () => {
                 </div>
               </div>
 
-              <div className="status-group">
-                <div className="status-label">
+              <div className={styles["status-group"]}>
+                <div className={styles["status-label"]}>
                   Hoàn hàng bởi
-                  <button className="status-btn return">Hoàn hàng</button>
+                  <button className={styles["status-btn return"]}>
+                    Hoàn hàng
+                  </button>
                 </div>
 
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={
@@ -295,7 +311,7 @@ const InforExportSlip = () => {
                     readOnly
                   />
                 </div>
-                <div className="status-info">
+                <div className={styles["status-info"]}>
                   <input
                     type="text"
                     value={

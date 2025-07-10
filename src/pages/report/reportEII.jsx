@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
-import "./ReportEII.css";
+import styles from "./ReportEII.module.css";
 import { reportExportImportInventory } from "@/api/reportApi/Report";
 import TableReport from "@/components/tableReport/TableReport";
 import Layout from "@/components/layout/Layout";
@@ -24,7 +24,10 @@ const ReportEII = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await reportExportImportInventory(time.timeStart, time.timeEnd);
+        const res = await reportExportImportInventory(
+          time.timeStart,
+          time.timeEnd
+        );
         const filterData = res.filter(
           (item) =>
             item.exportQuantity >= 0 &&
@@ -162,31 +165,33 @@ const ReportEII = () => {
   return (
     <div>
       <Layout>
-        <div className="rcbody">
-          <div className="rcframe">
-            <div className="rctitle">BIỂU ĐỒ BÁO CÁO XUẤT NHẬP TỒN</div>
-            <div className="rcSearch">
-              <div className="rcInput">
-                <div className="rcbox1">
-                  <div className="rcbox2">
-                    <span className="rcfrom">Từ ngày</span>
+        <div className={styles["rcbody"]}>
+          <div className={styles["rcframe"]}>
+            <div className={styles["rctitle"]}>
+              BIỂU ĐỒ BÁO CÁO XUẤT NHẬP TỒN
+            </div>
+            <div className={styles["rcSearch"]}>
+              <div className={styles["rcInput"]}>
+                <div className={styles["rcbox1"]}>
+                  <div className={styles["rcbox2"]}>
+                    <span className={styles["rcfrom"]}>Từ ngày</span>
                   </div>
-                  <div className="rcbox3">
+                  <div className={styles["rcbox3"]}>
                     <input
                       type="date"
-                      className="rcdate"
+                      className={styles["rcdate"]}
                       name="timeStart"
                       value={time.timeStart}
                       onChange={(e) => handleChangeTime(e)}
                     />
                   </div>
-                  <div className="rcbox2">
-                    <span className="rcto">Đến ngày</span>
+                  <div className={styles["rcbox2"]}>
+                    <span className={styles["rcto"]}>Đến ngày</span>
                   </div>
-                  <div className="rcbox3">
+                  <div className={styles["rcbox3"]}>
                     <input
                       type="date"
-                      className="rcdate"
+                      className={styles["rcdate"]}
                       name="timeEnd"
                       value={time.timeEnd}
                       onChange={(e) => handleChangeTime(e)}
@@ -194,7 +199,7 @@ const ReportEII = () => {
                   </div>
                 </div>
               </div>
-              <div className="rcbbox">
+              <div className={styles["rcbbox"]}>
                 <select
                   name="rcoption"
                   id="rcoption"
@@ -208,7 +213,7 @@ const ReportEII = () => {
                 </select>
               </div>
             </div>
-            <div className="rcChart">
+            <div className={styles["rcChart"]}>
               {type === "chart" ? (
                 <canvas ref={chartRef}></canvas>
               ) : (

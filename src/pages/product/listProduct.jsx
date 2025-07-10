@@ -1,14 +1,14 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react'
-import { Pagination } from 'antd';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { Pagination } from "antd";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
-import { getProducts, searchProduct } from '@/api/productAPI/product';
-import './ListProduct.css';
-import ConfirmDeleteProduct from '@/components/confirmDeleteProduct/ConfirmDeleteProduct';
-import { formatCurrency } from '@/utils/function/slipFuntion';
-import Layout from '@/components/layout/Layout';
+import { getProducts, searchProduct } from "@/api/productAPI/product";
+import styles from "./ListProduct.module.css";
+import ConfirmDeleteProduct from "@/components/confirmDeleteProduct/ConfirmDeleteProduct";
+import { formatCurrency } from "@/utils/function/slipFuntion";
+import Layout from "@/components/layout/Layout";
 
 const ListProduct = () => {
   const [listProducts, setListProducts] = useState([]);
@@ -61,11 +61,11 @@ const ListProduct = () => {
   };
 
   const handleClickAdd = () => {
-    router.push("/createdProduct");
+    router.push("/product/createdProduct");
   };
 
   const handleClickPen = (productId) => {
-    router.push(`/infoProduct/${productId}`);
+    router.push(`/product/infoProduct/${productId}`);
   };
 
   const handleClickBin = (productId) => {
@@ -79,17 +79,17 @@ const ListProduct = () => {
   return (
     <>
       <Layout>
-        <div className="ListProductkien">
+        <div className={styles["ListProductkien"]}>
           <div>
             <div>
-              <div className="daulist">
-                <div className="left-sec">
-                  <div className="itemleft">
-                    <label className="mhhlistproduct" htmlFor="mhh">
+              <div className={styles["daulist"]}>
+                <div className={styles["left-sec"]}>
+                  <div className={styles["itemleft"]}>
+                    <label className={styles["mhhlistproduct"]} htmlFor="mhh">
                       Mã hàng hóa
                     </label>
                     <input
-                      className="listproductinput"
+                      className={styles["listproductinput"]}
                       type="text"
                       id="mhh"
                       name="productCode"
@@ -99,13 +99,13 @@ const ListProduct = () => {
                   </div>
                 </div>
 
-                <div className="right-sec">
-                  <div className="itemleft">
-                    <label className="mhhlistproduct" htmlFor="thh">
+                <div className={styles["right-sec"]}>
+                  <div className={styles["itemleft"]}>
+                    <label className={styles["mhhlistproduct"]} htmlFor="thh">
                       Tên hàng hóa
                     </label>
                     <input
-                      className="listproductinput"
+                      className={styles["listproductinput"]}
                       type="text"
                       id="thh"
                       name="productName"
@@ -117,59 +117,66 @@ const ListProduct = () => {
 
                 <button
                   type="submit"
-                  className="tklistproduct"
+                  className={styles["tklistproduct"]}
                   onClick={handleSearch}
                 >
                   Tìm kiếm
                 </button>
               </div>
-              <button className="addButtonthem" onClick={handleClickAdd}>
+              <button
+                className={styles["addButtonthem"]}
+                onClick={handleClickAdd}
+              >
                 Thêm hàng hoá
               </button>
-              <div className="listTable">
-                <table className="Listkien">
+              <div className={styles["listTable"]}>
+                <table className={styles["Listkien"]}>
                   <tbody>
-                    <tr className="listtable1">
-                      <th className="listtable2">STT</th>
-                      <th className="listtable2">Tên hàng</th>
-                      <th className="listtable2">Mã hàng</th>
-                      <th className="listtable2">Nhóm hàng</th>
-                      <th className="listtable2">Đơn vị tính</th>
-                      <th className="listtable2">Đơn giá</th>
-                      <th className="center">Thao tác</th>
+                    <tr className={styles["listtable1"]}>
+                      <th className={styles["listtable2"]}>STT</th>
+                      <th className={styles["listtable2"]}>Tên hàng</th>
+                      <th className={styles["listtable2"]}>Mã hàng</th>
+                      <th className={styles["listtable2"]}>Nhóm hàng</th>
+                      <th className={styles["listtable2"]}>Đơn vị tính</th>
+                      <th className={styles["listtable2"]}>Đơn giá</th>
+                      <th className={styles["center"]}>Thao tác</th>
                     </tr>
                     {listProducts.length > 0 &&
                       listProducts.map((product, index) => {
                         return (
                           <tr key={product._id}>
-                            <td className="listtable3">
+                            <td className={styles["listtable3"]}>
                               {(page - 1) * limit + index + 1}
                             </td>
-                            <td className="listtable3">
+                            <td className={styles["listtable3"]}>
                               {product.productName}
                             </td>
-                            <td className="listtable3">
+                            <td className={styles["listtable3"]}>
                               {product.productCode}
                             </td>
-                            <td className="listtable3">
+                            <td className={styles["listtable3"]}>
                               {product.productGroup}
                             </td>
-                            <td className="listtable3">{product.productDVT}</td>
-                            <td className="listtable3">
+                            <td className={styles["listtable3"]}>
+                              {product.productDVT}
+                            </td>
+                            <td className={styles["listtable3"]}>
                               {formatCurrency(product.productPrice)}
                             </td>
-                            <td className="purple">
+                            <td className={styles["purple"]}>
                               <span
-                                className="pen-product"
+                                className={styles["pen-product"]}
                                 onClick={() => handleClickPen(product._id)}
                               >
-                                <i className="fa-solid fa-pen"></i>
+                                <i className={styles["fa-solid fa-pen"]}></i>
                               </span>
                               <span
-                                className="bin-product"
+                                className={styles["bin-product"]}
                                 onClick={() => handleClickBin(product._id)}
                               >
-                                <i className="fa-solid fa-trash-can"></i>
+                                <i
+                                  className={styles["fa-solid fa-trash-can"]}
+                                ></i>
                               </span>
                             </td>
                           </tr>
@@ -194,9 +201,9 @@ const ListProduct = () => {
           </div>
         </div>
         {isDeleteProduct && (
-          <div className="overlay" onClick={handleCancelDelete}>
+          <div className={styles["overlay"]} onClick={handleCancelDelete}>
             <motion.div
-              className="itemDelete"
+              className={styles["itemDelete"]}
               onClick={(e) => e.stopPropagation()}
               animate={{ opacity: 1, scal: 1 }}
               initial={{ opacity: 0, scal: 0.5 }}
@@ -215,6 +222,6 @@ const ListProduct = () => {
       </Layout>
     </>
   );
-}
+};
 
 export default ListProduct;

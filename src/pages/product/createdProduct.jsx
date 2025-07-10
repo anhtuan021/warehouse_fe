@@ -1,12 +1,12 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-import './CreatedProduct.css';
+import styles from "./CreatedProduct.module.css";
 import { useRouter } from "next/router";
-import { createdProduct } from '@/api/productAPI/product';
-import { toast } from 'react-toastify';
-import { readFileAsync } from '@/utils/readFile';
-import Layout from '@/components/layout/Layout';
+import { createdProduct } from "@/api/productAPI/product";
+import { toast } from "react-toastify";
+import { readFileAsync } from "@/utils/readFile";
+import Layout from "@/components/layout/Layout";
 
 const CreatedProduct = () => {
   const router = useRouter();
@@ -53,7 +53,6 @@ const CreatedProduct = () => {
 
       setFiles([...files, ...newFiles]);
       setProduct({ ...product, productMedia: [...rawFiles, ...newRawFiles] });
-
     } catch (error) {
       console.log(error);
     }
@@ -86,75 +85,92 @@ const CreatedProduct = () => {
       setRawFiles([]);
 
       toast.success("Thêm hàng hóa thành công");
-      router.push('/listProduct');
+      router.push("/product/listProduct");
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleCancel = () => {
-    router.push('/listProduct');
+    router.push("/product/listProduct");
   };
 
   return (
     <>
       <Layout>
-        <div className="createProduct">
-          <div className="createProduct-nav">
-            <p className="create-link" onClick={() => navigate("/listProduct")}>
+        <div className={styles["createProduct"]}>
+          <div className={styles["createProduct-nav"]}>
+            <p
+              className={styles["create-link"]}
+              onClick={() => router.push("/product/listProduct")}
+            >
               Quản lý danh mục hàng hóa
             </p>
             <i
-              className="fa-solid fa-chevron-right"
+              className={styles["fa-solid fa-chevron-right"]}
               style={{ color: "black", alignItems: "center", fontSize: "15px" }}
             ></i>
-            <p className="create-link">Thêm hàng hóa </p>
+            <p className={styles["create-link"]}>Thêm hàng hóa </p>
           </div>
 
-          <div className="createProduct-form">
-            <div className="createProductForm-title">Thêm hàng hóa</div>
-            <div className="main-form">
-              <div className="productInfor-row">
-                <label htmlFor="productID" className="createProduct-lbl">
+          <div className={styles["createProduct-form"]}>
+            <div className={styles["createProductForm-title"]}>
+              Thêm hàng hóa
+            </div>
+            <div className={styles["main-form"]}>
+              <div className={styles["productInfor-row"]}>
+                <label
+                  htmlFor="productID"
+                  className={styles["createProduct-lbl"]}
+                >
                   Mã hàng
                 </label>
                 <input
                   type="text"
                   name="productCode"
-                  className="createProduc-textbox"
+                  className={styles["createProduc-textbox"]}
                   value={product.productCode}
                   readOnly
                 />
               </div>
 
-              <div className="productInfor-row">
-                <label htmlFor="productName" className="createProduct-lbl">
+              <div className={styles["productInfor-row"]}>
+                <label
+                  htmlFor="productName"
+                  className={styles["createProduct-lbl"]}
+                >
                   Tên hàng
                 </label>
                 <input
                   type="text"
                   name="productName"
-                  className="createProduc-textbox"
+                  className={styles["createProduc-textbox"]}
                   value={product.productName}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="productInfor-row">
-                <label htmlFor="productGroup" className="createProduct-lbl">
+              <div className={styles["productInfor-row"]}>
+                <label
+                  htmlFor="productGroup"
+                  className={styles["createProduct-lbl"]}
+                >
                   Nhóm hàng
                 </label>
                 <input
                   type="text"
                   name="productGroup"
-                  className="createProduc-textbox"
+                  className={styles["createProduc-textbox"]}
                   value={product.productGroup}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="productInfor-column">
-                <label htmlFor="productImg" className="createProduct-lbl">
+              <div className={styles["productInfor-column"]}>
+                <label
+                  htmlFor="productImg"
+                  className={styles["createProduct-lbl"]}
+                >
                   Hình ảnh
                 </label>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -178,7 +194,7 @@ const CreatedProduct = () => {
                           }}
                         />
                         <i
-                          className="fa-sharp fa-solid fa-xmark"
+                          className={styles["fa-sharp fa-solid fa-xmark"]}
                           onClick={() => handleDeleteFile(index)}
                           style={{
                             position: "absolute",
@@ -193,52 +209,63 @@ const CreatedProduct = () => {
                   <label>
                     <input
                       type="file"
-                      className="input"
+                      className={styles["input"]}
                       onChange={handleFileChange}
                       accept="image/*"
                       style={{ display: "none" }}
                       multiple
                     />
-                    <p className="createdProduct-s4">
-                      <i className="fa-solid fa-cloud-arrow-up fa-2xl"></i>
+                    <p className={styles["createdProduct-s4"]}>
+                      <i
+                        className={styles["fa-solid fa-cloud-arrow-up fa-2xl"]}
+                      ></i>
                     </p>
                   </label>
                 </div>
               </div>
 
-              <div className="productInfor-column">
-                <label htmlFor="productUnit" className="createProduct-lbl">
+              <div className={styles["productInfor-column"]}>
+                <label
+                  htmlFor="productUnit"
+                  className={styles["createProduct-lbl"]}
+                >
                   Đơn vị tính
                 </label>
                 <input
                   type="text"
                   name="productDVT"
-                  className="createProduc-textbox"
+                  className={styles["createProduc-textbox"]}
                   value={product.productDVT}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="productInfor-column">
-                <label htmlFor="productUnit" className="createProduct-lbl">
+              <div className={styles["productInfor-column"]}>
+                <label
+                  htmlFor="productUnit"
+                  className={styles["createProduct-lbl"]}
+                >
                   Giá
                 </label>
                 <input
                   type="text"
                   name="productPrice"
-                  className="createProduc-textbox"
+                  className={styles["createProduc-textbox"]}
                   value={product.productPrice}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="productInfor-column">
-                <label htmlFor="productDescribe" className="createProduct-lbl">
+              <div className={styles["productInfor-column"]}>
+                <label
+                  htmlFor="productDescribe"
+                  className={styles["createProduct-lbl"]}
+                >
                   Mô tả hàng hóa
                 </label>
                 <textarea
                   name="productDescription"
-                  className="createProduc-textbox bigTextbox"
+                  className={styles["createProduc-textbox bigTextbox"]}
                   rows="10"
                   cols="50"
                   placeholder="Viết mô tả ở đây..."
@@ -247,16 +274,16 @@ const CreatedProduct = () => {
                 ></textarea>
               </div>
 
-              <div className="productInfor-row-btn">
+              <div className={styles["productInfor-row-btn"]}>
                 <button
-                  className="save-btn btn-createdProduct"
+                  className={styles["save-btn btn-createdProduct"]}
                   type="submit"
                   onClick={handleSubmit}
                 >
                   Lưu
                 </button>
                 <button
-                  className="cancel-btn btn-createdProduct"
+                  className={styles["cancel-btn btn-createdProduct"]}
                   type="submit"
                   onClick={handleCancel}
                 >
@@ -269,6 +296,6 @@ const CreatedProduct = () => {
       </Layout>
     </>
   );
-}
+};
 
 export default CreatedProduct;

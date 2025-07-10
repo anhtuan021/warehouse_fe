@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Header from "@/components/header/Header";
-import NavBar from "@/components/navBar/NavBar";
 import { editProfile, getUserById, uploadAvatar } from "@/api/userAPI/user";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/userSlice";
 import { useRouter } from "next/router";
-import './Information.css';
+import styles from "./Information.module.css";
+import Layout from "@/components/layout/Layout";
 const Information = () => {
   const [userInf, setUserInf] = useState({
     fullName: "",
@@ -55,7 +54,7 @@ const Information = () => {
       dispatch(setUser(respone));
     };
 
-     getUser();
+    getUser();
   }, [isRefresh, userId]);
 
   const handleChange = (e) => {
@@ -71,7 +70,7 @@ const Information = () => {
     await editProfile(userInf, userId);
     toast.success("Cập nhật thông tin thành công");
     setIsRefresh(!isRefresh);
-    navigate("/");
+    router.push("/");
   };
 
   const handleCancel = () => {
@@ -93,12 +92,11 @@ const Information = () => {
   };
 
   return (
+    <Layout>
     <div>
-      <Header className="info-header" />
-      <NavBar className="info-navBar" />
-      <div className="infoBody">
-        <div className="infoAvatar">
-          <img className="infoImage" src={avatar} alt="" />
+      <div className={styles["infoBody"]}>
+        <div className={styles["infoAvatar"]}>
+          <img className={styles["infoImage"]} src={avatar} alt="" />
           <label
             style={{
               marginLeft: "80%",
@@ -115,88 +113,92 @@ const Information = () => {
               onChange={(e) => handleFileChange(e)}
             />
             <i
-              className="fa-solid fa-pen"
+              className={styles["fa-solid fa-pen"]}
               style={{
                 color: "black",
                 cursor: "pointer",
               }}
             ></i>
           </label>
-          <p className="infoUsername">
+          <p className={styles["infoUsername"]}>
             <b>{userInf.userName}</b>
           </p>
         </div>
-        <div className="infoContainer">
-          <div className="inforForm">
-            <h2 className="info-h2">THÔNG TIN CÁ NHÂN</h2>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoFullName">
+        <div className={styles["infoContainer"]}>
+          <div className={styles["inforForm"]}>
+            <h2 className={styles["info-h2"]}>THÔNG TIN CÁ NHÂN</h2>
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoFullName">
                 Họ và tên
               </label>
-              {/* <input className="info-input" type="text" /> */}
+              {/* <input className={styles["info-input" type="text" /> */}
               <input
-                className="info-input"
+                className={styles["info-input"]}
                 value={userInf.fullName}
                 name="fullName"
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoEmail">
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoEmail">
                 Email
               </label>
-              {/* <input className="info-input" type="text" /> */}
+              {/* <input className={styles["info-input" type="text" /> */}
               <input
-                className="info-input"
+                className={styles["info-input"]}
                 value={userInf.email}
                 name="email"
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoPhone">
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoPhone">
                 Số điện thoại
               </label>
-              {/* <input className="info-input" type="text" /> */}
+              {/* <input className={styles["info-input" type="text" /> */}
               <input
-                className="info-input"
+                className={styles["info-input"]}
                 value={userInf.phoneNumber}
                 name="phoneNumber"
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoStaffCode">
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoStaffCode">
                 Mã nhân viên
               </label>
-              {/* <input className="info-input" type="text" /> */}
-              <input className="info-input" value={userInf.staffCode} readOnly />
+              {/* <input className={styles["info-input" type="text" /> */}
+              <input
+                className={styles["info-input"]}
+                value={userInf.staffCode}
+                readOnly
+              />
             </div>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoPosition">
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoPosition">
                 Chức vụ
               </label>
-              {/* <input className="info-input" type="text" /> */}
+              {/* <input className={styles["info-input" type="text" /> */}
               <input
-                className="info-input"
+                className={styles["info-input"]}
                 value={userInf.role == "manager" ? "Quản lý" : "Nhân viên"}
                 readOnly
               />
             </div>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoAddress">
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoAddress">
                 Địa chỉ
               </label>
-              {/* <input className="info-input" type="text" /> */}
+              {/* <input className={styles["info-input" type="text" /> */}
               <input
-                className="info-input"
+                className={styles["info-input"]}
                 value={userInf.address}
                 name="address"
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoGender">
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoGender">
                 Giới tính
               </label>
               <select
@@ -221,20 +223,27 @@ const Information = () => {
                 <option value="other">Khác</option>
               </select>
             </div>
-            <div className="info-group-field">
-              <label className="info-label" htmlFor="infoDate">
+            <div className={styles["info-group-field"]}>
+              <label className={styles["info-label"]} htmlFor="infoDate">
                 Ngày vào làm
               </label>
-              {/* <input className="info-input" type="text" /> */}
-              <input className="info-input" value={userInf.startDate} readOnly />
+              {/* <input className={styles["info-input" type="text" /> */}
+              <input
+                className={styles["info-input"]}
+                value={userInf.startDate}
+                readOnly
+              />
             </div>
 
-            <div className="button-section">
-              <button className="cancel-button" onClick={handleCancel}>
+            <div className={styles["button-section"]}>
+              <button
+                className={styles["cancel-button"]}
+                onClick={handleCancel}
+              >
                 Hủy
               </button>
               <button
-                className="save-button"
+                className={styles["save-button"]}
                 type="submit"
                 onClick={handleUpdate}
               >
@@ -245,6 +254,7 @@ const Information = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

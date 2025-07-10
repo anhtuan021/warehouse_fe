@@ -13,7 +13,7 @@ import {
 import ConfirmDeleteProduct from "@/components/confirmDeleteProduct/ConfirmDeleteProduct";
 import { formatDate } from "@/utils/function/slipFuntion";
 
-import "./ListInventory.css";
+import styles from "./ListInventory.module.css";
 import Layout from "@/components/layout/Layout";
 const ListInventory = () => {
   const [page, setPage] = useState(1);
@@ -95,20 +95,20 @@ const ListInventory = () => {
   };
 
   const handleClickPen = (recordInventoryId) => {
-    router.push(`/inforInventory/${recordInventoryId}`);
+    router.push(`/inventory/inforInventory/${recordInventoryId}`);
   };
 
   return (
     <>
       <Layout>
-        <div className="container_ListInventory">
-          <div className="sub_ListInventory">
-            <div className="sub_1_ListInventory">
+        <div className={styles["container_ListInventory"]}>
+          <div className={styles["sub_ListInventory"]}>
+            <div className={styles["sub_1_ListInventory"]}>
               <div>
                 <span>Mã phiếu</span>
                 <input
                   type="text"
-                  className="input_ListImportSlip"
+                  className={styles["input_ListImportSlip"]}
                   name="recordInventoryCode"
                   value={searchInfo.recordInventoryCode}
                   onChange={(e) => handleChangeFiedSearch(e)}
@@ -116,7 +116,7 @@ const ListInventory = () => {
                 <span>Tình trạng</span>
                 <select
                   name="status"
-                  className="input2_ListInventory"
+                  className={styles["input2_ListInventory"]}
                   onChange={(e) => handleChangeFiedSearch(e)}
                   value={searchInfo.status}
                 >
@@ -128,46 +128,50 @@ const ListInventory = () => {
               </div>
 
               <div>
-                <span className="date_ListInventory1">Từ ngày</span>
+                <span className={styles["date_ListInventory1"]}>Từ ngày</span>
                 <input
                   type="date"
-                  className="date_ListInventory"
+                  className={styles["date_ListInventory"]}
                   name="timeStart"
                   value={searchInfo.timeStart}
                   onChange={(e) => handleChangeFiedSearch(e)}
                 />
-                <span className="date_ListInventory2">Đến ngày</span>
+                <span className={styles["date_ListInventory2"]}>Đến ngày</span>
                 <input
                   type="date"
-                  className="date_ListInventory3"
+                  className={styles["date_ListInventory3"]}
                   name="timeEnd"
                   value={searchInfo.timeEnd}
                   onChange={(e) => handleChangeFiedSearch(e)}
                 />
               </div>
             </div>
-            <div className="sub_2_ListInventory" onClick={handleSearch}>
+            <div
+              className={styles["sub_2_ListInventory"]}
+              onClick={handleSearch}
+            >
               <span>
-                Tìm kiếm <i className="fa fa-search" aria-hidden="true"></i>
+                Tìm kiếm{" "}
+                <i className={styles["fa fa-search"]} aria-hidden="true"></i>
               </span>
             </div>
           </div>
           <div
-            className="sub_3_ListInventory"
-            onClick={() => navitate("/createdInventory")}
+            className={styles["sub_3_ListInventory"]}
+            onClick={() => router.push("/inventory/createdInventory")}
           >
             <p>+ Tạo biên bản kiểm kê</p>
           </div>
-          <div className="table_ListInventory">
-            <table className="table2_ListInventory">
+          <div className={styles["table_ListInventory"]}>
+            <table className={styles["table2_ListInventory"]}>
               <tbody>
-                <tr className="ListInventory_tr">
-                  <th className="ListInventory_th_1">STT</th>
-                  <th className="ListInventory_th_2">Mã biên bản</th>
-                  <th className="ListInventory_th_2">Mục đích</th>
-                  <th className="ListInventory_th">Thời gian</th>
-                  <th className="ListInventory_th">Tình trạng</th>
-                  <th className="ListInventory_th">Thao tác</th>
+                <tr className={styles["ListInventory_tr"]}>
+                  <th className={styles["ListInventory_th_1"]}>STT</th>
+                  <th className={styles["ListInventory_th_2"]}>Mã biên bản</th>
+                  <th className={styles["ListInventory_th_2"]}>Mục đích</th>
+                  <th className={styles["ListInventory_th"]}>Thời gian</th>
+                  <th className={styles["ListInventory_th"]}>Tình trạng</th>
+                  <th className={styles["ListInventory_th"]}>Thao tác</th>
                 </tr>
                 {recordInventories.length > 0 &&
                   recordInventories.map((recordInventory, index) => (
@@ -175,26 +179,26 @@ const ListInventory = () => {
                       key={recordInventory._id}
                       style={{ backgroundColor: "white" }}
                     >
-                      <td className="listinvetory_td">
+                      <td className={styles["listinvetory_td"]}>
                         {(page - 1) * limit + index + 1}
                       </td>
-                      <td className="listinvetory_td">
+                      <td className={styles["listinvetory_td"]}>
                         {recordInventory.recordInventoryCode}
                       </td>
-                      <td className="listinvetory_td">
+                      <td className={styles["listinvetory_td"]}>
                         {recordInventory.purpose}
                       </td>
-                      <td className="listinvetory_td">
+                      <td className={styles["listinvetory_td"]}>
                         {formatDate(recordInventory.recordInventoryDate)}
                       </td>
-                      <td className="listinvetory_td">
+                      <td className={styles["listinvetory_td"]}>
                         <select
                           className={
                             recordInventory.status === "PENDING"
-                              ? "button1_ListInventory"
+                              ? styles["button1_ListInventory"]
                               : recordInventory.status === "REJECTED"
-                              ? "button3_ListInventory"
-                              : "button_ListInventory"
+                              ? styles["button3_ListInventory"]
+                              : styles["button_ListInventory"]
                           }
                           onChange={(e) =>
                             handleChangeStatus(
@@ -206,10 +210,10 @@ const ListInventory = () => {
                           <option
                             className={
                               recordInventory.status === "PENDING"
-                                ? "button1_ListInventory"
+                                ? styles["button1_ListInventory"]
                                 : recordInventory.status === "REJECTED"
-                                ? "button3_ListInventory"
-                                : "button_ListInventory"
+                                ? styles["button3_ListInventory"]
+                                : styles["button_ListInventory"]
                             }
                             value={recordInventory.status}
                           >
@@ -220,41 +224,41 @@ const ListInventory = () => {
                               : "Từ chối"}
                           </option>
                           <option
-                            className="button1_ListInventory"
+                            className={styles["button1_ListInventory"]}
                             value="PENDING"
                           >
                             Chờ duyệt
                           </option>
                           <option
-                            className="button_ListInventory"
+                            className={styles["button_ListInventory"]}
                             value="CONFIRMED"
                           >
                             Đã duyệt
                           </option>
                           <option
-                            className="button3_ListInventory"
+                            className={styles["button3_ListInventory"]}
                             value="REJECTED"
                           >
                             Từ chối
                           </option>
                         </select>
                       </td>
-                      <td className="purple">
+                      <td className={styles["purple"]}>
                         <span
-                          className="pen_ListImportSlip"
+                          className={styles["pen_ListImportSlip"]}
                           onClick={() => handleClickPen(recordInventory._id)}
                         >
                           <i
-                            className="fa-solid fa-pen"
+                            className={styles["fa-solid fa-pen"]}
                             style={{ color: "blue", fontSize: "20px" }}
                           ></i>
                         </span>
                         <span
-                          className="bin_ListImportSlip"
+                          className={styles["bin_ListImportSlip"]}
                           onClick={() => handleClickBin(recordInventory._id)}
                         >
                           <i
-                            className="fa-solid fa-trash"
+                            className={styles["fa-solid fa-trash"]}
                             style={{ color: "red", fontSize: "20px" }}
                           ></i>
                         </span>
@@ -278,9 +282,9 @@ const ListInventory = () => {
           </div>
         </div>
         {showDelete && (
-          <div className="overlay" onClick={handleCancelDelete}>
+          <div className={styles["overlay"]} onClick={handleCancelDelete}>
             <motion.div
-              className="itemDelete"
+              className={styles["itemDelete"]}
               onClick={(e) => e.stopPropagation()}
               animate={{ opacity: 1, scal: 1 }}
               initial={{ opacity: 0, scal: 0.5 }}

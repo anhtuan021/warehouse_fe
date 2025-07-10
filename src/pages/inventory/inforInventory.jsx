@@ -5,14 +5,14 @@ import { useRouter } from "next/router";
 import { getRecordInventoryById } from "@/api/recordInventoryApi/recordInventory";
 import { formatDate } from "@/utils/function/slipFuntion";
 
-import "./InforInventory.css";
+import styles from "./InforInventory.module.css";
 import Layout from "@/components/layout/Layout";
 const InfoInventory = () => {
   const [recordInventory, setRecordInventory] = useState({});
 
   const router = useRouter();
   const { recordInventoryId } = router.query;
-   useEffect(() => {
+  useEffect(() => {
     if (!recordInventoryId) return;
     const getRecordInventory = async () => {
       const res = await getRecordInventoryById(recordInventoryId);
@@ -33,98 +33,100 @@ const InfoInventory = () => {
   return (
     <>
       <Layout>
-        <div className="container_infinven">
-          <div className="lef_infim">
-            <div className="top_sub_infim">
-              <p className="h1_top_sub_infim">
-                <span onClick={() => navigate("/listInventory")}>
+        <div className={styles["container_infinven"]}>
+          <div className={styles["lef_infim"]}>
+            <div className={styles["top_sub_infim"]}>
+              <p className={styles["h1_top_sub_infim"]}>
+                <span onClick={() => router.push("/inventory/listInventory")}>
                   Danh sách biên bản kiểm kê hàng hóa
                 </span>
                 <span>
                   <i
-                    className="fa-solid fa-chevron-right"
+                    className={styles["fa-solid fa-chevron-right"]}
                     style={{ color: "black" }}
                   ></i>
                 </span>
                 Xem biên bản kiểm kê hàng hóa
               </p>
             </div>
-            <div className="sub_infinven">
-              <div className="f1_infim">
-                <p className="cen_inf">
+            <div className={styles["sub_infinven"]}>
+              <div className={styles["f1_infim"]}>
+                <p className={styles["cen_inf"]}>
                   BẢNG KIỂM KÊ HÀNG HÓA
-                  <span className="icon_x_inf">
-                    <i className="fa-solid fa-x"></i>
+                  <span className={styles["icon_x_inf"]}>
+                    <i className={styles["fa-solid fa-x"]}></i>
                   </span>
                 </p>
               </div>
-              <div className="box1_infim">
+              <div className={styles["box1_infim"]}>
                 <p
-                  className="inf_inf"
+                  className={styles["inf_inf"]}
                   style={{ fontSize: "20px", fontWeight: "700" }}
                 >
                   Thông tin chung
                 </p>
-                <div className="sub_box1_infim">
-                  <div className="flecx_inf">
+                <div className={styles["sub_box1_infim"]}>
+                  <div className={styles["flecx_inf"]}>
                     <p>Mã biên bản</p>
-                    <div className="inp1_inf">
+                    <div className={styles["inp1_inf"]}>
                       {recordInventory.recordInventoryCode}
                     </div>
                   </div>
                   <div></div>
-                  <div className="flecx_inf">
+                  <div className={styles["flecx_inf"]}>
                     <p>Kiểm kê tại kho</p>
-                    <div className="inp1_inf">
+                    <div className={styles["inp1_inf"]}>
                       {recordInventory.agencyId?.agencyName}
                     </div>
                   </div>
-                  <div className="flecx_inf">
+                  <div className={styles["flecx_inf"]}>
                     <p>Ngày kiểm</p>
-                    <div className="inp1_inf">
+                    <div className={styles["inp1_inf"]}>
                       {formatDate(recordInventory.recordInventoryDate)}
                     </div>
                   </div>
                 </div>
-                <div className="sub2_inven">
+                <div className={styles["sub2_inven"]}>
                   <p>Mục đích</p>
-                  <div className="inp2_infven">{recordInventory.purpose}</div>
+                  <div className={styles["inp2_infven"]}>
+                    {recordInventory.purpose}
+                  </div>
                 </div>
               </div>
-              <div className="box2_infim">
-                <table className="List_infim">
+              <div className={styles["box2_infim"]}>
+                <table className={styles["List_infim"]}>
                   <tbody>
-                    <tr className="tr_infim">
-                      <th className="centerinfim" rowSpan={2}>
+                    <tr className={styles["tr_infim"]}>
+                      <th className={styles["centerinfim"]} rowSpan={2}>
                         STT
                       </th>
-                      <th className="centerinfim" rowSpan={2}>
+                      <th className={styles["centerinfim"]} rowSpan={2}>
                         Tên hàng hoá
                       </th>
-                      <th className="centerinfim" rowSpan={2}>
+                      <th className={styles["centerinfim"]} rowSpan={2}>
                         Mã hàng
                       </th>
-                      <th className="centerinfim" rowSpan={2}>
+                      <th className={styles["centerinfim"]} rowSpan={2}>
                         Đơn vị <div>tính</div>
                       </th>
-                      <th className="centerinfim" rowSpan={2}>
+                      <th className={styles["centerinfim"]} rowSpan={2}>
                         Đơn giá
                       </th>
-                      <th className="centerinfim" colSpan={3}>
+                      <th className={styles["centerinfim"]} colSpan={3}>
                         Số Lượng
                       </th>
-                      <th className="centerinfim" rowSpan={2}>
+                      <th className={styles["centerinfim"]} rowSpan={2}>
                         Xử lý
                       </th>
                     </tr>
-                    <tr className="tr_infim">
-                      <th className="centerinfim">
+                    <tr className={styles["tr_infim"]}>
+                      <th className={styles["centerinfim"]}>
                         Theo hệ <div>thống</div>
                       </th>
-                      <th className="centerinfim">
+                      <th className={styles["centerinfim"]}>
                         Theo <div>kiểm kê</div>
                       </th>
-                      <th className="centerinfim">
+                      <th className={styles["centerinfim"]}>
                         Chênh <div>Lệch</div>
                       </th>
                     </tr>
@@ -143,73 +145,75 @@ const InfoInventory = () => {
                           <td>{item.solution ? item.solution : ""}</td>
                         </tr>
                       ))}
-                    <tr className="tr_infim">
-                      <th className="sum_inf_1" colSpan={8}>
+                    <tr className={styles["tr_infim"]}>
+                      <th className={styles["sum_inf_1"]} colSpan={8}>
                         Tổng
-                        <span className="count_inf">
+                        <span className={styles["count_inf"]}>
                           {handleCountDifference()}
                         </span>
                       </th>
-                      <th className="sum_inf_2"></th>
+                      <th className={styles["sum_inf_2"]}></th>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <div className="rig_infim">
+          <div className={styles["rig_infim"]}>
             <div>
               <p>Tình trạng</p>
             </div>
-            <div className="status_infim">
-              <div className="flex2_inf">
+            <div className={styles["status_infim"]}>
+              <div className={styles["flex2_inf"]}>
                 <p>Tạo bởi</p>
-                <button className="b1_infim">
+                <button className={styles["b1_infim"]}>
                   Xóa{" "}
                   <span>
-                    <i className="fa-solid fa-key"></i>
+                    <i className={styles["fa-solid fa-key"]}></i>
                   </span>
                 </button>
               </div>
-              <div className="out_inf">{recordInventory.userId?.fullName}</div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
+                {recordInventory.userId?.fullName}
+              </div>
+              <div className={styles["out_inf"]}>
                 {formatDate(recordInventory.createdAt)}
               </div>
             </div>
-            <div className="status_infim">
-              <div className="flex2_inf">
+            <div className={styles["status_infim"]}>
+              <div className={styles["flex2_inf"]}>
                 <p>Duyệt bởi</p>
-                <button className="b2_infim">
+                <button className={styles["b2_infim"]}>
                   Duyệt{" "}
                   <span>
-                    <i className="fa-solid fa-key"></i>
+                    <i className={styles["fa-solid fa-key"]}></i>
                   </span>
                 </button>
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {recordInventory.status === "CONFIRMED" &&
                   recordInventory.userEditStatus?.fullName}
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {recordInventory.status === "CONFIRMED" &&
                   formatDate(recordInventory.updatedAt)}
               </div>
             </div>
-            <div className="status_infim">
-              <div className="flex2_inf">
+            <div className={styles["status_infim"]}>
+              <div className={styles["flex2_inf"]}>
                 <p>Từ chối bởi</p>
-                <button className="b3_infim">
+                <button className={styles["b3_infim"]}>
                   Từ chối{" "}
                   <span>
-                    <i className="fa-solid fa-key"></i>
+                    <i className={styles["fa-solid fa-key"]}></i>
                   </span>
                 </button>
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {recordInventory.status === "REJECTED" &&
                   recordInventory.userEditStatus?.fullName}
               </div>
-              <div className="out_inf">
+              <div className={styles["out_inf"]}>
                 {recordInventory.status === "REJECTED" &&
                   formatDate(recordInventory.updatedAt)}
               </div>

@@ -1,14 +1,14 @@
 /* eslint-disable */
 import React from "react";
 
-import "./TableReport.css";
+import styles from "./TableReport.module.css";
 const TableReport = ({ list}) => {
   
   return (
     <>
-      <div className="rtbody">
-        <div className="rtTable">
-          <table className="rtInside">
+      <div className={styles["rtbody"]}>
+        <div className={styles["rtTable"]}>
+          <table className={styles["rtInside"]}>
             <tbody>
               <tr>
                 <th>STT</th>
@@ -21,12 +21,12 @@ const TableReport = ({ list}) => {
               {list.length > 0 &&
                 list.map((item, index) => (
                   <tr key={item.productId}>
-                    <td className="rtnum">{index + 1}</td>
+                    <td className={styles["rtnum"]}>{index + 1}</td>
                     <td>{item.productName}</td>
                     <td>{item.productCode}</td>
-                    <td className="rtnum">{item.importQuantity}</td>
-                    <td className="rtnum">{item.exportQuantity}</td>
-                    <td className="rtnum">{item.inventoryQuantity}</td>
+                    <td className={styles["rtnum"]}>{item.importQuantity}</td>
+                    <td className={styles["rtnum"]}>{item.exportQuantity}</td>
+                    <td className={styles["rtnum"]}>{item.inventoryQuantity}</td>
                   </tr>
                 ))}
             </tbody>

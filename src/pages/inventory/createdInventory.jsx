@@ -9,7 +9,7 @@ import { createdRecordInventory } from "@/api/recordInventoryApi/recordInventory
 import { formatCurrency } from "@/utils/function/slipFuntion";
 import DLFromLocal from "@/components/downloadProduct/downloadProductFromLocal/DLFromLocal";
 
-import "./CreatedInventory.css";
+import styles from "./CreatedInventory.module.css";
 import Layout from "@/components/layout/Layout";
 const CreatedInventory = () => {
   const [agencies, setAgencies] = useState([]);
@@ -107,7 +107,7 @@ const CreatedInventory = () => {
     try {
       await createdRecordInventory(data);
       toast.success("Tạo mới biên bản kiểm kê hàng hóa thành công");
-      router.push("/listInventory");
+      router.push("/inventory/listInventory");
     } catch (error) {
       toast.error("Tạo mới biên bản kiểm kê hàng hóa thất bại");
       console.log(error);
@@ -117,20 +117,20 @@ const CreatedInventory = () => {
   const handleCancelCreate = () => {
     setSelectedProducts([]);
     setRecordInventory({});
-    router.push("/listInventory");
+    router.push("/inventory/listInventory");
   };
   return (
     <>
       <Layout>
-        <div className="CreatedInventory-body">
-          <div className="cis-address">
+        <div className={styles["CreatedInventory-body"]}>
+          <div className={styles["cis-address"]}>
             <p>
               <span onClick={() => navigate("/listInventory")}>
                 Danh sách biên bản kiểm kê hàng hóa
               </span>
               <span>
                 <i
-                  className="fa-solid fa-chevron-right"
+                  className={styles["fa-solid fa-chevron-right"]}
                   style={{ color: "black" }}
                 ></i>
               </span>{" "}
@@ -138,18 +138,18 @@ const CreatedInventory = () => {
             </p>
           </div>
           <div
-            className="cis-addbutton"
+            className={styles["cis-addbutton"]}
             onClick={() => setShowUploadFromLocal(true)}
           >
             <button>+Thêm hàng từ hệ thống</button>
           </div>
-          <div className="cis-frame">
-            <div className="cis-title">BẢN KIỂM KÊ HÀNG HÓA</div>
-            <div className="cis-info">
-              <div className="i-title">Thông tin chung</div>
-              <div className="i-line1">
-                <div className="i-o">
-                  <div className="i-name">Kiểm kê tại kho</div>
+          <div className={styles["cis-frame"]}>
+            <div className={styles["cis-title"]}>BẢN KIỂM KÊ HÀNG HÓA</div>
+            <div className={styles["cis-info"]}>
+              <div className={styles["i-title"]}>Thông tin chung</div>
+              <div className={styles["i-line1"]}>
+                <div className={styles["i-o"]}>
+                  <div className={styles["i-name"]}>Kiểm kê tại kho</div>
                   <select
                     name="agencyId"
                     id="source"
@@ -163,19 +163,21 @@ const CreatedInventory = () => {
                     ))}
                   </select>
                 </div>
-                <div className="i-o">
-                  <div className="date_CreatedInventory2">Ngày kiểm</div>
+                <div className={styles["i-o"]}>
+                  <div className={styles["date_CreatedInventory2"]}>
+                    Ngày kiểm
+                  </div>
                   <input
                     type="date"
-                    className="date_CreatedInventory"
+                    className={styles["date_CreatedInventory"]}
                     name="recordInventoryDate"
                     value={recordInventory.recordInventoryDate}
                     onChange={(e) => handleChangeFied(e)}
                   />
                 </div>
               </div>
-              <div className="i-line4">
-                <div className="i-name_1"></div>
+              <div className={styles["i-line4"]}>
+                <div className={styles["i-name_1"]}></div>
                 Mục đích
                 <textarea
                   typeof="text"
@@ -186,40 +188,40 @@ const CreatedInventory = () => {
                 ></textarea>
               </div>
             </div>
-            <div className="CreatedInventory-table">
-              <table className="CreatedInventory-data">
+            <div className={styles["CreatedInventory-table"]}>
+              <table className={styles["CreatedInventory-data"]}>
                 <tbody>
                   <tr>
-                    <th className="listProduct_th" rowSpan={2}>
+                    <th className={styles["listProduct_th"]} rowSpan={2}>
                       STT
                     </th>
-                    <th className="listProduct_th" rowSpan={2}>
+                    <th className={styles["listProduct_th"]} rowSpan={2}>
                       Tên hàng hoá
                     </th>
-                    <th className="listProduct_th" rowSpan={2}>
+                    <th className={styles["listProduct_th"]} rowSpan={2}>
                       Mã hàng
                     </th>
-                    <th className="listProduct_th" rowSpan={2}>
+                    <th className={styles["listProduct_th"]} rowSpan={2}>
                       Đơn vị <div>tính</div>
                     </th>
-                    <th className="listProduct_th" rowSpan={2}>
+                    <th className={styles["listProduct_th"]} rowSpan={2}>
                       Đơn giá
                     </th>
-                    <th className="listProduct_th" colSpan={3}>
+                    <th className={styles["listProduct_th"]} colSpan={3}>
                       Số Lượng
                     </th>
-                    <th className="listProduct_th" rowSpan={2}>
+                    <th className={styles["listProduct_th"]} rowSpan={2}>
                       Xử lý
                     </th>
                   </tr>
                   <tr>
-                    <th className="listProduct_th">
+                    <th className={styles["listProduct_th"]}>
                       Theo hệ <div>thống</div>
                     </th>
-                    <th className="listProduct_th">
+                    <th className={styles["listProduct_th"]}>
                       Theo <div>kiểm kê</div>
                     </th>
-                    <th className="listProduct_th">
+                    <th className={styles["listProduct_th"]}>
                       Chênh <div>Lệch</div>
                     </th>
                   </tr>
@@ -275,33 +277,40 @@ const CreatedInventory = () => {
                         </td>
                       </tr>
                     ))}
-                  <tr className="tr_infim">
-                    <th className="sum_inf_1" colSpan={8}>
+                  <tr className={styles["tr_infim"]}>
+                    <th className={styles["sum_inf_1"]} colSpan={8}>
                       Tổng
-                      <span className="count_inf">
+                      <span className={styles["count_inf"]}>
                         {handleCountDifference()}
                       </span>
                     </th>
-                    <th className="sum_inf_2"></th>
+                    <th className={styles["sum_inf_2"]}></th>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div className="cis-button">
-              <button className="cis-cancel" onClick={handleCancelCreate}>
+            <div className={styles["cis-button"]}>
+              <button
+                className={styles["cis-cancel"]}
+                onClick={handleCancelCreate}
+              >
                 Huỷ
               </button>
-              <button className="cis-save" type="submit" onClick={handleSubmit}>
+              <button
+                className={styles["cis-save"]}
+                type="submit"
+                onClick={handleSubmit}
+              >
                 Lưu
               </button>
             </div>
           </div>
         </div>
         {showUploadFromLocal && (
-          <div className="overlay" onClick={handleCancelUploadLocal}>
+          <div className={styles["overlay"]} onClick={handleCancelUploadLocal}>
             <motion.div
-              className="item-upload"
+              className={styles["item-upload"]}
               onClick={(e) => e.stopPropagation()}
               animate={{ opacity: 1, scal: 1 }}
               initial={{ opacity: 0, scal: 0.5 }}

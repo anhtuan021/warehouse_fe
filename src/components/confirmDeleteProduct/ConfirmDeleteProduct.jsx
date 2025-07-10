@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React from "react";
 
-import "./ConfirmDeleteProduct.css";
+import styles from "./ConfirmDeleteProduct.module.css";
 import { deleteProduct } from "@/api/productAPI/product";
 import { toast } from "react-toastify";
 import { deleteSupply } from "@/api/suppliesAPI/supply";
@@ -70,18 +69,18 @@ const ConfirmDeleteProduct = ({
   };
 
   return (
-    <div className="body">
-      <div className="frame">
-        <span className="close" onClick={() => onCancel()}>
+    <div className={styles["body"]}>
+      <div className={styles["frame"]}>
+        <span className={styles["close"]} onClick={() => onCancel()}>
           {" "}
           &times;{" "}
         </span>
         <p>Bạn chắc chắn muốn xoá?</p>
-        <div className="btn-confirm-deleted">
-          <button className="confirm" onClick={() => handleAgree()}>
+        <div className={styles["btn-confirm-deleted"]}>
+          <button className={styles["confirm"]} onClick={() => handleAgree()}>
             Đồng ý
           </button>
-          <button className="cancel" onClick={() => onCancel()}>
+          <button className={styles["cancel"]} onClick={() => onCancel()}>
             Huỷ
           </button>
         </div>
