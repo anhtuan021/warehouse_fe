@@ -133,6 +133,16 @@ const Login = () => {
                       Đăng nhập
                     </button>
                   </div>
+                  <div className={styles["login-register"]}>
+  <span>Bạn chưa có tài khoản?</span>
+  <button
+    type="button"
+    className={styles["register-btn"]}
+    onClick={() => router.push("/register")}
+  >
+    Đăng ký
+  </button>
+</div>
                 </Form>
               )}
             </Formik>
