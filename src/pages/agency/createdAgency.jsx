@@ -171,7 +171,7 @@ const CreatedAgency = () => {
                   </button>
                   <button
                     className={styles["cancel-btn"]}
-                    onClick={() => router.push("agency/listAgency")}
+                    onClick={() => router.push("/agency/listAgency")}
                   >
                     Hủy
                   </button>

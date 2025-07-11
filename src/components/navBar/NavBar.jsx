@@ -48,8 +48,8 @@ const NavBar = ({ isOpen, setIsOpen }) => {
                   </p>
                 </div>
                 <p
-                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip")}`}
-                  onClick={() => router.push("/exportSlip/listExportSlip")}
+                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip/${type}")}`}
+                  onClick={() => router.push("/exportSlip/listExportSlip/${type}")}
                 >
                   <i className="fa-solid fa-chevron-right" /> Phiếu xuất kho
                 </p>

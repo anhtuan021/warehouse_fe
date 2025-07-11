@@ -50,24 +50,31 @@ const CreatedExportSlip = () => {
     setShowUploadFromLocal(false);
   };
 
-  useEffect(() => {
-  const getProvider = async () => {
-    let res;
-    if (type === "Provider") {
-      res = await searchSupply("", "", "", "provider", 1, 100);
-    } else if (type === "Agency") {
-      res = await searchSupply("", "", "", "agency", 1, 100);
-    }
-    if (res && Array.isArray(res.supplies)) {
-      setListProvider(res.supplies);
-    } else {
+   useEffect(() => {
+    if (!type || (type !== "Provider" && type !== "Agency")) {
       setListProvider([]);
-      // Có thể log lỗi hoặc thông báo cho dev biết
-      // console.error("API trả về không hợp lệ:", res);
+      return;
     }
-  };
-  if (type) getProvider();
-}, [type]);
+    const getProvider = async () => {
+      let res;
+      try {
+        if (type === "Provider") {
+          res = await searchSupply("", "", "", "provider", 1, 100);
+        } else if (type === "Agency") {
+          res = await searchSupply("", "", "", "agency", 1, 100);
+        }
+        if (res && Array.isArray(res.supplies)) {
+          setListProvider(res.supplies);
+        } else {
+          setListProvider([]);
+        }
+      } catch (error) {
+        setListProvider([]);
+        toast.error("Không lấy được danh sách nguồn nhận!");
+      }
+    };
+    getProvider();
+  }, [type]);
 
 
   useEffect(() => {
@@ -193,7 +200,7 @@ const CreatedExportSlip = () => {
   };
 
   const handleCancelCreateExportSlip = () => {
-    router.push(`/exportSlip/listExportSlip/${type}`);
+    router.push(`/exportSlip/listExportSlip`);
   };
   return (
     <>

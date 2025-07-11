@@ -36,19 +36,26 @@ const ListExportSlip = () => {
   });
 
   const [listProvider, setListProvider] = useState([]);
-  useEffect(() => {
-    if (!type) return;
-    const getProvider = async () => {
-      let res;
-      if (type === "Provider") {
-        res = await searchSupply("", "", "", "provider", 1, 100);
-      } else if (type === "Agency") {
-        res = await searchSupply("", "", "", "agency", 1, 100);
-      }
+ useEffect(() => {
+  if (!type) return;
+  const getProvider = async () => {
+    let res;
+    if (type === "Provider") {
+      res = await searchSupply("", "", "", "provider", 1, 100);
+    } else if (type === "Agency") {
+      res = await searchSupply("", "", "", "agency", 1, 100);
+    }
+    if (res && Array.isArray(res.supplies)) {
       setListProvider(res.supplies);
-    };
-    getProvider();
-  }, [type]);
+    } else {
+      setListProvider([]);
+      // Có thể log lỗi hoặc thông báo cho dev biết
+      // console.error("API trả về không hợp lệ:", res);
+    }
+  };
+  getProvider();
+}, [type]);
+
 
   useEffect(() => {
     if (!type) return;
@@ -234,7 +241,14 @@ const ListExportSlip = () => {
           </div>
           <div
             className={styles["sub_3_ListExportSlip"]}
-            onClick={() => router.push(`/exportSlip/createdExportSlip`)}
+            onClick={() => {
+              if (type) {
+                router.push(`/exportSlip/createdExportSlip/${type}`);
+              } else {
+                alert("Vui lòng chọn loại phiếu xuất kho!");
+              }
+            }}
+
           >
             <p>+ Tạo phiếu xuất kho</p>
           </div>
@@ -279,14 +293,14 @@ const ListExportSlip = () => {
                           exportSlip.status === "PENDING"
                             ? "button1_ListExportSlip"
                             : exportSlip.status === "DONE"
-                            ? "button2_ListExportSlip"
-                            : exportSlip.status === "REJECTED"
-                            ? "button3_ListExportSlip"
-                            : exportSlip.status === "CONFIRMED"
-                            ? "button_ListExportSlip"
-                            : exportSlip.status === "RETURNED"
-                            ? "button4_ListExportSlip"
-                            : ""
+                              ? "button2_ListExportSlip"
+                              : exportSlip.status === "REJECTED"
+                                ? "button3_ListExportSlip"
+                                : exportSlip.status === "CONFIRMED"
+                                  ? "button_ListExportSlip"
+                                  : exportSlip.status === "RETURNED"
+                                    ? "button4_ListExportSlip"
+                                    : ""
                         }
                         onChange={(e) =>
                           handleUpdateStatus(exportSlip._id, e.target.value)
@@ -297,28 +311,28 @@ const ListExportSlip = () => {
                             exportSlip.status === "PENDING"
                               ? "button1_ListExportSlip"
                               : exportSlip.status === "DONE"
-                              ? "button2_ListExportSlip"
-                              : exportSlip.status === "REJECTED"
-                              ? "button3_ListExportSlip"
-                              : exportSlip.status === "CONFIRMED"
-                              ? "button_ListExportSlip"
-                              : exportSlip.status === "RETURNED"
-                              ? "button4_ListExportSlip"
-                              : ""
+                                ? "button2_ListExportSlip"
+                                : exportSlip.status === "REJECTED"
+                                  ? "button3_ListExportSlip"
+                                  : exportSlip.status === "CONFIRMED"
+                                    ? "button_ListExportSlip"
+                                    : exportSlip.status === "RETURNED"
+                                      ? "button4_ListExportSlip"
+                                      : ""
                           }
                           value={exportSlip.status}
                         >
                           {exportSlip.status === "PENDING"
                             ? "Chờ duyệt"
                             : exportSlip.status === "DONE"
-                            ? "Đã xuất"
-                            : exportSlip.status === "REJECTED"
-                            ? "Từ chối"
-                            : exportSlip.status === "CONFIRMED"
-                            ? "Đã duyệt"
-                            : exportSlip.status === "RETURNED"
-                            ? "Hoàn hàng"
-                            : ""}
+                              ? "Đã xuất"
+                              : exportSlip.status === "REJECTED"
+                                ? "Từ chối"
+                                : exportSlip.status === "CONFIRMED"
+                                  ? "Đã duyệt"
+                                  : exportSlip.status === "RETURNED"
+                                    ? "Hoàn hàng"
+                                    : ""}
                         </option>
                         <option
                           className={styles["button1_ListExportSlip"]}
