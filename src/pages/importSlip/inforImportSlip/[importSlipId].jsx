@@ -58,7 +58,7 @@ const InforImportSlip = () => {
                   <span className={styles["icon_x_inf"]}>
                     <i
                       className={styles["fa-solid fa-x"]}
-                      onClick={() => navigate(`/listImportSlip/${type}`)}
+                      onClick={() => router.push(`/listImportSlip/${type}`)}
                     ></i>
                   </span>
                 </p>

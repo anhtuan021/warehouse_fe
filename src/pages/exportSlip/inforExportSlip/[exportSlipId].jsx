@@ -8,7 +8,7 @@ const InforExportSlip = () => {
   const [exportSlip, setExportSlip] = useState({});
   const [type, setType] = useState("");
   const router = useRouter();
-  const { exportSlipId } = useParams();
+  const { exportSlipId } = router.query;
   useEffect(() => {
     if (!exportSlipId) return;
     const getExportSlip = async () => {

@@ -79,11 +79,13 @@
     width: 100%;
 }
 
-.exportForm-listProduct th, td {
+.exportForm-listProduct th,
+.exportForm-listProduct td {
     padding: 10px 20px;
     text-align: center;
     border: 1px solid #000;
 }
+
 
 .exportForm-listProduct th {
     background-color: rgb(73, 73, 74);

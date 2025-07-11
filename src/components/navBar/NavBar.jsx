@@ -48,8 +48,8 @@ const NavBar = ({ isOpen, setIsOpen }) => {
                   </p>
                 </div>
                 <p
-                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip/${type}")}`}
-                  onClick={() => router.push("/exportSlip/listExportSlip/${type}")}
+                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip/Provider")}`}
+                  onClick={() => router.push("/exportSlip/listExportSlip/Provider")}
                 >
                   <i className="fa-solid fa-chevron-right" /> Phiếu xuất kho
                 </p>
@@ -61,8 +61,8 @@ const NavBar = ({ isOpen, setIsOpen }) => {
                   </p>
                 </div>
                 <p
-                  className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip")}`}
-                  onClick={() => router.push(`/importSlip/listImportSlip`)}
+                  className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip/Provider")}`}
+                  onClick={() => router.push(`/importSlip/listImportSlip/Provider`)}
                 >
                   <i className="fa-solid fa-chevron-right" /> Phiếu nhập kho
                 </p>
@@ -82,8 +82,8 @@ const NavBar = ({ isOpen, setIsOpen }) => {
                   </p>
                 </div>
                 <p
-                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip")}`}
-                  onClick={() => router.push(`/exportSlip/listExportSlip`)}
+                  className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip/Agency")}`}
+                  onClick={() => router.push(`/exportSlip/listExportSlip/Agency`)}
                 >
                   <i className="fa-solid fa-chevron-right" /> Phiếu xuất kho
                 </p>
@@ -95,8 +95,8 @@ const NavBar = ({ isOpen, setIsOpen }) => {
                   </p>
                 </div>
                 <p
-                  className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip")}`}
-                  onClick={() => router.push(`/importSlip/listImportSlip`)}
+                  className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip/Agency")}`}
+                  onClick={() => router.push(`/importSlip/listImportSlip/Agency`)}
                 >
                   <i className="fa-solid fa-chevron-right" /> Phiếu nhập kho
                 </p>

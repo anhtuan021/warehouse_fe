@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { Pagination } from "antd";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPen, faEye } from "@fortawesome/free-solid-svg-icons";
 import { searchSupply } from "@/api/suppliesAPI/supply";
 import {
   getExportSlipByType,
@@ -367,27 +368,24 @@ const ListExportSlip = () => {
                       </select>
                     </td>
                     <td className={styles["purple"]}>
-                      <span
-                        className={styles["pen_ListExportSlip"]}
-                        onClick={() => handleClickPen(exportSlip._id)}
-                      >
-                        <i
-                          className={
-                            styles["fa-solid fa-pen penListExportSlip"]
-                          }
-                        ></i>
-                      </span>
-                      <span
-                        className={styles["bin_ListExportSlip"]}
-                        onClick={() => handleClickBin(exportSlip._id)}
-                      >
-                        <i
-                          className={
-                            styles["fa-solid fa-trash binListExportSlip"]
-                          }
-                        ></i>
-                      </span>
-                    </td>
+                        <button
+                          className={`${styles["icon-action"]} ${styles["pen_ListImportSlip"]}`}
+                          title="Sửa"
+                          onClick={() => handleClickPen(exportSlip._id)}
+                          type="button"
+                        >
+                          <FontAwesomeIcon icon={faPen} />
+                        </button>
+                        <button
+                          className={`${styles["icon-action"]} ${styles["bin_ListImportSlip"]}`}
+                          title="Xóa"
+                          onClick={() => handleClickBin(exportSlip._id)}
+                          type="button"
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </td>
+
                   </tr>
                 ))}
             </table>

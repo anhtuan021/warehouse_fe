@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { Pagination } from "antd";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPen, faEye } from "@fortawesome/free-solid-svg-icons";
 import { searchSupply } from "@/api/suppliesAPI/supply";
 import {
   getImportSlipByType,
@@ -286,12 +287,12 @@ const ListImportSlip = () => {
                             importSlip.status === "PENDING"
                               ? styles["button1_ListImportSlip"]
                               : importSlip.status === "DONE"
-                              ? styles["button2_ListImportSlip"]
-                              : importSlip.status === "REJECTED"
-                              ? styles["button3_ListImportSlip"]
-                              : importSlip.status === "CONFIRMED"
-                              ? styles["button_ListImportSlip"]
-                              : ""
+                                ? styles["button2_ListImportSlip"]
+                                : importSlip.status === "REJECTED"
+                                  ? styles["button3_ListImportSlip"]
+                                  : importSlip.status === "CONFIRMED"
+                                    ? styles["button_ListImportSlip"]
+                                    : ""
                           }
                           onChange={(e) =>
                             handleUpdateStatus(importSlip._id, e.target.value)
@@ -302,24 +303,24 @@ const ListImportSlip = () => {
                               importSlip.status === "PENDING"
                                 ? styles["button1_ListImportSlip"]
                                 : importSlip.status === "DONE"
-                                ? styles["button2_ListImportSlip"]
-                                : importSlip.status === "REJECTED"
-                                ? styles["button3_ListImportSlip"]
-                                : importSlip.status === "CONFIRMED"
-                                ? styles["button_ListImportSlip"]
-                                : ""
+                                  ? styles["button2_ListImportSlip"]
+                                  : importSlip.status === "REJECTED"
+                                    ? styles["button3_ListImportSlip"]
+                                    : importSlip.status === "CONFIRMED"
+                                      ? styles["button_ListImportSlip"]
+                                      : ""
                             }
                             value={importSlip.status}
                           >
                             {importSlip.status === "PENDING"
                               ? "Chờ duyệt"
                               : importSlip.status === "DONE"
-                              ? "Đã nhập"
-                              : importSlip.status === "REJECTED"
-                              ? "Từ chối"
-                              : importSlip.status === "CONFIRMED"
-                              ? "Đã duyệt"
-                              : ""}
+                                ? "Đã nhập"
+                                : importSlip.status === "REJECTED"
+                                  ? "Từ chối"
+                                  : importSlip.status === "CONFIRMED"
+                                    ? "Đã duyệt"
+                                    : ""}
                           </option>
                           <option
                             className={styles["button1_ListImportSlip"]}
@@ -334,7 +335,7 @@ const ListImportSlip = () => {
                             Đã nhập
                           </option>
                           <option
-                            className={style["button3_ListImportSlip"]}
+                            className={styles["button3_ListImportSlip"]}
                             value="REJECTED"
                           >
                             Từ chối
@@ -348,27 +349,25 @@ const ListImportSlip = () => {
                         </select>
                       </td>
                       <td className={styles["purple"]}>
-                        <span
-                          className={styles["pen_ListImportSlip"]}
+                        <button
+                          className={`${styles["icon-action"]} ${styles["pen_ListImportSlip"]}`}
+                          title="Sửa"
                           onClick={() => handleClickPen(importSlip._id)}
+                          type="button"
                         >
-                          <i
-                            className={
-                              styles["fa-solid fa-pen penListImportSlip"]
-                            }
-                          ></i>
-                        </span>
-                        <span
-                          className={styles["bin_ListImportSlip"]}
+                          <FontAwesomeIcon icon={faPen} />
+                        </button>
+                        <button
+                          className={`${styles["icon-action"]} ${styles["bin_ListImportSlip"]}`}
+                          title="Xóa"
                           onClick={() => handleClickBin(importSlip._id)}
+                          type="button"
                         >
-                          <i
-                            className={
-                              styles["fa-solid fa-trash binListImportSlip"]
-                            }
-                          ></i>
-                        </span>
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
                       </td>
+
+
                     </tr>
                   ))}
               </tbody>

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { Pagination } from "antd";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import {
   getRecordInventories,
@@ -197,8 +199,8 @@ const ListInventory = () => {
                             recordInventory.status === "PENDING"
                               ? styles["button1_ListInventory"]
                               : recordInventory.status === "REJECTED"
-                              ? styles["button3_ListInventory"]
-                              : styles["button_ListInventory"]
+                                ? styles["button3_ListInventory"]
+                                : styles["button_ListInventory"]
                           }
                           onChange={(e) =>
                             handleChangeStatus(
@@ -212,16 +214,16 @@ const ListInventory = () => {
                               recordInventory.status === "PENDING"
                                 ? styles["button1_ListInventory"]
                                 : recordInventory.status === "REJECTED"
-                                ? styles["button3_ListInventory"]
-                                : styles["button_ListInventory"]
+                                  ? styles["button3_ListInventory"]
+                                  : styles["button_ListInventory"]
                             }
                             value={recordInventory.status}
                           >
                             {recordInventory.status === "PENDING"
                               ? "Chờ duyệt"
                               : recordInventory.status === "CONFIRMED"
-                              ? "Đã duyệt"
-                              : "Từ chối"}
+                                ? "Đã duyệt"
+                                : "Từ chối"}
                           </option>
                           <option
                             className={styles["button1_ListInventory"]}
@@ -244,24 +246,24 @@ const ListInventory = () => {
                         </select>
                       </td>
                       <td className={styles["purple"]}>
-                        <span
+                        <button
                           className={styles["pen_ListImportSlip"]}
+                          title="Sửa"
                           onClick={() => handleClickPen(recordInventory._id)}
+                          type="button"
+                          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
                         >
-                          <i
-                            className={styles["fa-solid fa-pen"]}
-                            style={{ color: "blue", fontSize: "20px" }}
-                          ></i>
-                        </span>
-                        <span
+                          <FontAwesomeIcon icon={faPen} style={{ color: "blue", fontSize: "20px" }} />
+                        </button>
+                        <button
                           className={styles["bin_ListImportSlip"]}
+                          title="Xóa"
                           onClick={() => handleClickBin(recordInventory._id)}
+                          type="button"
+                          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
                         >
-                          <i
-                            className={styles["fa-solid fa-trash"]}
-                            style={{ color: "red", fontSize: "20px" }}
-                          ></i>
-                        </span>
+                          <FontAwesomeIcon icon={faTrash} style={{ color: "red", fontSize: "20px" }} />
+                        </button>
                       </td>
                     </tr>
                   ))}
