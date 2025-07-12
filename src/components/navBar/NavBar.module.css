@@ -1,81 +1,106 @@
 .main {
-    width: 21%;
-    max-height: 90vh;
-    overflow: auto;
-    border-right: 1px solid #ccc;
+    width: 270px;
+    min-width: 270px;
+    max-width: 270px;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: 3px solid #0b08ab;
     background: #fff;
     position: fixed;
     top: 70px;
     left: 0;
     z-index: 999;
-    transition: width 0.3s;
+    border-radius: 0 18px 18px 0;
+    box-shadow: 0 6px 24px 0 rgba(31, 38, 135, 0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
 }
 
 .navBar {
-    padding: 24px;
-    font-size: 16px;
+    padding: 0;
+    font-size: 15px;
     width: 100%;
     background-color: #fff;
-    color: rgba(2, 9, 206, 0.845);
+    color: #0b08ab;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .hr {
-    border-top: 2px solid rgba(2, 9, 206, 0.845);
+    border-top: 1.5px solid #0b08ab;
+    margin: 18px 0 0 0;
+    width: 90%;
+    align-self: center;
 }
 
-.navBar-menu {
-    padding: 8px 0;
-}
-
-.navBar-user {
+.navBarUser {
     display: flex;
-    margin-bottom: 24px;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 32px 0 10px 0;
 }
 
-.user-avt {
-    height: 100px;
-    width: 100px;
+.userAvt {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
 }
 
-.user-avt img {
-    width: 100%;
-    height: 100%;
+.userAvt img {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 3px solid #0b08ab;
+}
+
+.userName {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0b08ab;
+    margin-top: 8px;
+    text-align: center;
     cursor: pointer;
 }
 
-.user-name {
-    height: 100px;
-    line-height: 100px;
-    margin-left: 16px;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.user-name:hover {
+.userName:hover {
     text-decoration: underline;
 }
 
-.navBar-menu-item p {
-    padding: 8px;
-    color: rgba(2, 9, 206, 0.845);
-    margin-top: 5px;
+.navBarMenu {
+    padding: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.navBarMenuItem p {
+    padding: 10px 0 10px 18px;
+    color: #0b08ab;
+    margin: 0;
     border-radius: 8px;
     transition: background 0.2s, color 0.2s;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
 }
 
-.navBar-menu-item p:hover {
+.navBarMenuItem p:hover {
     color: #fff;
-    background-color: rgba(2, 103, 254, 0.845);
+    background-color: #255be7;
     cursor: pointer;
 }
 
 .active {
     color: #fff !important;
-    background-color: rgba(2, 9, 206, 0.845);
+    background-color: #0b08ab !important;
     border-radius: 8px;
     cursor: pointer;
 }
@@ -85,18 +110,41 @@
 }
 
 .icon-navbar {
-    color: rgba(2, 9, 206, 0.845);
-    margin-right: 10px;
+    color: #0b08ab;
+    margin-right: 8px;
+    font-size: 20px;
 }
 
-.sub-menu {
+.menuItemTitle {
+    font-weight: 700;
+    color: #0b08ab;
+    margin-top: 10px;
+    font-size: 15px;
+    padding-left: 0;
+}
+
+.subMenu {
     padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.sub-menu-item {
-    margin-left: 10px;
+.subMenuItem {
+    margin-left: 0;
 }
 
-.sub-menu-item p {
-    margin-left: 23.25px;
+.subMenuItem p {
+    margin-left: 0;
+    font-size: 14px;
+    color: #0b08ab;
+    padding: 7px 0 7px 8px;
+    border-radius: 6px;
+    gap: 8px;
+    font-weight: 400;
+}
+
+.subMenuItem p:hover {
+    background: #e6f0ff;
+    color: #0b08ab;
 }

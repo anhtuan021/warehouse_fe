@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Image from "next/image";
-import hinhnen from "@/assets/images/hinhnen.jpg";
-import Header from "@/components/header/Header";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { login } from "@/api/userAPI/user";
 import { toast } from "react-toastify";
 import { setUser } from "@/store/userSlice";
 import { loginValidation } from "@/utils/validation.js/userValidation";
+import Header from "@/components/header/Header";
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   const dispatch = useDispatch();
   const router = useRouter();
   const initialValues = {
@@ -46,9 +45,12 @@ const Login = () => {
         <div className={styles["login-contain"]}>
           <div className={styles["login-left"]}>
             <Image
-              src={hinhnen}
-              alt=""
+              src="/img/login/image 4.png"
+              alt="login-visual"
               className={styles["login-image"]}
+              width={400}
+              height={400}
+              priority
             />
           </div>
           <div className={styles["login-right"]}>
@@ -60,12 +62,11 @@ const Login = () => {
               {({ handleSubmit, errors }) => (
                 <Form onSubmit={handleSubmit}>
                   <div className={styles["login-h1"]}>
-                    Đăng nhập vào tài khoản
+                    ĐĂNG NHẬP VÀO TÀI KHOẢN
                   </div>
-
                   <div className={styles["login-group"]}>
                     <label htmlFor="userName" className={styles["login-label"]}>
-                      Tên đăng nhập:{" "}
+                      Tên đăng nhập:
                     </label>
                     <Field
                       name="userName"
@@ -78,10 +79,9 @@ const Login = () => {
                       component="div"
                     />
                   </div>
-
                   <div className={styles["login-group login-eye"]}>
                     <label htmlFor="password" className={styles["login-label"]}>
-                      Mật khẩu:{" "}
+                      Mật khẩu:
                     </label>
                     <Field
                       name="password"
@@ -94,14 +94,12 @@ const Login = () => {
                       }`}
                       onClick={tooglePasswordVisibility}
                     />
-
                     <ErrorMessage
                       name="password"
                       style={{ color: "red", fontSize: "12px" }}
                       component="div"
                     />
                   </div>
-
                   <div className={styles["login-s3"]}>
                     <div className={styles["rememberPW"]}>
                       <input
@@ -116,33 +114,18 @@ const Login = () => {
                         Ghi nhớ tôi
                       </label>
                     </div>
-
                     <div className={styles["forgetPW"]}>
-                      <p
-                        href="#"
+                      <span
                         className={styles["foget-text"]}
                         onClick={handleClickForgetPassword}
                       >
                         Quên mật khẩu?
-                      </p>
+                      </span>
                     </div>
                   </div>
-
                   <div className={styles["login-btn"]}>
-                    <button type="submit" id="loginBTN">
-                      Đăng nhập
-                    </button>
+                    <button type="submit" className={styles.loginBTN}>ĐĂNG NHẬP</button>
                   </div>
-                  <div className={styles["login-register"]}>
-  <span>Bạn chưa có tài khoản?</span>
-  <button
-    type="button"
-    className={styles["register-btn"]}
-    onClick={() => router.push("/register")}
-  >
-    Đăng ký
-  </button>
-</div>
                 </Form>
               )}
             </Formik>
@@ -154,3 +137,4 @@ const Login = () => {
 };
 
 export default Login;
+

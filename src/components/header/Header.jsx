@@ -3,6 +3,7 @@ import styles from './Header.module.css';
 import { logout } from '@/api/userAPI/user';
 import { toast } from 'react-toastify';
 import { useRouter } from "next/router";
+import Image from 'next/image';
 
 const Header = ({ isOpen, setIsOpen }) => {
   const router = useRouter();
@@ -24,33 +25,21 @@ const Header = ({ isOpen, setIsOpen }) => {
 
   return (
     <div className={styles.headercontaint}>
-      <span
-        className={styles.menuToggle}
-        onClick={handleMenuClick}
-        title={isOpen ? "Ẩn menu" : "Hiện menu"}
-        tabIndex={0}
-        role="button"
-        style={{ marginLeft: "20px", display: "flex", alignItems: "center", cursor: "pointer" }}
-      >
-        <i className={`fa-solid fa-bars ${styles.icon}`}></i>
-        <span className={styles.iconText}>Menu</span>
+      <Image src="/img/login/Rectangle 36.png" alt="header-bg" fill className={styles.headerbg} />
+      <span className={styles.menuToggle} onClick={handleMenuClick} tabIndex={0} role="button" style={{ marginLeft: "20px", display: "flex", alignItems: "center", cursor: "pointer", zIndex: 2 }}>
+        {/* Không còn text Menu */}
       </span>
       <p className={styles.tenheader}>
-        <i className={`fa-solid fa-star-half-stroke ${styles.icon}`}></i>
-        Công Ty ABC
+        {/* Không còn logo và text Công ty ABC */}
       </p>
       <div className={styles.iconheader}>
-        <span className={styles.iconGroup}>
-          <i className={`fa-solid fa-bell ${styles.icon}`}></i>
-          <span className={styles.iconText}>Thông báo</span>
+        <span className={styles.iconGroup} style={{display: 'flex', alignItems: 'center', gap: 6}}>
+          <Image src="/img/login/Group 22.png" alt="Thông báo" width={28} height={28} />
+          {/* Không còn text Thông báo */}
         </span>
-        <span
-          className={styles.logout}
-          onClick={handleLogout}
-          style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 6 }}
-        >
-          <i className={`fa-solid fa-right-to-bracket ${styles.icon}`}></i>
-          Đăng xuất
+        <span className={styles.logout} onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 6 }}>
+          <Image src="/img/login/Frame 37.png" alt="Đăng xuất" width={28} height={28} />
+          {/* Không còn text Đăng xuất */}
         </span>
       </div>
     </div>

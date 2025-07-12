@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./NavBar.module.css";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const NavBar = ({ isOpen, setIsOpen }) => {
   const user = useSelector((state) => state.user);
@@ -17,54 +18,56 @@ const NavBar = ({ isOpen, setIsOpen }) => {
   return (
     <div className={styles.main} style={{ display: isOpen ? "block" : "none" }}>
       <div className={styles.navBar}>
+        {/* User Info Section */}
         <div className={styles.navBarUser}>
           <div className={styles.userAvt}>
-            <img src={user.avatar} alt="" onClick={handleClickProfile} />
+            <img src={user.avatar} alt="avatar" onClick={handleClickProfile} />
           </div>
           <div className={styles.userName} onClick={handleClickProfile}>
-            {user.userName}
+            {user.fullName || user.userName}
           </div>
         </div>
         <hr className={styles.hr} />
+        {/* Menu Section */}
         <div className={styles.navBarMenu}>
           <div className={styles.navBarMenuItem}>
             <p
               onClick={() => router.push("/")}
               className={isActive("/")}
             >
-              <i className="fa-solid fa-chart-pie" /> Tổng quan
+              <Image src="/img/homepage/Group 45.png" alt="overview" width={22} height={22} style={{marginRight: 8}} /> Tổng quan
             </p>
           </div>
 
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p>
-                <i className="fa-solid fa-clipboard" /> Xuất - nhập với NCC
+                <Image src="/img/homepage/Component 11.png" alt="icon" width={20} height={20} style={{marginRight: 8}} /> Xuất - nhập với NCC
               </p>
               <div className={styles.subMenu}>
                 <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right" /> Xuất kho
+                    <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Xuất kho
                   </p>
                 </div>
                 <p
                   className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip/Provider")}`}
                   onClick={() => router.push("/exportSlip/listExportSlip/Provider")}
                 >
-                  <i className="fa-solid fa-chevron-right" /> Phiếu xuất kho
+                  <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Phiếu xuất kho
                 </p>
               </div>
               <div className={styles.subMenu}>
                 <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right" /> Nhập kho
+                    <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Nhập kho
                   </p>
                 </div>
                 <p
                   className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip/Provider")}`}
                   onClick={() => router.push(`/importSlip/listImportSlip/Provider`)}
                 >
-                  <i className="fa-solid fa-chevron-right" /> Phiếu nhập kho
+                  <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Phiếu nhập kho
                 </p>
               </div>
             </div>
@@ -73,32 +76,32 @@ const NavBar = ({ isOpen, setIsOpen }) => {
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p>
-                <i className="fa-solid fa-clipboard" /> Xuất - nhập với nội bộ
+                <Image src="/img/homepage/Component 11.png" alt="icon" width={20} height={20} style={{marginRight: 8}} /> Xuất - nhập với NVBH
               </p>
               <div className={styles.subMenu}>
                 <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right" /> Xuất kho
+                    <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Xuất kho
                   </p>
                 </div>
                 <p
                   className={`${styles.subMenuItem} ${isActive("/exportSlip/listExportSlip/Agency")}`}
                   onClick={() => router.push(`/exportSlip/listExportSlip/Agency`)}
                 >
-                  <i className="fa-solid fa-chevron-right" /> Phiếu xuất kho
+                  <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Phiếu xuất kho
                 </p>
               </div>
               <div className={styles.subMenu}>
                 <div className={styles.subMenuItem}>
                   <p>
-                    <i className="fa-solid fa-chevron-right" /> Nhập kho
+                    <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Nhập kho
                   </p>
                 </div>
                 <p
                   className={`${styles.subMenuItem} ${isActive("/importSlip/listImportSlip/Agency")}`}
                   onClick={() => router.push(`/importSlip/listImportSlip/Agency`)}
                 >
-                  <i className="fa-solid fa-chevron-right" /> Phiếu nhập kho
+                  <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Phiếu nhập kho
                 </p>
               </div>
             </div>
@@ -109,13 +112,13 @@ const NavBar = ({ isOpen, setIsOpen }) => {
               onClick={() => router.push("/inventory/listInventory")}
               className={isActive("/inventory/listInventory")}
             >
-              <i className="fa-solid fa-chart-simple" /> Quản lý kiểm kê
+              <Image src="/img/homepage/Group 5 (1).png" alt="inventory" width={20} height={20} style={{marginRight: 8}} /> Quản lý kiểm kê
             </p>
           </div>
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p>
-                <i className="fa-solid fa-chart-simple" /> Báo cáo thống kê
+                <Image src="/img/homepage/Group 4.png" alt="report" width={20} height={20} style={{marginRight: 8}} /> Báo cáo thống kê
               </p>
               <div className={styles.subMenu}>
                 <div className={styles.subMenuItem}>
@@ -123,19 +126,19 @@ const NavBar = ({ isOpen, setIsOpen }) => {
                     onClick={() => router.push("/report/reportImport")}
                     className={isActive("/report/reportImport")}
                   >
-                    <i className="fa-solid fa-chevron-right" /> Báo cáo nhập kho
+                    <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Báo cáo nhập kho
                   </p>
                   <p
                     onClick={() => router.push("/report/reportInventory")}
                     className={isActive("/report/reportInventory")}
                   >
-                    <i className="fa-solid fa-chevron-right" /> Báo cáo tồn kho
+                    <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Báo cáo tồn kho
                   </p>
                   <p
                     onClick={() => router.push("/report/reportEII")}
                     className={isActive("/report/reportEII")}
                   >
-                    <i className="fa-solid fa-chevron-right" /> Báo cáo xuất nhập tồn
+                    <Image src="/img/homepage/Vector 9.png" alt="arrow" width={12} height={12} style={{marginRight: 6}} /> Báo cáo xuất nhập tồn
                   </p>
                 </div>
               </div>
@@ -145,7 +148,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p>
-                <i className="fa-solid fa-bars-staggered" /> Danh mục
+                <Image src="/img/homepage/Group 3.png" alt="category" width={20} height={20} style={{marginRight: 8}} /> Danh mục
               </p>
               <div className={styles.subMenu}>
                 <div className={styles.subMenuItem}>

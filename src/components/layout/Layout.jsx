@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./Layout.module.css";
 
 const Layout = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div>

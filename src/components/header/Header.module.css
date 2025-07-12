@@ -1,15 +1,27 @@
 .headercontaint {
-    background-color: blue;
     width: 100%;
     height: 70px;
     display: flex;
     align-items: center;
-    font-size: 25px;
+    font-size: 22px;
     color: white;
     position: relative;
     z-index: 1000;
     box-sizing: border-box;
-    padding-right: 24px;
+    padding: 0 32px;
+    background: transparent;
+    overflow: hidden;
+}
+
+.headerbg {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .iconheader {
@@ -20,6 +32,7 @@
     align-items: center;
     margin-left: auto;
     gap: 24px;
+    z-index: 2;
 }
 
 .tenheader {
@@ -27,9 +40,19 @@
     height: 100%;
     display: flex;
     align-items: center;
-    margin-left: 50px;
+    margin-left: 36px;
     font-weight: bold;
     gap: 10px;
+    z-index: 2;
+    font-size: 22px;
+    color: #fff;
+}
+
+.iconText {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 400;
+    z-index: 2;
 }
 
 .icon {
@@ -56,21 +79,27 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: white;
+    color: #fff;
     font-weight: 500;
     cursor: pointer;
     transition: color 0.2s;
-    font-size: 18px;
+    font-size: 16px;
+    z-index: 2;
 }
 
 .menuToggle {
     display: flex;
+    align-items: center;
+    z-index: 2;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 @media (max-width: 900px) {
     .tenheader {
-        margin-left: 16px;
-        font-size: 20px;
+        margin-left: 12px;
+        font-size: 18px;
     }
     .iconheader {
         gap: 12px;
