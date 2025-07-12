@@ -51,7 +51,7 @@ const CreatedExportSlip = () => {
     setShowUploadFromLocal(false);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (!type || (type !== "Provider" && type !== "Agency")) {
       setListProvider([]);
       return;
@@ -201,8 +201,12 @@ const CreatedExportSlip = () => {
   };
 
   const handleCancelCreateExportSlip = () => {
-    router.push(`/exportSlip/listExportSlip`);
+    router.push(`/exportSlip/listExportSlip/${type}`);
   };
+  const handleDeleteProduct = (productId) => {
+    setSelectedProducts((prev) => prev.filter((p) => p._id !== productId));
+  };
+
   return (
     <>
       <Layout>
@@ -367,14 +371,20 @@ const CreatedExportSlip = () => {
                               {formatCurrency(calculateLineTotal(product))}
                             </td>
                             <td>
-                              <button className={styles["delete-button"]}>
+                              <button
+                                className={styles["delete-button"]}
+                                onClick={() => handleDeleteProduct(product._id)}
+                                type="button"
+                                title="Xóa"
+                              >
                                 <Image
                                   src={recycle}
-                                  alt=""
+                                  alt="Xóa"
                                   className={styles["bin"]}
                                 />
                               </button>
                             </td>
+
                           </tr>
                         ))}
                       <tr className={styles["total-row"]}>
@@ -414,31 +424,31 @@ const CreatedExportSlip = () => {
                           />
 
                           <label
-  style={{
-    width: "auto",
-    height: "40px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    gap: "8px",
-    background: "#f3f3f3",
-    borderRadius: "8px",
-    padding: "0 12px",
-    fontWeight: 500,
-    fontSize: "16px"
-  }}
->
-  <input
-    type="file"
-    accept="image/*"
-    style={{ display: "none" }}
-    multiple
-    onChange={handleFileChange}
-  />
-  <i className={styles["fa-solid fa-cloud-arrow-up"]}></i>
-  <span>Ảnh</span>
-</label>
+                            style={{
+                              width: "auto",
+                              height: "40px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              cursor: "pointer",
+                              gap: "8px",
+                              background: "#f3f3f3",
+                              borderRadius: "8px",
+                              padding: "0 12px",
+                              fontWeight: 500,
+                              fontSize: "16px"
+                            }}
+                          >
+                            <input
+                              type="file"
+                              accept="image/*"
+                              style={{ display: "none" }}
+                              multiple
+                              onChange={handleFileChange}
+                            />
+                            <i className={styles["fa-solid fa-cloud-arrow-up"]}></i>
+                            <span>Ảnh</span>
+                          </label>
 
                         </div>
                       </div>

@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-
+import Image from "next/image";
 import { getProducts, searchProduct } from "@/api/productAPI/product";
 import styles from "./ListProduct.module.css";
 import ConfirmDeleteProduct from "@/components/confirmDeleteProduct/ConfirmDeleteProduct";
 import { formatCurrency } from "@/utils/function/slipFuntion";
 import Layout from "@/components/layout/Layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ListProduct = () => {
   const [listProducts, setListProducts] = useState([]);
@@ -65,7 +67,7 @@ const ListProduct = () => {
   };
 
   const handleClickPen = (productId) => {
-    router.push(`/product/infoProduct/${productId}`);
+    router.push(`/product/inforProduct/${productId}`);
   };
 
   const handleClickBin = (productId) => {
@@ -164,21 +166,26 @@ const ListProduct = () => {
                               {formatCurrency(product.productPrice)}
                             </td>
                             <td className={styles["purple"]}>
-                              <span
+                              <button
                                 className={styles["pen-product"]}
                                 onClick={() => handleClickPen(product._id)}
+                                title="Sửa"
+                                type="button"
+                                style={{ background: "none", border: "none", cursor: "pointer", marginRight: 8 }}
                               >
-                                <i className={styles["fa-solid fa-pen"]}></i>
-                              </span>
-                              <span
+                                <FontAwesomeIcon icon={faPen} style={{ color: "#007bff", fontSize: 20 }} />
+                              </button>
+                              <button
                                 className={styles["bin-product"]}
                                 onClick={() => handleClickBin(product._id)}
+                                title="Xóa"
+                                type="button"
+                                style={{ background: "none", border: "none", cursor: "pointer" }}
                               >
-                                <i
-                                  className={styles["fa-solid fa-trash-can"]}
-                                ></i>
-                              </span>
+                                <FontAwesomeIcon icon={faTrash} style={{ color: "#dc3545", fontSize: 20 }} />
+                              </button>
                             </td>
+
                           </tr>
                         );
                       })}

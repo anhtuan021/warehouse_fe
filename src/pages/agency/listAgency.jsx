@@ -6,6 +6,8 @@ import { Pagination } from "antd";
 import ConfirmDeleteProduct from "@/components/confirmDeleteProduct/ConfirmDeleteProduct";
 import Layout from "@/components/layout/Layout";
 import styles from "./ListAgency.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const ListAgency = () => {
   const [supplies, setSupplies] = useState([]);
@@ -199,7 +201,7 @@ const ListAgency = () => {
                         {supply.providerAddress || supply.agencyAddress}
                       </td>
                       <td className={styles["purple"]}>
-                        <span
+                        <button
                           className={styles["bin_ListAgency"]}
                           onClick={() =>
                             handleClickBin(
@@ -207,12 +209,21 @@ const ListAgency = () => {
                               supply.providerName ? "provider" : "agency"
                             )
                           }
+                          title="Xóa"
+                          type="button"
+                          style={{
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            padding: 0,
+                            margin: 0,
+                            display: "flex",
+                            alignItems: "center"
+                          }}
                         >
-                          <i
-                            className={styles["fa-solid fa-trash"]}
-                            style={{ color: "red" }}
-                          ></i>
-                        </span>
+                          <FontAwesomeIcon icon={faTrash} style={{ color: "red", fontSize: 18 }} />
+                        </button>
+
                       </td>
                     </tr>
                   ))}
