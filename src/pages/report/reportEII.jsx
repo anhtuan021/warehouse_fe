@@ -20,10 +20,15 @@ const ReportEII = () => {
 
   const [list, setList] = useState([]);
   const [type, setType] = useState("chart");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  // Lấy dữ liệu báo cáo
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
+        setError("");
         const res = await reportExportImportInventory(
           time.timeStart,
           time.timeEnd
@@ -35,111 +40,100 @@ const ReportEII = () => {
             item.importQuantity >= 0
         );
         setList(filterData);
-        const labels = filterData.map((item) => item.productName);
-        const dataExports = filterData.map((item) => item.exportQuantity);
-        const dataInventorys = filterData.map((item) => item.inventoryQuantity);
-        setLabels(labels);
-        setDataExports(dataExports);
-        setDataInventorys(dataInventorys);
-      } catch (error) {
-        console.log(error);
+        setLabels(filterData.map((item) => item.productName));
+        setDataExports(filterData.map((item) => item.exportQuantity));
+        setDataInventorys(filterData.map((item) => item.inventoryQuantity));
+        if (!filterData.length) {
+          setError("Không có dữ liệu phù hợp với khoảng thời gian đã chọn.");
+        }
+      } catch (err) {
+        setError("Lỗi khi lấy dữ liệu từ máy chủ.");
+      } finally {
+        setLoading(false);
       }
     };
-    getData();
+    if (time.timeStart && time.timeEnd) {
+      getData();
+    }
   }, [time.timeEnd, time.timeStart]);
 
-  const createChart = () => {
-    if (!chartRef.current) return;
+  // Vẽ biểu đồ
+  useEffect(() => {
+    if (
+      type === "chart" &&
+      labels.length > 0 &&
+      dataExports.length > 0 &&
+      dataInventorys.length > 0 &&
+      chartRef.current
+    ) {
+      const ctx = chartRef.current.getContext("2d");
+      if (stackedBarChart.current) {
+        stackedBarChart.current.destroy();
+      }
+      const maxDataValue = Math.max(...dataExports, ...dataInventorys, 0);
+      const suggestedMax =
+        maxDataValue < 100 ? maxDataValue + 100 : Math.ceil(maxDataValue * 1.2);
 
-    const ctx = chartRef.current.getContext("2d");
-    if (stackedBarChart.current) {
-      stackedBarChart.current.destroy();
-    }
-
-    const maxDataValue = Math.max(...dataExports, ...dataInventorys);
-    const suggestedMax =
-      maxDataValue < 100 ? maxDataValue + 100 : maxDataValue * 1.2;
-    stackedBarChart.current = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Xuất kho",
-            data: dataExports,
-            backgroundColor: "#30a032",
-            borderColor: "#30a032",
-            borderWidth: 1,
-            // barThickness: 50,
-          },
-          {
-            label: "Tồn kho",
-            data: dataInventorys,
-            backgroundColor: "#fdbe10",
-            borderColor: "#fed871",
-            borderWidth: 1,
-            // barThickness: 50,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "top",
-            labels: {
-              color: "black",
-              font: {
-                size: 11,
+      stackedBarChart.current = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Xuất kho",
+              data: dataExports,
+              backgroundColor: "#30a032",
+              borderColor: "#30a032",
+              borderWidth: 1,
+            },
+            {
+              label: "Tồn kho",
+              data: dataInventorys,
+              backgroundColor: "#fdbe10",
+              borderColor: "#fed871",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+              labels: {
+                color: "black",
+                font: { size: 11 },
               },
             },
-          },
-          tooltip: {
-            enabled: true,
             tooltip: {
               enabled: true,
-              bodyFont: {
-                size: 11,
+              bodyFont: { size: 11 },
+              titleFont: { size: 11 },
+            },
+          },
+          scales: {
+            x: {
+              stacked: true,
+              ticks: {
+                color: "black",
+                font: { size: 11 },
               },
-              titleFont: {
-                size: 11,
+            },
+            y: {
+              stacked: true,
+              beginAtZero: true,
+              suggestedMax: suggestedMax,
+              ticks: {
+                stepSize: 20,
+                color: "black",
+                font: { size: 14 },
               },
             },
           },
         },
-        scales: {
-          x: {
-            stacked: true,
-            ticks: {
-              color: "black",
-              font: {
-                size: 11,
-              },
-            },
-          },
-          y: {
-            stacked: true,
-            beginAtZero: true,
-            suggestedMax: suggestedMax,
-            ticks: {
-              stepSize: 20,
-              color: "black",
-              font: {
-                size: 14,
-              },
-            },
-          },
-        },
-      },
-    });
-  };
-
-  useEffect(() => {
-    if (labels.length && dataExports.length && dataInventorys.length) {
-      createChart();
+      });
     }
-
     return () => {
       if (stackedBarChart.current) {
         stackedBarChart.current.destroy();
@@ -150,12 +144,10 @@ const ReportEII = () => {
 
   const handleChangeTime = (e) => {
     const { name, value } = e.target;
-    setTime({
-      ...time,
+    setTime((prev) => ({
+      ...prev,
       [name]: value,
-    });
-
-    console.log(time);
+    }));
   };
 
   const handleChangeType = (e) => {
@@ -163,67 +155,78 @@ const ReportEII = () => {
   };
 
   return (
-    <div>
-      <Layout>
-        <div className={styles["rcbody"]}>
-          <div className={styles["rcframe"]}>
-            <div className={styles["rctitle"]}>
-              BIỂU ĐỒ BÁO CÁO XUẤT NHẬP TỒN
-            </div>
-            <div className={styles["rcSearch"]}>
-              <div className={styles["rcInput"]}>
-                <div className={styles["rcbox1"]}>
-                  <div className={styles["rcbox2"]}>
-                    <span className={styles["rcfrom"]}>Từ ngày</span>
-                  </div>
-                  <div className={styles["rcbox3"]}>
-                    <input
-                      type="date"
-                      className={styles["rcdate"]}
-                      name="timeStart"
-                      value={time.timeStart}
-                      onChange={(e) => handleChangeTime(e)}
-                    />
-                  </div>
-                  <div className={styles["rcbox2"]}>
-                    <span className={styles["rcto"]}>Đến ngày</span>
-                  </div>
-                  <div className={styles["rcbox3"]}>
-                    <input
-                      type="date"
-                      className={styles["rcdate"]}
-                      name="timeEnd"
-                      value={time.timeEnd}
-                      onChange={(e) => handleChangeTime(e)}
-                    />
-                  </div>
+    <Layout>
+      <div className={styles["rcbody"]}>
+        <div className={styles["rcframe"]}>
+          <div className={styles["rctitle"]}>
+            BIỂU ĐỒ BÁO CÁO XUẤT NHẬP TỒN
+          </div>
+          <div className={styles["rcSearch"]}>
+            <div className={styles["rcInput"]}>
+              <div className={styles["rcbox1"]}>
+                <div className={styles["rcbox2"]}>
+                  <span className={styles["rcfrom"]}>Từ ngày</span>
+                </div>
+                <div className={styles["rcbox3"]}>
+                  <input
+                    type="date"
+                    className={styles["rcdate"]}
+                    name="timeStart"
+                    value={time.timeStart}
+                    onChange={handleChangeTime}
+                  />
+                </div>
+                <div className={styles["rcbox2"]}>
+                  <span className={styles["rcto"]}>Đến ngày</span>
+                </div>
+                <div className={styles["rcbox3"]}>
+                  <input
+                    type="date"
+                    className={styles["rcdate"]}
+                    name="timeEnd"
+                    value={time.timeEnd}
+                    onChange={handleChangeTime}
+                  />
                 </div>
               </div>
-              <div className={styles["rcbbox"]}>
-                <select
-                  name="rcoption"
-                  id="rcoption"
-                  onChange={(e) => handleChangeType(e)}
-                >
-                  <option>
-                    {type === "chart" ? "Xem biểu đồ" : "Xem bảng"}
-                  </option>
-                  <option value="chart">Xem biểu đồ</option>
-                  <option value="table">Xem bảng</option>
-                </select>
-              </div>
             </div>
+            <div className={styles["rcbbox"]}>
+              <select
+                name="rcoption"
+                id="rcoption"
+                value={type}
+                onChange={handleChangeType}
+              >
+                <option value="chart">Xem biểu đồ</option>
+                <option value="table">Xem bảng</option>
+              </select>
+            </div>
+          </div>
+          {error && (
+            <div style={{ color: "red", marginTop: 10 }}>{error}</div>
+          )}
+          {loading ? (
+            <p>Đang tải dữ liệu...</p>
+          ) : (
             <div className={styles["rcChart"]}>
               {type === "chart" ? (
-                <canvas ref={chartRef}></canvas>
+                <canvas
+                  ref={chartRef}
+                  style={{
+                    minHeight: 350,
+                    height: 350,
+                    width: "100%",
+                    display: "block",
+                  }}
+                ></canvas>
               ) : (
                 <TableReport list={list} />
               )}
             </div>
-          </div>
+          )}
         </div>
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 };
 

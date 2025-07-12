@@ -8,7 +8,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
 import { Bar } from "react-chartjs-2";
 
 import { reportExportImportInventory } from "@/api/reportApi/Report";
@@ -16,43 +15,75 @@ import styles from "./ReportInventory.module.css";
 import TableReport from "@/components/tableReport/TableReport";
 import Layout from "@/components/layout/Layout";
 
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+
 const ReportInventory = () => {
   const [labels, setLabels] = useState([]);
   const [datas, setDatas] = useState([]);
+  const [list, setList] = useState([]);
+  const [type, setType] = useState("chart");
   const [time, setTime] = useState({
     timeStart: "",
     timeEnd: "",
   });
 
-  const [list, setList] = useState([]);
-  const [type, setType] = useState("chart");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      const res = await reportExportImportInventory(
+        time.timeStart,
+        time.timeEnd
+      );
+
+      console.log("✅ API response:", res);
+
+      if (!res || res.length === 0) {
+        setLabels([]);
+        setDatas([]);
+        setList([]);
+        setError("Không có dữ liệu phù hợp với khoảng thời gian đã chọn.");
+        return;
+      }
+
+      // Nếu bạn chỉ cần productName + inventoryQuantity để vẽ biểu đồ
+      const labels = res.map(
+        (item) => item.productName || "Sản phẩm không tên"
+      );
+      const datas = res.map((item) => item.inventoryQuantity ?? 0);
+
+      setLabels(labels);
+      setDatas(datas);
+      setList(res);
+    } catch (err) {
+      console.error("❌ Error fetching data:", err);
+      setError("Lỗi khi lấy dữ liệu từ máy chủ.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await reportExportImportInventory(
-          time.timeStart,
-          time.timeEnd
-        );
-        const filterData = res.filter(
-          (item) =>
-            item.exportQuantity >= 0 &&
-            item.inventoryQuantity >= 0 &&
-            item.importQuantity >= 0
-        );
-        setList(filterData);
-        const labels = filterData.map((item) => item.productName);
-        const datas = filterData.map((item) => item.inventoryQuantity);
-        setLabels(labels);
-        setDatas(datas);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, [time.timeEnd, time.timeStart]);
+    if (time.timeStart && time.timeEnd) {
+      fetchData();
+    }
+  }, [time.timeStart, time.timeEnd]);
 
-  ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+  const handleChangeTime = (e) => {
+    const { name, value } = e.target;
+    setTime((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleChangeType = (e) => {
+    setType(e.target.value);
+  };
+
   const data = {
     labels: labels,
     datasets: [
@@ -62,8 +93,6 @@ const ReportInventory = () => {
         backgroundColor: "#fdbe10",
         borderColor: "#fed871",
         borderWidth: 1,
-        // barThickness: 50,
-        // maxBarThickness: 50,
       },
     ],
   };
@@ -73,16 +102,13 @@ const ReportInventory = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
     },
     scales: {
       x: {
         ticks: {
-          // color: "black",
-          font: {
-            size: 11,
-          },
+          font: { size: 11 },
           maxRotation: 45,
         },
         categoryPercentage: 1,
@@ -91,88 +117,65 @@ const ReportInventory = () => {
       y: {
         ticks: {
           color: "black",
-          font: {
-            size: 14,
-          },
+          font: { size: 14 },
         },
       },
     },
-    datasets: {
-      barThickness: 100,
-      maxBarThickness: 100,
-    },
   };
 
-  const handleChangeTime = (e) => {
-    const { name, value } = e.target;
-    setTime({
-      ...time,
-      [name]: value,
-    });
-
-    console.log(time);
-  };
-
-  const handleChangeType = (e) => {
-    setType(e.target.value);
-  };
   return (
-    <>
-      <Layout>
-        <div className={styles["reportImport-container"]}>
-          <div className={styles["RI-frame"]}>
-            <h2 className={styles["reportImport-h2"]}>
-              BIỂU ĐỒ BÁO CÁO TỒN KHO
-            </h2>
-            <div className={styles["date-ImportReport"]}>
-              <span className={styles["date-ImportReport1"]}>Từ ngày</span>
-              <input
-                type="date"
-                className={styles["date-ImportReport3"]}
-                name="timeStart"
-                value={time.timeStart}
-                onChange={(e) => handleChangeTime(e)}
-              />
-              <span
-                className={styles["date-ImportReport2"]}
-                name="timeEnd"
-                value={time.timeEnd}
-                onChange={(e) => handleChangeTime(e)}
-              >
-                Đến ngày
-              </span>
-              <input type="date" className={styles["date-ImportReport3"]} />
-              <span className={styles["reportImport-type"]}>Loại báo cáo</span>
-              <select
-                name=""
-                id=""
-                className={styles["reportImport-select"]}
-                onChange={(e) => handleChangeType(e)}
-              >
-                <option>{type === "chart" ? "Biểu đồ" : "Bảng"}</option>
-                <option value="chart">Biểu đồ</option>
-                <option value="table">Bảng</option>
-              </select>
-            </div>
-            {type === "chart" ? (
-              <div className={styles["RI-caption"]}>
-                <div className={styles["RI-caption-text1"]}></div>
-                <p>Số lượng hàng hoá</p>
-              </div>
-            ) : (
-              <div></div>
-            )}
-            <div className={styles["IR-barchart"]}>
-              {type === "chart" ? (
-                <Bar data={data} options={options} />
-              ) : (
-                <TableReport list={list} />
-              )}
-            </div>
+    <Layout>
+      <div className={styles["reportImport-container"]}>
+        <div className={styles["RI-frame"]}>
+          <h2 className={styles["reportImport-h2"]}>BIỂU ĐỒ BÁO CÁO TỒN KHO</h2>
+          <div className={styles["date-ImportReport"]}>
+            <span className={styles["date-ImportReport1"]}>Từ ngày</span>
+            <input
+              type="date"
+              className={styles["date-ImportReport3"]}
+              name="timeStart"
+              value={time.timeStart}
+              onChange={handleChangeTime}
+            />
+            <span className={styles["date-ImportReport2"]}>Đến ngày</span>
+            <input
+              type="date"
+              className={styles["date-ImportReport3"]}
+              name="timeEnd"
+              value={time.timeEnd}
+              onChange={handleChangeTime}
+            />
+            <span className={styles["reportImport-type"]}>Loại báo cáo</span>
+            <select
+              className={styles["reportImport-select"]}
+              onChange={handleChangeType}
+              value={type}
+            >
+              <option value="chart">Biểu đồ</option>
+              <option value="table">Bảng</option>
+            </select>
           </div>
+
+          {error && <div style={{ color: "red", marginTop: 10 }}>{error}</div>}
+
+          {loading ? (
+            <p>Đang tải dữ liệu...</p>
+          ) : (
+            <>
+              {type === "chart" ? (
+                <div className={styles["IR-barchart"]}>
+                  <Bar data={data} options={options} />
+                </div>
+              ) : (
+                <div className={styles["IR-barchart"]}>
+                  <TableReport list={list} />
+                </div>
+              )}
+            </>
+          )}
         </div>
-      </Layout>
-    </>
+      </div>
+    </Layout>
   );
 };
 
