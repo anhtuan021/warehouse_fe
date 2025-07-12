@@ -18,7 +18,6 @@ const Header = ({ isOpen, setIsOpen }) => {
     }
   };
 
-  // Toggle NavBar khi bấm menu
   const handleMenuClick = () => {
     if (typeof setIsOpen === "function") setIsOpen(prev => !prev);
   };
@@ -27,19 +26,19 @@ const Header = ({ isOpen, setIsOpen }) => {
     <div className={styles.headercontaint}>
       <Image src="/img/login/Rectangle 36.png" alt="header-bg" fill className={styles.headerbg} />
       <span className={styles.menuToggle} onClick={handleMenuClick} tabIndex={0} role="button" style={{ marginLeft: "20px", display: "flex", alignItems: "center", cursor: "pointer", zIndex: 2 }}>
-        {/* Không còn text Menu */}
+
       </span>
       <p className={styles.tenheader}>
-        {/* Không còn logo và text Công ty ABC */}
+
       </p>
       <div className={styles.iconheader}>
         <span className={styles.iconGroup} style={{display: 'flex', alignItems: 'center', gap: 6}}>
           <Image src="/img/login/Group 22.png" alt="Thông báo" width={28} height={28} />
-          {/* Không còn text Thông báo */}
+
         </span>
         <span className={styles.logout} onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 6 }}>
           <Image src="/img/login/Frame 37.png" alt="Đăng xuất" width={28} height={28} />
-          {/* Không còn text Đăng xuất */}
+ 
         </span>
       </div>
     </div>

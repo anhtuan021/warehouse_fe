@@ -89,11 +89,11 @@ const DLFromLocal = ({ onCancel, selectedProducts, setSelectedProducts, isRefres
       <div className={styles["search-barkien"]}>
         <div className={styles["search-fieldkien1"]}>Tên hàng hóa:
           <input type="text" placeholder="Tên hàng hóa" name='productName' value={productName} onChange={handleChange} onKeyDown={handleKeyDown} />
-          {/* <i className="fa-solid fa-magnifying-glass"></i> */}
+
         </div>
         <div className={styles["search-fieldkien2"]}>Mã hàng:
           <input type="text" placeholder="Mã hàng" name='productCode' value={productCode} onChange={handleChange} onKeyDown={handleKeyDown} />
-          {/* <i className="fa-solid fa-magnifying-glass"></i> */}
+
         </div>
       </div>
       <div className={styles["selected-count-kien"]}>

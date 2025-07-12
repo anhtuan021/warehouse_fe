@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
@@ -15,7 +14,6 @@ import styles from "./ReportImport.module.css";
 import TableReport from "@/components/tableReport/TableReport";
 import Layout from "@/components/layout/Layout";
 
-// Đăng ký các thành phần ChartJS một lần ở ngoài component
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const ReportImport = () => {
@@ -31,7 +29,6 @@ const ReportImport = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Hàm fetch dữ liệu nhập kho
   const fetchData = async () => {
     try {
       setLoading(true);

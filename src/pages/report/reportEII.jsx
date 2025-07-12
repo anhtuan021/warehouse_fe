@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import styles from "./ReportEII.module.css";
@@ -23,7 +22,7 @@ const ReportEII = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Lấy dữ liệu báo cáo
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -57,7 +56,6 @@ const ReportEII = () => {
     }
   }, [time.timeEnd, time.timeStart]);
 
-  // Vẽ biểu đồ
   useEffect(() => {
     if (
       type === "chart" &&

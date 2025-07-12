@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from "react";
 
 import styles from "./CreatedProduct.module.css";
@@ -25,9 +24,6 @@ const CreatedProduct = () => {
 
   useEffect(() => {
     const setP = () => {
-      // let code = localStorage.getItem("slProduct");
-      // code = parseInt(code, 10) || 0;
-      //mã code tự sinh gồm 6 số
       let code = Math.floor(Math.random() * 1000000);
       setProduct({ ...product, productCode: `hang${code}` });
     };

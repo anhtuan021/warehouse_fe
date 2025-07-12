@@ -8,7 +8,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
   const user = useSelector((state) => state.user);
   const router = useRouter();
 
-  // State để điều khiển submenu nào đang mở
+
   const [openMenu, setOpenMenu] = useState(null);
 
   const handleClickProfile = () => {
@@ -18,7 +18,6 @@ const NavBar = ({ isOpen, setIsOpen }) => {
 
   const isActive = (path) => router.pathname === path ? styles.active : "";
 
-  // Hàm toggle submenu
   const handleToggleMenu = (menuKey) => {
     setOpenMenu(openMenu === menuKey ? null : menuKey);
   };
@@ -26,7 +25,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
   return (
     <div className={styles.main} style={{ display: isOpen ? "block" : "none" }}>
       <div className={styles.navBar}>
-        {/* User Info Section */}
+
         <div className={styles.navBarUser}>
           <div className={styles.userAvt}>
             <img src={user.avatar} alt="avatar" onClick={handleClickProfile} />
@@ -36,7 +35,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
           </div>
         </div>
         <hr className={styles.hr} />
-        {/* Menu Section */}
+
         <div className={styles.navBarMenu}>
           <div className={styles.navBarMenuItem}>
             <p
@@ -47,7 +46,6 @@ const NavBar = ({ isOpen, setIsOpen }) => {
             </p>
           </div>
 
-          {/* Xuất - nhập với NCC */}
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p
@@ -89,7 +87,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
 
-          {/* Xuất - nhập với NVBH */}
+
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p
@@ -131,7 +129,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
 
-          {/* Quản lý kiểm kê */}
+
           <div className={styles.navBarMenuItem}>
             <p
               onClick={() => router.push("/inventory/listInventory")}
@@ -141,7 +139,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
             </p>
           </div>
 
-          {/* Báo cáo thống kê */}
+
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p
@@ -177,7 +175,7 @@ const NavBar = ({ isOpen, setIsOpen }) => {
             </div>
           </div>
 
-          {/* Danh mục */}
+   
           <div className={styles.navBarMenuItem}>
             <div className={styles.menuItemTitle}>
               <p

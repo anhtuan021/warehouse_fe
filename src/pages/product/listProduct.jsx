@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { Pagination } from "antd";
 import { motion } from "framer-motion";

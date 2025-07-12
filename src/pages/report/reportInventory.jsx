@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
@@ -49,7 +48,6 @@ const ReportInventory = () => {
         return;
       }
 
-      // Nếu bạn chỉ cần productName + inventoryQuantity để vẽ biểu đồ
       const labels = res.map(
         (item) => item.productName || "Sản phẩm không tên"
       );

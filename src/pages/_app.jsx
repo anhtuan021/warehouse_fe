@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
     setPersistor(persistStore(store));
   }, []);
 
-  if (!persistor) return null; // hoặc return loading...
+  if (!persistor) return null; 
 
   return (
     <Provider store={store}>

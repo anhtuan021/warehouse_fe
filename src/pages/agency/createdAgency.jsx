@@ -151,16 +151,6 @@ const CreatedAgency = () => {
                   />
                 </div>
 
-                {/* <div className={styles["form-group-created-agency">
-                <label className={styles["form-label">Thêm thông tin (Nếu có)</label>
-                <textarea
-                  type="text"
-                  name=""
-                  className={styles["form-input"
-                  rows={5}
-                ></textarea>
-              </div> */}
-
                 <div className={styles["button-group"]}>
                   <button
                     className={styles["save-btn"]}
