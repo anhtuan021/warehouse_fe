@@ -12,6 +12,7 @@ import { createdExportSlip } from "@/api/exportSlipApi/exportSlip";
 import { formatCurrency } from "@/utils/function/slipFuntion";
 import DLFromLocal from "@/components/downloadProduct/downloadProductFromLocal/DLFromLocal";
 import Layout from "@/components/layout/Layout";
+
 const CreatedExportSlip = () => {
   const router = useRouter();
   const { type } = router.query;
@@ -217,9 +218,6 @@ const CreatedExportSlip = () => {
             </div>
 
             <div className={styles["action-buttons"]}>
-              <button className={styles["add-button external"]}>
-                + Thêm hàng từ file ngoài
-              </button>
               <button
                 className={styles["add-button system"]}
                 onClick={() => setShowUploadFromLocal(true)}
@@ -415,18 +413,33 @@ const CreatedExportSlip = () => {
                             onChange={(e) => handleChangeFileNameContract(e)}
                           />
 
-                          <label style={{ width: "40px", height: "40px" }}>
-                            <input
-                              type="file"
-                              accept="image/*"
-                              style={{ display: "none" }}
-                              multiple
-                              onChange={handleFileChange}
-                            />
-                            <i
-                              className={styles["fa-solid fa-cloud-arrow-up"]}
-                            ></i>
-                          </label>
+                          <label
+  style={{
+    width: "auto",
+    height: "40px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    gap: "8px",
+    background: "#f3f3f3",
+    borderRadius: "8px",
+    padding: "0 12px",
+    fontWeight: 500,
+    fontSize: "16px"
+  }}
+>
+  <input
+    type="file"
+    accept="image/*"
+    style={{ display: "none" }}
+    multiple
+    onChange={handleFileChange}
+  />
+  <i className={styles["fa-solid fa-cloud-arrow-up"]}></i>
+  <span>Ảnh</span>
+</label>
+
                         </div>
                       </div>
                     </div>

@@ -67,7 +67,7 @@ const ReportEII = () => {
           {
             label: "Xuất kho",
             data: dataExports,
-            backgroundColor: "#30a03",
+            backgroundColor: "#30a032",
             borderColor: "#30a032",
             borderWidth: 1,
             // barThickness: 50,
