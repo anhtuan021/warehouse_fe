@@ -27,13 +27,14 @@ const createAuthInstance = (baseURL) => {
         return instance.request(error.config);
       } catch (refreshError) {
 
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         return Promise.reject(refreshError);
       }
     }
     return Promise.reject(error);
   }
 );
-
 
   return instance;
 };
