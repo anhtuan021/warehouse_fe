@@ -1,112 +1,100 @@
-.rcbody {
-    background-color: #c2c2c2;
-    height: 90vh;
-    overflow: auto;
-    width: 100%;
-    height: 100vh;
-    padding: 15px 30px;
-    padding-bottom: 60px;
-    font-size: 16px;
-    overflow: auto;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.reportEII-container {
+  background-color: #c2c2c2;
+  height: 100vh;
+  overflow: auto;
+  width: 100%;
+  padding: 15px 30px 60px 30px;
+  font-size: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.headerListP {
-    position: relative;
+.REII-frame {
+  height: 85vh;
+  background-color: white;
+  width: 98%;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.13);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.rcbody .rcframe {
-    height: 85vh;
-    overflow: auto;
-    background-color: white;
-    width: 98%;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
+.reportEII-h2 {
+  text-align: center;
+  margin: 20px 0;
+  color: #0b08ab;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.rcframe .rctitle {
-    font-size: 35px;
-    color: #0b08ab;
-    margin: 20px;
+.date-ReportEII {
+  text-align: center;
+  margin-bottom: 18px;
 }
 
-.rcbody .rcSearch {
-    display: flex;
-    border-radius: 10px;
-    width: 100%;
-    height: 10%;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-
+.date-ReportEII1 {
+  padding-left: 37px;
 }
 
-.rcSearch .rcInput {
-    display: flex;
-    flex-direction: column;
-    flex: 4;
-    justify-content: center;
-    padding-left:12%;
+.date-ReportEII2 {
+  padding-left: 10px;
 }
 
-.rcInput .rcbox1 {
-    display: flex;
-    margin: 10px;
-
+.date-ReportEII3 {
+  background: #e9e9e9;
+  width: 104px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0 5px 10px;
+  outline: none;
+  font-size: 15px;
+  padding-left: 8px;
 }
 
-.rcbox1 .rcbox2 {
-    flex: 1;
+.reportEII-type {
+  margin-left: 10px;
 }
 
-.rcbox1 .rcbox3 {
-    flex: 2
+.reportEII-select {
+  background: #e9e9e9;
+  width: 104px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0 5px 10px;
+  outline: none;
+  font-weight: 600;
+  color: #0b08ab;
+  padding-left: 10px;
+  font-size: 15px;
+  cursor: pointer;
 }
 
-.rcbox3 input[type="date"] {
-    height: 30px;
-    border: none;
-    outline: none;
-    width: 60%;
-    font-size: 16px;
-    background-color: #c2c2c2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.REII-barchart {
+  margin-top: 20px;
+  height: 70%;
+  width: 100%;
+  overflow: auto;
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(31,38,135,0.07);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
 }
 
-.rcbbox {
-    flex: 0.5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.rcbbox select {
-    width: 100%;
-    height: 40px;
-    background-color: #0b08ab;
-    color: white;
-    border: none;
-    padding-left: 15px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-}
-
-.rcbbox button:active {
-    background-color: #181656;
-}
-
-.rcChart {
-    height: 70%;
-    width: 100%;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    margin: 20px;
-    align-items: center;
-    text-align: center;
+.REII-barchart canvas {
+  width: auto !important;
+  min-width: 100%;
+  display: block;
 }
